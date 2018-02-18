@@ -1,0 +1,43 @@
+digraph G {
+    graph [rankdir = TD];
+
+    node[shape=record];
+    edge[ arrowhead="none", color="gray"]
+
+    { rank = same;  "mulle-sde-cmake-source-update", "mulle-sde-cmake-sourcetree-update"  };
+    { rank = same;  "project" };
+    { rank = same;  "src", "_CMakeHeaders.cmake","_CMakeSources.cmake", "_CMakeDependencies.cmake","_CMakeLibraries.cmake", ".mulle-sourcetree"   }
+    { rank = same;  "config"}
+
+    "project"                               [ shape="folder", color="gray", fontcolor="gray" ]
+
+    "src"               [ shape="folder"]
+    ".mulle-sourcetree" [ shape="folder", color="gray", fontcolor="gray" ]
+    ".mulle-sourcetree" -> "config"
+
+    "mulle-sde-cmake-source-update"     [ color="magenta", fontcolor="magenta" ]
+    "mulle-sde-cmake-sourcetree-update" [ color="magenta", fontcolor="magenta" ]
+
+    "mulle-sde-cmake-source-update" -> "src"         [ arrowhead="", color="black", style="dotted", label=" read"]
+    "mulle-sde-cmake-sourcetree-update" -> "config"  [ arrowhead="", color="black", style="dotted", label=" read"]
+    "mulle-sde-cmake-source-update" -> "project"     [ style="invis"]
+
+    "project" -> "_CMakeHeaders.cmake"               [ arrowhead="none" ]
+    "project" -> "_CMakeSources.cmake"               [ arrowhead="none" ]
+    "project" -> "_CMakeDependencies.cmake"          [ arrowhead="none" ]
+    "project" -> "_CMakeLibraries.cmake"             [ arrowhead="none" ]
+
+    "mulle-sde-cmake-source-update" -> "_CMakeHeaders.cmake"         [ arrowhead="", color="black", style="dotted", label=" write"]
+    "mulle-sde-cmake-source-update" -> "_CMakeSources.cmake"         [ arrowhead="", color="black", style="dotted", label=" write"]
+    "mulle-sde-cmake-sourcetree-update" -> "_CMakeDependencies.cmake"         [ arrowhead="", color="black", style="dotted", label=" write"]
+    "mulle-sde-cmake-sourcetree-update" -> "_CMakeLibraries.cmake"         [ arrowhead="", color="black", style="dotted", label=" write"]
+
+    "_CMakeHeaders.cmake"      [ shape="note", penwidth="2" ]
+    "_CMakeSources.cmake"      [ shape="note", penwidth="2" ]
+    "_CMakeDependencies.cmake" [ shape="note", penwidth="2" ]
+    "_CMakeLibraries.cmake"    [ shape="note", penwidth="2" ]
+
+    "project" -> "src"                      [ arrowhead="none" ]
+    "project" -> ".mulle-sourcetree"        [ arrowhead="none", color="gray", fontcolor="gray" ]
+
+}

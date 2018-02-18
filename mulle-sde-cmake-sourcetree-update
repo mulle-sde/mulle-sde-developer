@@ -37,7 +37,7 @@ usage()
 {
    cat <<EOF >&2
 Usage:
-   sourcetree-did-update <action> <filename> <category>
+   mulle-sde-cmake-sourcetree-update <action> <filename> <category>
 
    Let mulle-monitor run this for you. None of the arguments are actually
    used.
@@ -103,12 +103,12 @@ osexclude_to_cmake_if()
       case "${osexclude}" in
          only-*)
             cmakevar="`uname_to_cmake "${osexclude:5}"`"
-            onlys="`concat "${excludes}" "${cmakevar}" " OR " `"
+            onlys="`concat "${onlys}" "${cmakevar}" " OR " `"
          ;;
 
          no-*)
             cmakevar="`uname_to_cmake "${osexclude:3}"`"
-            excludes="`concat "${onlys}" "${cmakevar}" " AND "`"
+            excludes="`concat "${excludes}" "${cmakevar}" " AND "`"
          ;;
 
          *)
@@ -234,7 +234,7 @@ get_no_include_dependency_list()
    log_entry "get_no_include_dependency_list" "$@"
 
    exekutor mulle-sde dependency list \
-                                   --format "am" \
+                                   --format "ami={aliases}" \
                                    --marks no-include,link \
                                    --output-raw \
                                    --no-output-header
@@ -246,7 +246,7 @@ get_include_dependency_list()
    log_entry "get_include_dependency_list" "$@"
 
    exekutor mulle-sde dependency list \
-                                   --format "am" \
+                                   --format "ami={aliases}" \
                                    --marks include,link \
                                    --output-raw \
                                    --no-output-header
@@ -257,7 +257,10 @@ get_library_list()
 {
   log_entry "get_library_list" "$@"
 
-   exekutor mulle-sde library list --output-raw --no-output-header
+   exekutor mulle-sde library list \
+                        --format "ami={aliases}" \
+                        --output-raw \
+                        --no-output-header
 }
 
 
