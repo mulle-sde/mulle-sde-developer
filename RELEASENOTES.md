@@ -1,3 +1,8 @@
+## 0.2.0
+
+* move emitted files to .mulle-sde/etc/cmake to keep the project a bit more tidy. Also the files shouldn't be edited anyway
+
+
 ### 0.0.1
 
 * Various small improvements

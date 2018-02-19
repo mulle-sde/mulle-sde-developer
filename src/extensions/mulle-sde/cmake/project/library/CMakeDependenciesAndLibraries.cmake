@@ -9,6 +9,11 @@ if( NOT __<|PROJECT_UPCASE_IDENTIFIER|>_CMAKE_DEPENDENCIES_AND_LIBRARIES_TXT__)
    # Add OS specific dependencies to OS_SPECIFIC_LIBRARIES
    # Add all other dependencies (rest) to C_DEPENDENCIES_LIBRARIES
 
+
+   #
+   # The following includes include definitions generated
+   # during `mulle-sde update`. Don't edit those files. They are
+   # overwritten frequently.
    #
    # === MULLE-SDE START ===
 
