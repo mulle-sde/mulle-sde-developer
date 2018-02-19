@@ -41,6 +41,9 @@ include_directories( ${INCLUDE_DIRS})
 
 set( PUBLIC_HEADERS
 ${PUBLIC_HEADERS}
+)
+
+set( CMAKE_INCLUDES
 "CMakeDependenciesAndLibraries.cmake"
 "_CMakeDependencies.cmake"
 "_CMakeLibraries.cmake"
@@ -68,3 +71,5 @@ endif()
 install( TARGETS "<|PROJECT_NAME|>" DESTINATION "lib")
 install( FILES ${PUBLIC_HEADERS}  DESTINATION "include/<|PROJECT_NAME|>")
 install( FILES ${PRIVATE_HEADERS} DESTINATION "include/<|PROJECT_NAME|>/private")
+
+install( FILES ${CMAKE_INCLUDES}  DESTINATION "include/<|PROJECT_NAME|>/cmake")

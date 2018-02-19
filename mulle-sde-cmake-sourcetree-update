@@ -59,25 +59,12 @@ uname_to_cmake()
          echo "APPLE"
       ;;
 
-      freebsd)
-         echo "FREEBSD"  # not really there AFAIK
-      ;;
-
-      linux|freebsd|win32|mingw|msys|cygwin)
-         tr 'a-z' 'A-Z' <<< "${uname}"
-      ;;
-
       "")
          fail "uname is empty"
       ;;
 
-      build|delete|dependency|fs|include|link|recurse|require|set|share|update)
-         # known marks we ignore
-         # not very pretty though...
-      ;;
-
       *)
-         log_warning "Mark \"no/only-${uname}\" assumed not to be an OS"
+         tr 'a-z' 'A-Z' <<< "${uname}"
       ;;
    esac
 }
@@ -87,7 +74,7 @@ osexclude_to_cmake_if()
 {
    log_entry "osexclude_to_cmake_if" "$@"
 
-   local osexcludes="$1"
+   local marks="$1"
 
    local cmakevar
 
@@ -96,23 +83,19 @@ osexclude_to_cmake_if()
 
    set -o noglob ; IFS=","
 
-   for osexclude in ${osexcludes}
+   for osexclude in ${marks}
    do
       IFS="${DEFAULT_IFS}"; set +o noglob
 
       case "${osexclude}" in
-         only-*)
-            cmakevar="`uname_to_cmake "${osexclude:5}"`"
+         only-os-*)
+            cmakevar="`uname_to_cmake "${osexclude:8}"`"
             onlys="`concat "${onlys}" "${cmakevar}" " OR " `"
          ;;
 
-         no-*)
-            cmakevar="`uname_to_cmake "${osexclude:3}"`"
+         no-os-*)
+            cmakevar="`uname_to_cmake "${osexclude:5}"`"
             excludes="`concat "${excludes}" "${cmakevar}" " AND "`"
-         ;;
-
-         *)
-            log_warning "weird mark \"${osexclude}\""
          ;;
       esac
    done
@@ -144,7 +127,7 @@ emit_cmake_legacy_dependency()
    log_entry "emit_cmake_legacy_dependency" "$@"
 
    local name="$1"
-   local osexcludes="$2"
+   local marks="$2"
    local aliases="$3"
    local containername="$4"
 
@@ -155,9 +138,9 @@ emit_cmake_legacy_dependency()
    local ifstatement
    local endifstatement
 
-   if [ ! -z "${osexcludes}" ]
+   if [ ! -z "${marks}" ]
    then
-      ifstatement="`osexclude_to_cmake_if "${osexcludes}" `"
+      ifstatement="`osexclude_to_cmake_if "${marks}" `"
       indent="   "
    fi
 
@@ -201,14 +184,14 @@ emit_cmake_include_dependency()
    log_entry "emit_cmake_include_dependency" "$@"
 
    local name="$1"
-   local osexcludes="$2"
+   local marks="$2"
 
    local indent
    local ifstatement
 
-   if [ ! -z "${osexcludes}" ]
+   if [ ! -z "${marks}" ]
    then
-      ifstatement="`osexclude_to_cmake_if "${osexcludes}" `"
+      ifstatement="`osexclude_to_cmake_if "${marks}" `"
       indent="   "
    fi
 
@@ -218,7 +201,7 @@ emit_cmake_include_dependency()
    fi
 
    cat << EOF
-${indent}include( "\${DEPENDENCIES_DIR}/include/${name}/CMakeDependenciesAndLibraries.cmake")
+${indent}include( "\${DEPENDENCIES_DIR}/include/cname/${name}/CMakeDependenciesAndLibraries.cmake")
 EOF
    if [ ! -z "${ifstatement}" ]
    then
@@ -415,12 +398,14 @@ ${text_dep}"
 
    log_fluff "Create cmake files (${PWD})"
 
-   MULLE_SDE_LIBRARIES_FILE="${MULLE_SDE_LIBRARIES_FILE:-_CMakeLibraries.cmake}"
-   MULLE_SDE_DEPENDENCIES_FILE="${MULLE_SDE_DEPENDENCIES_FILE:-_CMakeDependencies.cmake}"
+   MULLE_SDE_LIBRARIES_FILE="${MULLE_SDE_LIBRARIES_FILE:-.mulle-sde/etc/cmake/_CMakeLibraries.cmake}"
+   MULLE_SDE_DEPENDENCIES_FILE="${MULLE_SDE_DEPENDENCIES_FILE:-.mulle-sde/etc/cmake/_CMakeDependencies.cmake}"
 
    log_verbose "Writing ${C_RESET_BOLD}${MULLE_SDE_LIBRARIES_FILE}"
+   exekutor mkdir -p  "`fast_dirname "${MULLE_SDE_LIBRARIES_FILE}"`" 2> /dev/null
    redirect_exekutor "${MULLE_SDE_LIBRARIES_FILE}" echo "${text_lib}"
    log_verbose "Writing ${C_RESET_BOLD}${MULLE_SDE_DEPENDENCIES_FILE}"
+   exekutor mkdir -p  "`fast_dirname "${MULLE_SDE_DEPENDENCIES_FILE}"`" 2> /dev/null
    redirect_exekutor "${MULLE_SDE_DEPENDENCIES_FILE}" echo "${text_dep}"
 }
 

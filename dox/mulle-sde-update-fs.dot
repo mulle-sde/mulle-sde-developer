@@ -1,43 +1,63 @@
 digraph G {
     graph [rankdir = TD];
 
-    node[shape=record];
-    edge[ arrowhead="none", color="gray"]
+    node[ shape="folder"] ;
 
-    { rank = same;  "mulle-sde-cmake-source-update", "mulle-sde-cmake-sourcetree-update"  };
+    "project"          [ color="gray", fontcolor="gray" ]
+
+    "src"
+    "etc"
+    "cmake"
+    ".mulle-sde"
+    ".mulle-sourcetree"
+
+    node[ shape="note", penwidth="2"]
+
+    "config"
+    "_CMakeHeaders.cmake"
+    "_CMakeSources.cmake"
+    "_CMakeDependencies.cmake"
+    "_CMakeLibraries.cmake"
+
     { rank = same;  "project" };
-    { rank = same;  "src", "_CMakeHeaders.cmake","_CMakeSources.cmake", "_CMakeDependencies.cmake","_CMakeLibraries.cmake", ".mulle-sourcetree"   }
-    { rank = same;  "config"}
+    { rank = same;  "src", ".mulle-sde", ".mulle-sourcetree" }
+    { rank = same;  "etc", "config" }
+    { rank = same;  "cmake" }
+    { rank = same;  "_CMakeHeaders.cmake","_CMakeSources.cmake",
+                    "_CMakeDependencies.cmake","_CMakeLibraries.cmake"  }
 
-    "project"                               [ shape="folder", color="gray", fontcolor="gray" ]
 
-    "src"               [ shape="folder"]
-    ".mulle-sourcetree" [ shape="folder", color="gray", fontcolor="gray" ]
+    edge [ arrowhead="", color="black", style="" ]
+
     ".mulle-sourcetree" -> "config"
+    "project" -> "src"
+    "project" -> ".mulle-sourcetree"
+    "project" -> ".mulle-sde"
+    ".mulle-sde" -> "etc"
+    "etc" -> "cmake"
+
+    "cmake" -> "_CMakeHeaders.cmake"
+    "cmake" -> "_CMakeSources.cmake"
+    "cmake" -> "_CMakeDependencies.cmake"
+    "cmake" -> "_CMakeLibraries.cmake"
+
+    edge [ arrowhead="", style="dotted", label=" write"]
+
+    "mulle-sde-cmake-source-update"     -> "_CMakeHeaders.cmake"
+    "mulle-sde-cmake-source-update"     -> "_CMakeSources.cmake"
+    "mulle-sde-cmake-sourcetree-update" -> "_CMakeDependencies.cmake"
+    "mulle-sde-cmake-sourcetree-update" -> "_CMakeLibraries.cmake"
 
     "mulle-sde-cmake-source-update"     [ color="magenta", fontcolor="magenta" ]
     "mulle-sde-cmake-sourcetree-update" [ color="magenta", fontcolor="magenta" ]
 
-    "mulle-sde-cmake-source-update" -> "src"         [ arrowhead="", color="black", style="dotted", label=" read"]
-    "mulle-sde-cmake-sourcetree-update" -> "config"  [ arrowhead="", color="black", style="dotted", label=" read"]
-    "mulle-sde-cmake-source-update" -> "project"     [ style="invis"]
+    "src" -> "mulle-sde-cmake-source-update"     [ style="invis"]
+    "config" -> "mulle-sde-cmake-source-update"  [ style="invis"]
 
-    "project" -> "_CMakeHeaders.cmake"               [ arrowhead="none" ]
-    "project" -> "_CMakeSources.cmake"               [ arrowhead="none" ]
-    "project" -> "_CMakeDependencies.cmake"          [ arrowhead="none" ]
-    "project" -> "_CMakeLibraries.cmake"             [ arrowhead="none" ]
+    edge [ arrowhead="", style="dotted", label=" read"]
 
-    "mulle-sde-cmake-source-update" -> "_CMakeHeaders.cmake"         [ arrowhead="", color="black", style="dotted", label=" write"]
-    "mulle-sde-cmake-source-update" -> "_CMakeSources.cmake"         [ arrowhead="", color="black", style="dotted", label=" write"]
-    "mulle-sde-cmake-sourcetree-update" -> "_CMakeDependencies.cmake"         [ arrowhead="", color="black", style="dotted", label=" write"]
-    "mulle-sde-cmake-sourcetree-update" -> "_CMakeLibraries.cmake"         [ arrowhead="", color="black", style="dotted", label=" write"]
+    "mulle-sde-cmake-source-update"     -> "src"
+    "mulle-sde-cmake-sourcetree-update" -> "config"
 
-    "_CMakeHeaders.cmake"      [ shape="note", penwidth="2" ]
-    "_CMakeSources.cmake"      [ shape="note", penwidth="2" ]
-    "_CMakeDependencies.cmake" [ shape="note", penwidth="2" ]
-    "_CMakeLibraries.cmake"    [ shape="note", penwidth="2" ]
-
-    "project" -> "src"                      [ arrowhead="none" ]
-    "project" -> ".mulle-sourcetree"        [ arrowhead="none", color="gray", fontcolor="gray" ]
-
+    { rank = same;  "mulle-sde-cmake-source-update", "mulle-sde-cmake-sourcetree-update"  };
 }
