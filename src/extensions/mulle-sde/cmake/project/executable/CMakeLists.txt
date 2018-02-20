@@ -5,68 +5,51 @@ project( <|PROJECT_NAME|> <|PROJECT_UPCASE_LANGUAGE|>)
 
 ### mulle-sde environment
 
-set( MULLE_VIRTUAL_ROOT "$ENV{MULLE_VIRTUAL_ROOT}")
-if( NOT MULLE_VIRTUAL_ROOT)
-   set( MULLE_VIRTUAL_ROOT "${PROJECT_SOURCE_DIR}")
-endif()
-if( NOT DEPENDENCIES_DIR)
-   set( DEPENDENCIES_DIR "${MULLE_VIRTUAL_ROOT}/dependencies")
-endif()
-if( NOT ADDICTIONS_DIR)
-   set( ADDICTIONS_DIR "${MULLE_VIRTUAL_ROOT}/addictions")
-endif()
-include_directories( BEFORE SYSTEM
-${DEPENDENCIES_DIR}/include
-${ADDICTIONS_DIR}/include
-)
-set( CMAKE_LIBRARY_PATH "${DEPENDENCIES_DIR}/lib"
-"${ADDICTIONS_DIR}/lib"
-${CMAKE_LIBRARY_PATH}
-)
-set( CMAKE_FRAMEWORK_PATH "${DEPENDENCIES_DIR}/Frameworks"
-"${ADDICTIONS_DIR}/Frameworks"
-${CMAKE_FRAMEWORK_PATH}
-)
+# add cmake module paths to search path
+list( insert CMAKE_MODULE_PATH 0 "${PROJECT_SOURCE_DIR}/.mulle-sde/share/cmake")
+list( insert CMAKE_MODULE_PATH 0 "${PROJECT_SOURCE_DIR}/.mulle-sde/data/cmake")
+list( insert CMAKE_MODULE_PATH 0 "${PROJECT_SOURCE_DIR}/.mulle-sde/etc/cmake")
+list( insert CMAKE_MODULE_PATH 0 "${PROJECT_SOURCE_DIR}/cmake")
 
+include( "Environment")
 
 ### Files
 
-include( CMakeHeadersAndSources.cmake)
-include( CMakeDependenciesAndLibraries.cmake)
+include( PreFiles OPTIONAL)
+
+include( CMakeHeadersAndSources)
+include( CMakeDependenciesAndLibraries)
+
+include( PostFiles OPTIONAL)
 
 ### Executable
+
+include( PreExecutable OPTIONAL)
 
 add_executable( <|PROJECT_NAME|>
 ${SOURCES}
 ${PUBLIC_HEADERS}
 ${PRIVATE_HEADERS}
-CMakeLists.txt
-CMakeHeadersAndSources.cmake
-CMakeDependenciesAndLibraries.cmake
+${CMAKE_EDITABLE_FILES}
 )
 
 
 target_link_libraries( <|PROJECT_NAME|>
-${C_DEPENDENCIES_LIBRARIES}
+${DEPENDENCIES_LIBRARIES}
 ${OS_SPECIFIC_LIBRARIES}
 )
 
+include( PostExecutable OPTIONAL)
 
 ### Install
 
+include( PreInstall OPTIONAL)
+
 install( TARGETS <|PROJECT_NAME|> DESTINATION "bin")
 
+include( PostInstall OPTIONAL)
 
-#
-# Output message of a day to locate output.
-# But if create-build-motd doesn't exist, it's no biggy
-#
-add_custom_target( __motd__ ALL
-   COMMAND [ ! -x "${MULLE_VIRTUAL_ROOT}/.mulle-sde/bin/create-build-motd" ] ||
-           "${MULLE_VIRTUAL_ROOT}/.mulle-sde/bin/create-build-motd"
-              "executable"
-              "${CMAKE_BINARY_DIR}"
-              "<|PROJECT_NAME|>"
-   COMMENT "Creating a motd file for mulle-craft"
-)
-add_dependencies( __motd__ <|PROJECT_NAME|>)
+# only for Executable
+
+include( Motd OPTIONAL)
+

@@ -10,8 +10,8 @@
 #
 # === MULLE-SDE START ===
 
-include( .mulle-sde/etc/cmake/_CMakeHeaders.cmake)
-include( .mulle-sde/etc/cmake/_CMakeSources.cmake)
+include( _CMakeHeaders)
+include( _CMakeSources)
 
 # === MULLE-SDE END ===
 #

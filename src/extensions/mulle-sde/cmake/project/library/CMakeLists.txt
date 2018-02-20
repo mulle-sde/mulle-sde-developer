@@ -5,71 +5,56 @@ project( <|PROJECT_NAME|> <|PROJECT_UPCASE_LANGUAGE|>)
 
 ### mulle-sde environment
 
-set( MULLE_VIRTUAL_ROOT "$ENV{MULLE_VIRTUAL_ROOT}")
-if( NOT MULLE_VIRTUAL_ROOT)
-   set( MULLE_VIRTUAL_ROOT "${PROJECT_SOURCE_DIR}")
-endif()
-if( NOT DEPENDENCIES_DIR)
-   set( DEPENDENCIES_DIR "${MULLE_VIRTUAL_ROOT}/dependencies")
-endif()
-if( NOT ADDICTIONS_DIR)
-   set( ADDICTIONS_DIR "${MULLE_VIRTUAL_ROOT}/addictions")
-endif()
-include_directories( BEFORE SYSTEM
-${DEPENDENCIES_DIR}/include
-${ADDICTIONS_DIR}/include
-)
-set( CMAKE_LIBRARY_PATH "${DEPENDENCIES_DIR}/lib"
-"${ADDICTIONS_DIR}/lib"
-${CMAKE_LIBRARY_PATH}
-)
-set( CMAKE_FRAMEWORK_PATH "${DEPENDENCIES_DIR}/Frameworks"
-"${ADDICTIONS_DIR}/Frameworks"
-${CMAKE_FRAMEWORK_PATH}
-)
+# add cmake module paths to search path
+list( insert CMAKE_MODULE_PATH 0 "${PROJECT_SOURCE_DIR}/.mulle-sde/share/cmake")
+list( insert CMAKE_MODULE_PATH 0 "${PROJECT_SOURCE_DIR}/.mulle-sde/data/cmake")
+list( insert CMAKE_MODULE_PATH 0 "${PROJECT_SOURCE_DIR}/.mulle-sde/etc/cmake")
+list( insert CMAKE_MODULE_PATH 0 "${PROJECT_SOURCE_DIR}/cmake")
+
+include( Environment)
 
 
 ### Files
 
+include( PreFiles OPTIONAL)
+
 set( <|PROJECT_UPCASE_IDENTIFIER|>_LIBRARY ON)
 
-include( CMakeDependenciesAndLibraries.cmake)
-include( CMakeHeadersAndSources.cmake)
-
+include( CMakeDependenciesAndLibraries)
+include( CMakeHeadersAndSources)
 
 include_directories( ${INCLUDE_DIRS})
 
-set( PUBLIC_HEADERS
-${PUBLIC_HEADERS}
-)
-
-set( CMAKE_INCLUDES
-"CMakeDependenciesAndLibraries.cmake"
-"_CMakeDependencies.cmake"
-"_CMakeLibraries.cmake"
-)
+include( PostFiles OPTIONAL)
 
 ### Library
+
+include( PreLibrary OPTIONAL)
 
 add_library( "<|PROJECT_NAME|>"
 ${SOURCES}
 ${PUBLIC_HEADERS}
 ${PRIVATE_HEADERS}
-CMakeLists.txt
-CMakeHeadersAndSources.cmake
+${CMAKE_EDITABLE_FILES}
 )
 
 if( BUILD_SHARED_LIBS)
    target_link_libraries( <|PROJECT_NAME|>
-${C_DEPENDENCIES_LIBRARIES}
+${DEPENDENCIES_LIBRARIES}
 ${OS_SPECIFIC_LIBRARIES}
 )
 endif()
 
+include( PostLibrary OPTIONAL)
+
 ### Install
+
+include( PreInstall OPTIONAL)
 
 install( TARGETS "<|PROJECT_NAME|>" DESTINATION "lib")
 install( FILES ${PUBLIC_HEADERS}  DESTINATION "include/<|PROJECT_NAME|>")
 install( FILES ${PRIVATE_HEADERS} DESTINATION "include/<|PROJECT_NAME|>/private")
 
 install( FILES ${CMAKE_INCLUDES}  DESTINATION "include/<|PROJECT_NAME|>/cmake")
+
+include( PostInstall OPTIONAL)

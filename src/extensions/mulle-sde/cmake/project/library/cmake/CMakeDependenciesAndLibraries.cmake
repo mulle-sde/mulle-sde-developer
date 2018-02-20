@@ -7,7 +7,7 @@ if( NOT __<|PROJECT_UPCASE_IDENTIFIER|>_CMAKE_DEPENDENCIES_AND_LIBRARIES_TXT__)
    # Put your find_library() statements here to import other libraries
    #
    # Add OS specific dependencies to OS_SPECIFIC_LIBRARIES
-   # Add all other dependencies (rest) to C_DEPENDENCIES_LIBRARIES
+   # Add all other dependencies (rest) to DEPENDENCIES_LIBRARIES
 
 
    #
@@ -19,27 +19,27 @@ if( NOT __<|PROJECT_UPCASE_IDENTIFIER|>_CMAKE_DEPENDENCIES_AND_LIBRARIES_TXT__)
 
    # `mulle-sde update` will generate these files
 
-   include( .mulle-sde/etc/cmake/_CMakeDependencies.cmake)
-   include( .mulle-sde/etc/cmake/_CMakeLibraries.cmake)
+   include( _CMakeDependencies)
+   include( _CMakeLibraries)
 
    # === MULLE-SDE END ===
    #
 
    # For the benefit of users of your library, provide the find_library
-   # statement to find your library and add it to C_DEPENDENCY_LIBRARIES and
-   # C_DEPENDENCY_NAMES
+   # statement to find your library and add it to DEPENDENCY_LIBRARIES and
+   # DEPENDENCY_NAMES
    #
    if( NOT <|PROJECT_UPCASE_IDENTIFIER|>_LIBRARY)
       find_library( <|PROJECT_UPCASE_IDENTIFIER|>_LIBRARY NAMES <|PROJECT_NAME|>)
       message(STATUS "<|PROJECT_UPCASE_IDENTIFIER|>_LIBRARY is ${<|PROJECT_UPCASE_IDENTIFIER|>_LIBRARY}")
-      set( C_DEPENDENCY_LIBRARIES
+      set( DEPENDENCY_LIBRARIES
          ${<|PROJECT_UPCASE_IDENTIFIER|>_LIBRARY}
-         ${C_DEPENDENCY_LIBRARIES}
+         ${DEPENDENCY_LIBRARIES}
          CACHE INTERNAL "need to cache this"
       )
-      set( C_DEPENDENCY_NAMES
+      set( DEPENDENCY_NAMES
          <|PROJECT_NAME|>
-         ${C_DEPENDENCY_NAMES}
+         ${DEPENDENCY_NAMES}
          CACHE INTERNAL "need to cache this too"
       )
    endif()
@@ -47,7 +47,7 @@ if( NOT __<|PROJECT_UPCASE_IDENTIFIER|>_CMAKE_DEPENDENCIES_AND_LIBRARIES_TXT__)
    #
    # For benefit of Windows
    #
-   if( MSVC)
-      set( <|PROJECT_UPCASE_IDENTIFIER|>_DEFINITIONS ${UPCASE_MULLE_C_LIBRARY_IDENTIFIER}_DEFINITIONS})
-   endif()
+   #if( MSVC)
+   #   set( <|PROJECT_UPCASE_IDENTIFIER|>_DEFINITIONS $<|PARENT_IDENTIFIER|>_DEFINITIONS})
+   #endif()
 endif()

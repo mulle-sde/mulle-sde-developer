@@ -6,6 +6,9 @@ It is generally installed as a dependency to a *meta extension* such as
 [mulle-sde-cmake-c](//github.com/mulle-sde/mulle-sde-cmake-c), but it is usable
 on its own.
 
+This extension generates the cmake files that perform the `find_library`
+calls to locate dependencies.
+
 ## Install
 
 OS          | Command
@@ -35,13 +38,11 @@ tasks. They in turn will execute `mulle-sde-cmake-source-update` and
 
 **mulle-sde-cmake-source-update** will create the files `_CMakeHeaders.cmake`
 and `_CMakeSources.cmake` from the examination of the `src` folder and its
-subfolders according to the installed *patternfiles* and place them in
-`.mulle-sde/etc/cmake`.
+subfolders according to the installed *patternfiles*.
 
 **mulle-sde-cmake-sourcetree-update** will create `_CMakeDependencies.cmake`
 and `_CMakeLibraries.cmake` from the contents of the
-[mulle-sourcetree](/mulle-sde/mulle-sourcetree) and will also place them in
-`.mulle-sde/etc/cmake`.
+[mulle-sourcetree](/mulle-sde/mulle-sourcetree).
 
 
 ![](dox/mulle-sde-update-fs.png)

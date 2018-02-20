@@ -5,8 +5,8 @@ digraph G {
 
     "project"          [ color="gray", fontcolor="gray" ]
 
-    "src"
-    "etc"
+    "src"  [ penwidth="2"]
+    "data"
     "cmake"
     ".mulle-sde"
     ".mulle-sourcetree"
@@ -21,20 +21,20 @@ digraph G {
 
     { rank = same;  "project" };
     { rank = same;  "src", ".mulle-sde", ".mulle-sourcetree" }
-    { rank = same;  "etc", "config" }
+    { rank = same;  "data", "config" }
     { rank = same;  "cmake" }
     { rank = same;  "_CMakeHeaders.cmake","_CMakeSources.cmake",
                     "_CMakeDependencies.cmake","_CMakeLibraries.cmake"  }
 
 
-    edge [ arrowhead="", color="black", style="" ]
+    edge [ arrowhead="none", color="black", style="" ]
 
     ".mulle-sourcetree" -> "config"
     "project" -> "src"
     "project" -> ".mulle-sourcetree"
     "project" -> ".mulle-sde"
-    ".mulle-sde" -> "etc"
-    "etc" -> "cmake"
+    ".mulle-sde" -> "data"
+    "data"    -> "cmake"
 
     "cmake" -> "_CMakeHeaders.cmake"
     "cmake" -> "_CMakeSources.cmake"
@@ -51,7 +51,7 @@ digraph G {
     "mulle-sde-cmake-source-update"     [ color="magenta", fontcolor="magenta" ]
     "mulle-sde-cmake-sourcetree-update" [ color="magenta", fontcolor="magenta" ]
 
-    "src" -> "mulle-sde-cmake-source-update"     [ style="invis"]
+    "src"    -> "mulle-sde-cmake-source-update"     [ style="invis"]
     "config" -> "mulle-sde-cmake-source-update"  [ style="invis"]
 
     edge [ arrowhead="", style="dotted", label=" read"]

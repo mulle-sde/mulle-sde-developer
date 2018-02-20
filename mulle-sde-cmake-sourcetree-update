@@ -35,6 +35,8 @@
 
 usage()
 {
+   [ $# -ne 0 ] && log_error "$1"
+
    cat <<EOF >&2
 Usage:
    mulle-sde-cmake-sourcetree-update <action> <filename> <category>
@@ -147,8 +149,7 @@ emit_cmake_legacy_dependency()
    local cmakevar
    local identifier
 
-   identifier="` tr '-' '_'  <<< "${name}" `"
-   identifier="` tr 'a-z' 'A-Z' <<< "${identifier}" `"
+   identifier="` tr 'a-z-' 'A-Z_' <<< "${name}" `"
 
    if [ ! -z "${ifstatement}" ]
    then
@@ -200,8 +201,28 @@ emit_cmake_include_dependency()
       echo "${ifstatement}"
    fi
 
+   #
+   # cmake is supergimped with respect to include so we finagle the module
+   # path before including and reset it afterwards
+   # https://stackoverflow.com/questions/3249459/for-the-cmake-include-command-what-is-the-difference-between-a-file-and-a-mod
+   #
+   local identifier
+
+   identifier="` tr 'a-z-' 'A-Z_' <<< "${name}" `"
+
+   # PROJECT_UPCASE_IDENTIFIER is set by mulle-sde(!)
+   [ -z "${PROJECT_UPCASE_IDENTIFIER}" ] && internal_fail "PROJECT_UPCASE_IDENTIFIER is missing"
+
    cat << EOF
-${indent}include( "\${DEPENDENCIES_DIR}/include/cname/${name}/CMakeDependenciesAndLibraries.cmake")
+${indent}# temporarily expand CMAKE_MODULE_PATH
+${indent}set( MEMO_CMAKE_MODULE_PATH "\${CMAKE_MODULE_PATH}")
+${indent}list( insert CMAKE_MODULE_PATH 0 "\${DEPENDENCIES_DIR}/include/${name}/cmake")
+${indent}include( CMakeDependenciesAndLibraries)
+${indent}set( CMAKE_MODULE_PATH "\${MEMO_CMAKE_MODULE_PATH}")
+${indent}set( \${${PROJECT_UPCASE_IDENTIFIER}_DEFINITIONS}
+${indent} \${${identifier}_DEFINITIONS}
+${indent} \${${PROJECT_UPCASE_IDENTIFIER}_DEFINITIONS}
+${indent}endif()
 EOF
    if [ ! -z "${ifstatement}" ]
    then
@@ -218,7 +239,7 @@ get_no_include_dependency_list()
 
    exekutor mulle-sde dependency list \
                                    --format "ami={aliases}" \
-                                   --marks no-include,link \
+                                   --marks no-cmake-include,build,link \
                                    --output-raw \
                                    --no-output-header
 }
@@ -230,7 +251,7 @@ get_include_dependency_list()
 
    exekutor mulle-sde dependency list \
                                    --format "ami={aliases}" \
-                                   --marks include,link \
+                                   --marks cmake-include,build,link \
                                    --output-raw \
                                    --no-output-header
 }
@@ -242,6 +263,7 @@ get_library_list()
 
    exekutor mulle-sde library list \
                         --format "ami={aliases}" \
+                        --marks link \
                         --output-raw \
                         --no-output-header
 }
@@ -321,7 +343,7 @@ emit_cmake_dependency()
    emit_dependency "${dependency}" emit_cmake_include_dependency
 
    dependency="`get_no_include_dependency_list`" || return 1
-   emit_dependency "${dependency}" emit_cmake_legacy_dependency "C_DEPENDENCY_LIBRARIES"
+   emit_dependency "${dependency}" emit_cmake_legacy_dependency "DEPENDENCY_LIBRARIES"
 }
 
 
@@ -359,9 +381,15 @@ main()
             usage
          ;;
 
+         -p|--projectname)
+            [ "$#" -eq 1 ] && usage "missing argument to \"$1\""
+            shift
+
+            PROJECT_NAME="$1"
+         ;;
+
          -*)
-            log_error "unknown option \"$1\""
-            usage
+            usage "unknown option \"$1\""
          ;;
 
          *)
@@ -398,8 +426,8 @@ ${text_dep}"
 
    log_fluff "Create cmake files (${PWD})"
 
-   MULLE_SDE_LIBRARIES_FILE="${MULLE_SDE_LIBRARIES_FILE:-.mulle-sde/etc/cmake/_CMakeLibraries.cmake}"
-   MULLE_SDE_DEPENDENCIES_FILE="${MULLE_SDE_DEPENDENCIES_FILE:-.mulle-sde/etc/cmake/_CMakeDependencies.cmake}"
+   MULLE_SDE_LIBRARIES_FILE="${MULLE_SDE_LIBRARIES_FILE:-.mulle-sde/data/cmake/_CMakeLibraries.cmake}"
+   MULLE_SDE_DEPENDENCIES_FILE="${MULLE_SDE_DEPENDENCIES_FILE:-.mulle-sde/data/cmake/_CMakeDependencies.cmake}"
 
    log_verbose "Writing ${C_RESET_BOLD}${MULLE_SDE_LIBRARIES_FILE}"
    exekutor mkdir -p  "`fast_dirname "${MULLE_SDE_LIBRARIES_FILE}"`" 2> /dev/null

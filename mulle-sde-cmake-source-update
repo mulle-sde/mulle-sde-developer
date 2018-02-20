@@ -152,7 +152,7 @@ ${text_hdr2}"
 
    log_fluff "Create cmake header files (${PWD})"
 
-   MULLE_SDE_HEADERS_FILE="${MULLE_SDE_HEADERS_FILE:-.mulle-sde/etc/cmake/_CMakeHeaders.cmake}"
+   MULLE_SDE_HEADERS_FILE="${MULLE_SDE_HEADERS_FILE:-.mulle-sde/data/cmake/_CMakeHeaders.cmake}"
 
    log_verbose "Writing ${C_RESET_BOLD}${MULLE_SDE_HEADERS_FILE}"
    exekutor mkdir -p  "`fast_dirname "${MULLE_SDE_HEADERS_FILE}"`" 2> /dev/null
@@ -188,7 +188,7 @@ ${text_src}"
 
    log_fluff "Create cmake source files (${PWD})"
 
-   MULLE_SDE_SOURCES_FILE="${MULLE_SDE_SOURCES_FILE:-.mulle-sde/etc/cmake/_CMakeSources.cmake}"
+   MULLE_SDE_SOURCES_FILE="${MULLE_SDE_SOURCES_FILE:-.mulle-sde/data/cmake/_CMakeSources.cmake}"
 
    log_verbose "Writing ${C_RESET_BOLD}${MULLE_SDE_SOURCES_FILE}"
    exekutor mkdir -p  "`fast_dirname "${MULLE_SDE_SOURCES_FILE}"`" 2> /dev/null

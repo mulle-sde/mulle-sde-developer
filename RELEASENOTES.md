@@ -1,6 +1,12 @@
+## 0.3.0
+
+* greatly improved the cmake include code
+* move emitted files to .mulle-sde/etc/cmake to keep the project a bit more tidy. Also the files shouldn't be edited anyway
+
+
 ## 0.2.0
 
-* move emitted files to .mulle-sde/etc/cmake to keep the project a bit more tidy. Also the files shouldn't be edited anyway
+* move emitted files to .mulle-sde/data/cmake to keep the project a bit more tidy. Also the files shouldn't be edited anyway
 
 
 ### 0.0.1
