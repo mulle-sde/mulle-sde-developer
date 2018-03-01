@@ -1,0 +1,4 @@
+#
+# By default assume a project has source and a sourcetree
+#
+MULLE_SDE_UPDATE_CALLBACKS="source,sourcetree"

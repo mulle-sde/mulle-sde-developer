@@ -216,7 +216,7 @@ emit_cmake_include_dependency()
    cat << EOF
 ${indent}# temporarily expand CMAKE_MODULE_PATH
 ${indent}set( MEMO_CMAKE_MODULE_PATH "\${CMAKE_MODULE_PATH}")
-${indent}list( insert CMAKE_MODULE_PATH 0 "\${DEPENDENCIES_DIR}/include/${name}/cmake")
+${indent}list( INSERT CMAKE_MODULE_PATH 0 "\${DEPENDENCIES_DIR}/include/${name}/cmake")
 ${indent}include( CMakeDependenciesAndLibraries)
 ${indent}set( CMAKE_MODULE_PATH "\${MEMO_CMAKE_MODULE_PATH}")
 ${indent}set( \${${PROJECT_UPCASE_IDENTIFIER}_DEFINITIONS}
@@ -237,11 +237,11 @@ get_no_include_dependency_list()
 {
    log_entry "get_no_include_dependency_list" "$@"
 
-   exekutor mulle-sde dependency list \
-                                   --format "ami={aliases}" \
-                                   --marks no-cmake-include,build,link \
-                                   --output-raw \
-                                   --no-output-header
+   exekutor mulle-sde ${MULLE_SDE_FLAGS} dependency list \
+                                                    --format "ami={aliases}" \
+                                                    --marks no-cmake-include,build,link \
+                                                    --output-raw \
+                                                    --no-output-header
 }
 
 
@@ -249,11 +249,11 @@ get_include_dependency_list()
 {
    log_entry "get_include_dependency_list" "$@"
 
-   exekutor mulle-sde dependency list \
-                                   --format "ami={aliases}" \
-                                   --marks cmake-include,build,link \
-                                   --output-raw \
-                                   --no-output-header
+   exekutor mulle-sde ${MULLE_SDE_FLAGS} dependency list \
+                                                    --format "ami={aliases}" \
+                                                    --marks cmake-include,build,link \
+                                                    --output-raw \
+                                                    --no-output-header
 }
 
 
@@ -261,11 +261,10 @@ get_library_list()
 {
   log_entry "get_library_list" "$@"
 
-   exekutor mulle-sde library list \
-                        --format "ami={aliases}" \
-                        --marks link \
-                        --output-raw \
-                        --no-output-header
+   exekutor mulle-sde ${MULLE_SDE_FLAGS} library list --marks link \
+                                                      -- \
+                                                      --output-raw \
+                                                      --no-output-header
 }
 
 
@@ -351,23 +350,6 @@ main()
 {
    log_entry "main" "$@"
 
-   # technical flags
-   local MULLE_FLAG_DONT_DEFER="NO"
-   local MULLE_FLAG_EXEKUTOR_DRY_RUN="NO"
-   local MULLE_FLAG_FOLLOW_SYMLINKS="YES"
-   local MULLE_FLAG_LOG_CACHE="NO"
-   local MULLE_FLAG_LOG_DEBUG="NO"
-   local MULLE_FLAG_LOG_EXEKUTOR="NO"
-   local MULLE_FLAG_LOG_FLUFF="NO"
-   local MULLE_FLAG_LOG_MERGE="NO"
-   local MULLE_FLAG_LOG_SCRIPTS="NO"
-   local MULLE_FLAG_LOG_SETTINGS="NO"
-   local MULLE_FLAG_LOG_VERBOSE="NO"
-   local MULLE_TRACE_PATHS_FLIP_X="NO"
-   local MULLE_TRACE_POSTPONE="NO"
-   local MULLE_TRACE_RESOLVER_FLIP_X="NO"
-   local MULLE_TRACE_SETTINGS_FLIP_X="NO"
-
    while [ $# -ne 0 ]
    do
       if options_technical_flags "$1"
@@ -426,8 +408,8 @@ ${text_dep}"
 
    log_fluff "Create cmake files (${PWD})"
 
-   MULLE_SDE_LIBRARIES_FILE="${MULLE_SDE_LIBRARIES_FILE:-.mulle-sde/data/cmake/_CMakeLibraries.cmake}"
-   MULLE_SDE_DEPENDENCIES_FILE="${MULLE_SDE_DEPENDENCIES_FILE:-.mulle-sde/data/cmake/_CMakeDependencies.cmake}"
+   MULLE_SDE_LIBRARIES_FILE="${MULLE_SDE_LIBRARIES_FILE:-cmake/_CMakeLibraries.cmake}"
+   MULLE_SDE_DEPENDENCIES_FILE="${MULLE_SDE_DEPENDENCIES_FILE:-cmake/_CMakeDependencies.cmake}"
 
    log_verbose "Writing ${C_RESET_BOLD}${MULLE_SDE_LIBRARIES_FILE}"
    exekutor mkdir -p  "`fast_dirname "${MULLE_SDE_LIBRARIES_FILE}"`" 2> /dev/null

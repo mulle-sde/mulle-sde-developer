@@ -6,21 +6,31 @@ project( <|PROJECT_NAME|> <|PROJECT_UPCASE_LANGUAGE|>)
 ### mulle-sde environment
 
 # add cmake module paths to search path
-list( insert CMAKE_MODULE_PATH 0 "${PROJECT_SOURCE_DIR}/.mulle-sde/share/cmake")
-list( insert CMAKE_MODULE_PATH 0 "${PROJECT_SOURCE_DIR}/.mulle-sde/data/cmake")
-list( insert CMAKE_MODULE_PATH 0 "${PROJECT_SOURCE_DIR}/.mulle-sde/etc/cmake")
-list( insert CMAKE_MODULE_PATH 0 "${PROJECT_SOURCE_DIR}/cmake")
+list( INSERT CMAKE_MODULE_PATH 0 "${PROJECT_SOURCE_DIR}/.mulle-sde/share/cmake")
+list( INSERT CMAKE_MODULE_PATH 0 "${PROJECT_SOURCE_DIR}/.mulle-sde/etc/cmake")
+list( INSERT CMAKE_MODULE_PATH 0 "${PROJECT_SOURCE_DIR}/cmake")
 
-include( "Environment")
+include( Environment)
+
 
 ### Files
 
 include( PreFiles OPTIONAL)
 
-include( CMakeHeadersAndSources)
-include( CMakeDependenciesAndLibraries)
+#
+# Include all .cmake files in ./cmake
+#
+file( GLOB LOCAL_CMAKE_INCLUDES
+   "cmake/[A-Za-z0-9]*.cmake"
+)
+
+foreach( FILE ${LOCAL_CMAKE_INCLUDES} )
+   include( "${FILE}")
+endforeach()
+
 
 include( PostFiles OPTIONAL)
+
 
 ### Executable
 

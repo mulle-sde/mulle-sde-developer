@@ -33,5 +33,5 @@ cmake_source_update_task_run()
 {
    log_entry "cmake_source_update_task_run" "$@"
 
-   exekutor mulle-sde-cmake-source-update
+   exekutor mulle-sde-cmake-source-update ${MULLE_SDE_CMAKE_SOURCE_UPDATE_FLAGS}
 }

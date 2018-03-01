@@ -168,24 +168,13 @@ main()
 
    cd "`dirname -- "$0"`"
 
-   bin="${prefix}/bin"
    libexec="${prefix}/libexec/mulle-sde"
    share="${prefix}/share/mulle-sde"
-
-   if [ ! -d "${bin}" ]
-   then
-      mkdir -p "${bin}" || fail "could not create ${bin}"
-   fi
 
    if [ ! -d "${libexec}" ]
    then
       mkdir -p "${libexec}" || fail "could not create ${libexec}"
    fi
-
-   install -m "${mode}" "mulle-sde-cmake-source-update" "${bin}/mulle-sde-cmake-source-update" || exit 1
-   printf "install: ${C_MAGENTA}${C_BOLD}%s${C_RESET}\n" "${bin}/mulle-sde-cmake-source-update" >&2
-   install -m "${mode}" "mulle-sde-cmake-sourcetree-update" "${bin}/mulle-sde-cmake-sourcetree-update" || exit 1
-   printf "install: ${C_MAGENTA}${C_BOLD}%s${C_RESET}\n" "${bin}/mulle-sde-cmake-sourcetree-update" >&2
 
    EXTENSION_DIR="${share}/extensions"
    for i in src/extensions/*

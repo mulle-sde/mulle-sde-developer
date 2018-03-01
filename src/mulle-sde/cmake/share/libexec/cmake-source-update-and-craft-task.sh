@@ -33,6 +33,6 @@ cmake_source_update_and_craft_task_run()
 {
    log_entry "cmake_source_update_and_craft_task_run" "$@"
 
-   run_task_main "cmake-source-update" &&
+   run_task_main "cmake-source-update"  &&
    run_task_main "craft"
 }
