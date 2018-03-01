@@ -159,8 +159,10 @@ ${text_hdr2}"
    MULLE_SDE_CMAKE_HEADERS_FILE="${MULLE_SDE_CMAKE_HEADERS_FILE:-cmake/_CMakeHeaders.cmake}"
 
    log_verbose "Writing ${C_RESET_BOLD}${MULLE_SDE_CMAKE_HEADERS_FILE}"
-   exekutor mkdir -p  "`fast_dirname "${MULLE_SDE_CMAKE_HEADERS_FILE}"`" 2> /dev/null
+   exekutor mkdir -p  "`fast_dirname "${MULLE_SDE_CMAKE_HEADERS_FILE}"`"
+   exekutor chmod a+w "${MULLE_SDE_CMAKE_HEADERS_FILE}"  2> /dev/null
    redirect_exekutor "${MULLE_SDE_CMAKE_HEADERS_FILE}" echo "${text_hdr}"
+   exekutor chmod a-w "${MULLE_SDE_CMAKE_HEADERS_FILE}" 
 }
 
 
@@ -206,8 +208,10 @@ ${text_src}"
 
    log_verbose "Writing ${C_RESET_BOLD}${MULLE_SDE_CMAKE_SOURCES_FILE}"
    exekutor mkdir -p  "`fast_dirname "${MULLE_SDE_CMAKE_SOURCES_FILE}"`" 2> /dev/null
+   exekutor chmod a+w "${MULLE_SDE_CMAKE_SOURCES_FILE}"  2> /dev/null
    redirect_exekutor "${MULLE_SDE_CMAKE_SOURCES_FILE}" echo "${text_src}"
-}
+   exekutor chmod a-w "${MULLE_SDE_CMAKE_SOURCES_FILE}" 
+} 
 
 
 main()

@@ -17,13 +17,6 @@ macos       | `brew install mulle-kybernetik/software/mulle-sde-cmake`
 other       | Install prerequisite [mulle-sde](//github.com/mulle-sde/mulle-sde) first. Then `./install.sh`
 
 
-
-Executable                         | Description
------------------------------------|--------------------------------
-`mulle-sde-cmake-source-update`    | Generate cmake files from filesystem
-`mulle-sde-cmake-sourcetree-update`| Generate cmake files from mulle-sourcetree
-
-
 ## mulle-sde integration
 
 **mulle-sde** affects an *update* by calling the `source` and `sourcetree`
@@ -33,14 +26,13 @@ choosing the *buildtool* extension `mulle-sde:cmake`.
 ![](dox/mulle-sde-update.png)
 
 The callbacks trigger the "cmake-source-update" and "cmake-sourcetree-update"
-tasks. They in turn will execute `mulle-sde-cmake-source-update` and
-`mulle-sde-cmake-sourcetree-update` respectively.
+tasks. 
 
-**mulle-sde-cmake-source-update** will create the files `_CMakeHeaders.cmake`
+**cmake-source-update** will create the files `_CMakeHeaders.cmake`
 and `_CMakeSources.cmake` from the examination of the `src` folder and its
 subfolders according to the installed *patternfiles*.
 
-**mulle-sde-cmake-sourcetree-update** will create `_CMakeDependencies.cmake`
+**cmake-sourcetree-update** will create `_CMakeDependencies.cmake`
 and `_CMakeLibraries.cmake` from the contents of the
 [mulle-sourcetree](/mulle-sde/mulle-sourcetree).
 
@@ -50,7 +42,7 @@ and `_CMakeLibraries.cmake` from the contents of the
 
 ## Customization
 
-`mulle-sde-cmake-source-update` will emit cmake definitions according to the
+`cmake-source-update` will emit cmake definitions according to the
 *patternfile* category. As an example:
 
 Your *patternfile* is called `00-source--experimental`. All files matching

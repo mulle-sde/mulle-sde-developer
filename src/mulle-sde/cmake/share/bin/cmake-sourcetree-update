@@ -39,7 +39,7 @@ usage()
 
    cat <<EOF >&2
 Usage:
-   mulle-sde-cmake-sourcetree-update <action> <filename> <category>
+   ${MULLE_USAGE_NAME} <action> <filename> <category>
 
    Let mulle-monitor run this for you. None of the arguments are actually
    used.
@@ -238,8 +238,8 @@ get_no_include_dependency_list()
    log_entry "get_no_include_dependency_list" "$@"
 
    exekutor mulle-sde ${MULLE_SDE_FLAGS} dependency list \
-                                                    --format "ami={aliases}" \
                                                     --marks no-cmake-include,build,link \
+                                                    -- \
                                                     --output-raw \
                                                     --no-output-header
 }
@@ -250,8 +250,8 @@ get_include_dependency_list()
    log_entry "get_include_dependency_list" "$@"
 
    exekutor mulle-sde ${MULLE_SDE_FLAGS} dependency list \
-                                                    --format "ami={aliases}" \
                                                     --marks cmake-include,build,link \
+                                                    -- \
                                                     --output-raw \
                                                     --no-output-header
 }
@@ -413,10 +413,15 @@ ${text_dep}"
 
    log_verbose "Writing ${C_RESET_BOLD}${MULLE_SDE_LIBRARIES_FILE}"
    exekutor mkdir -p  "`fast_dirname "${MULLE_SDE_LIBRARIES_FILE}"`" 2> /dev/null
+   exekutor chmod a+w "${MULLE_SDE_LIBRARIES_FILE}"  2> /dev/null
    redirect_exekutor "${MULLE_SDE_LIBRARIES_FILE}" echo "${text_lib}"
+   exekutor chmod a-w "${MULLE_SDE_LIBRARIES_FILE}"
+
    log_verbose "Writing ${C_RESET_BOLD}${MULLE_SDE_DEPENDENCIES_FILE}"
    exekutor mkdir -p  "`fast_dirname "${MULLE_SDE_DEPENDENCIES_FILE}"`" 2> /dev/null
+   exekutor chmod a+w "${MULLE_SDE_DEPENDENCIES_FILE}"  2> /dev/null
    redirect_exekutor "${MULLE_SDE_DEPENDENCIES_FILE}" echo "${text_dep}"
+   exekutor chmod a-w "${MULLE_SDE_DEPENDENCIES_FILE}"
 }
 
 

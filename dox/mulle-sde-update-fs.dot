@@ -43,21 +43,21 @@ digraph G {
 
     edge [ arrowhead="", style="dotted", label=" write"]
 
-    "mulle-sde-cmake-source-update"     -> "_CMakeHeaders.cmake"
-    "mulle-sde-cmake-source-update"     -> "_CMakeSources.cmake"
-    "mulle-sde-cmake-sourcetree-update" -> "_CMakeDependencies.cmake"
-    "mulle-sde-cmake-sourcetree-update" -> "_CMakeLibraries.cmake"
+    "cmake-source-update"     -> "_CMakeHeaders.cmake"
+    "cmake-source-update"     -> "_CMakeSources.cmake"
+    "cmake-sourcetree-update" -> "_CMakeDependencies.cmake"
+    "cmake-sourcetree-update" -> "_CMakeLibraries.cmake"
 
-    "mulle-sde-cmake-source-update"     [ color="magenta", fontcolor="magenta" ]
-    "mulle-sde-cmake-sourcetree-update" [ color="magenta", fontcolor="magenta" ]
+    "cmake-source-update"     [ color="magenta", fontcolor="magenta" ]
+    "cmake-sourcetree-update" [ color="magenta", fontcolor="magenta" ]
 
-    "src"    -> "mulle-sde-cmake-source-update"     [ style="invis"]
-    "config" -> "mulle-sde-cmake-source-update"  [ style="invis"]
+    "src"    -> "cmake-source-update"     [ style="invis"]
+    "config" -> "cmake-source-update"  [ style="invis"]
 
     edge [ arrowhead="", style="dotted", label=" read"]
 
-    "mulle-sde-cmake-source-update"     -> "src"
-    "mulle-sde-cmake-sourcetree-update" -> "config"
+    "cmake-source-update"     -> "src"
+    "cmake-sourcetree-update" -> "config"
 
-    { rank = same;  "mulle-sde-cmake-source-update", "mulle-sde-cmake-sourcetree-update"  };
+    { rank = same;  "cmake-source-update", "cmake-sourcetree-update"  };
 }
