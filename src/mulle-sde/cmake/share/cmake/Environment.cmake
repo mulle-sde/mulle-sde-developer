@@ -23,15 +23,15 @@ ${CMAKE_FRAMEWORK_PATH}
 )
 
 set( CMAKE_INCLUDES
-"cmake/CMakeDependenciesAndLibraries.cmake"
-".mulle-sde/data/cmake/_CMakeDependencies.cmake"
-".mulle-sde/data/cmake/_CMakeLibraries.cmake"
+"cmake/DependenciesAndLibraries.cmake"
+".mulle-sde/data/cmake/_Dependencies.cmake"
+".mulle-sde/data/cmake/_Libraries.cmake"
 )
 
 set( CMAKE_EDITABLE_FILES
 CMakeLists.txt
-cmake/CMakeHeadersAndSources.cmake
-cmake/CMakeDependenciesAndLibraries.cmake
+cmake/HeadersAndSources.cmake
+cmake/DependenciesAndLibraries.cmake
 )
 
 include( EnvironmentAux OPTIONAL)

@@ -1,1 +1,5 @@
-Create a cmake project. It can be either a library or an executable.
+Creates a cmake project. It can be either of project type "library" or
+"executable".
+
+Specify -DPROJECT_DESCRIPTION="Your project description" and
+        -DVENDOR_CONTACT="your@email.com" during init.

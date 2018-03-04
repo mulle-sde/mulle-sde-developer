@@ -124,16 +124,100 @@ osexclude_to_cmake_if()
 }
 
 
-emit_cmake_legacy_dependency()
+_emit_cmake_dependency()
 {
-   log_entry "emit_cmake_legacy_dependency" "$@"
+   log_entry "_emit_cmake_dependency" "$@"
 
-   local name="$1"
-   local marks="$2"
-   local aliases="$3"
-   local containername="$4"
+   local aliases="$1"
+   local identifier="$2"
+   local containername="$3"
+   local indent="$4"
 
-   [ -z "${name}" ] && internal_fail "name is empty"
+   cat <<EOF
+${indent}if( NOT ${identifier}_LIBRARY)
+${indent}   find_library( ${identifier}_LIBRARY NAMES ${aliases})
+${indent}   message( STATUS "${identifier}_LIBRARY is \${${identifier}_LIBRARY}")
+${indent}   set( ${containername}
+${indent}      \${${identifier}_LIBRARY}
+${indent}      \${${containername}}
+${indent}      CACHE INTERNAL "need to cache this"
+${indent}   )
+${indent}   if( ${identifier}_LIBRARY)
+${indent}      # temporarily expand CMAKE_MODULE_PATH
+${indent}      get_filename_component( TMP_${identifier}_ROOT "\${${identifier}_LIBRARY}" DIRECTORY)
+${indent}      get_filename_component( TMP_${identifier}_ROOT "\${TMP_${identifier}_ROOT}" DIRECTORY)
+${indent}      set( MEMO_CMAKE_MODULE_PATH "\${CMAKE_MODULE_PATH}")
+${indent}      list( INSERT CMAKE_MODULE_PATH 0 "\${TMP_${identifier}_ROOT}/include/cmake")
+${indent}      # use explicit path to avoid "surprises"
+${indent}      unset( \${${identifier}_DEFINITIONS)
+${indent}      include( "\${TMP_${identifier}_ROOT}/include/cmake/DependenciesAndLibraries.cmake" OPTIONAL)
+${indent}      set( CMAKE_MODULE_PATH "\${MEMO_CMAKE_MODULE_PATH}")
+${indent}
+${indent}      set( INHERITED_DEFINITIONS
+${indent}           \${${identifier}_DEFINITIONS}
+${indent}           \${INHERITED_DEFINITIONS}
+${indent}      )
+${indent}  endif()
+${indent}endif()
+EOF
+}
+
+
+#
+# I suppose header only libraries might want to expose link stuff too ?
+# shouldn't hurt
+#
+_emit_cmake_header_only()
+{
+   log_entry "_emit_cmake_header_only" "$@"
+
+   local aliases="$1"
+   local identifier="$2"
+   local containername="$3"
+   local indent="$4"
+
+   cat <<EOF
+${indent}if( NOT ${identifier}_HEADER)
+${indent}   find_file( ${identifier}_HEADER NAMES ${aliases})
+${indent}   message( STATUS "${identifier}_HEADER is \${${identifier}_HEADER}")
+${indent}   set( ${containername}
+${indent}      \${${identifier}_HEADER}
+${indent}      \${${containername}}
+${indent}      CACHE INTERNAL "need to cache this"
+${indent}   )
+${indent}   if( ${identifier}_HEADER)
+${indent}      # temporarily expand CMAKE_MODULE_PATH
+${indent}      get_filename_component( TMP_${identifier}_ROOT "\${${identifier}_HEADER}" DIRECTORY)
+${indent}      set( MEMO_CMAKE_MODULE_PATH "\${CMAKE_MODULE_PATH}")
+${indent}      list( INSERT CMAKE_MODULE_PATH 0 "\${TMP_${identifier}_ROOT}/cmake")
+${indent}      # use explicit path to avoid "surprises"
+${indent}      unset( \${${identifier}_DEFINITIONS)
+${indent}      include( "\${TMP_${identifier}_ROOT}/cmake/DependenciesAndLibraries.cmake" OPTIONAL)
+${indent}      set( CMAKE_MODULE_PATH "\${MEMO_CMAKE_MODULE_PATH}")
+${indent}
+${indent}      set( INHERITED_DEFINITIONS
+${indent}           \${${identifier}_DEFINITIONS}
+${indent}           \${INHERITED_DEFINITIONS}
+${indent}      )
+${indent}  endif()
+${indent}endif()
+EOF
+}
+
+
+
+emit_cmake_dependency()
+{
+   log_entry "emit_cmake_dependency" "$@"
+
+   local emitter="$1"
+   local containername="$2"
+   local address="$3"
+   local marks="$4"
+   local aliases="$5"
+
+   [ -z "${emitter}" ] && internal_fail "emitter is empty"
+   [ -z "${address}" ] && internal_fail "address is empty"
    [ -z "${containername}" ] && internal_fail "containername is empty"
 
    local indent
@@ -143,34 +227,27 @@ emit_cmake_legacy_dependency()
    if [ ! -z "${marks}" ]
    then
       ifstatement="`osexclude_to_cmake_if "${marks}" `"
-      indent="   "
+      if [ ! -z "${ifstatement}" ]
+      then
+         indent="   "
+      fi
    fi
-
-   local cmakevar
-   local identifier
-
-   identifier="` tr 'a-z-' 'A-Z_' <<< "${name}" `"
 
    if [ ! -z "${ifstatement}" ]
    then
       echo "${ifstatement}"
    fi
 
-   local names
+   local identifier
 
-   names="` concat "${name}" "${aliases}" `"
+   identifier="` tr 'a-z-' 'A-Z_' <<< "${address}" `"
+   aliases="` concat "${address}" "${aliases}" `"
 
-   cat << EOF
-${indent}if( NOT ${identifier}_LIBRARY)
-${indent}   find_library( ${identifier}_LIBRARY NAMES ${names})
-${indent}   message( STATUS "${identifier}_LIBRARY is \${${identifier}_LIBRARY}")
-${indent}   set( ${containername}
-${indent}      \${${identifier}_LIBRARY}
-${indent}      \${${containername}}
-${indent}      CACHE INTERNAL "need to cache this"
-${indent}   )
-${indent}endif()
-EOF
+   "${emitter}" "${aliases}" \
+                "${identifier}" \
+                "${containername}" \
+                "${indent}"
+
    if [ ! -z "${ifstatement}" ]
    then
       echo "endif()"
@@ -180,107 +257,19 @@ EOF
 }
 
 
-emit_cmake_include_dependency()
+emit_cmake_dependencies()
 {
-   log_entry "emit_cmake_include_dependency" "$@"
+   log_entry "emit_cmake_dependencies" "$@"
 
-   local name="$1"
-   local marks="$2"
-
-   local indent
-   local ifstatement
-
-   if [ ! -z "${marks}" ]
-   then
-      ifstatement="`osexclude_to_cmake_if "${marks}" `"
-      indent="   "
-   fi
-
-   if [ ! -z "${ifstatement}" ]
-   then
-      echo "${ifstatement}"
-   fi
-
-   #
-   # cmake is supergimped with respect to include so we finagle the module
-   # path before including and reset it afterwards
-   # https://stackoverflow.com/questions/3249459/for-the-cmake-include-command-what-is-the-difference-between-a-file-and-a-mod
-   #
-   local identifier
-
-   identifier="` tr 'a-z-' 'A-Z_' <<< "${name}" `"
-
-   # PROJECT_UPCASE_IDENTIFIER is set by mulle-sde(!)
-   [ -z "${PROJECT_UPCASE_IDENTIFIER}" ] && internal_fail "PROJECT_UPCASE_IDENTIFIER is missing"
-
-   cat << EOF
-${indent}# temporarily expand CMAKE_MODULE_PATH
-${indent}set( MEMO_CMAKE_MODULE_PATH "\${CMAKE_MODULE_PATH}")
-${indent}list( INSERT CMAKE_MODULE_PATH 0 "\${DEPENDENCIES_DIR}/include/${name}/cmake")
-${indent}include( CMakeDependenciesAndLibraries)
-${indent}set( CMAKE_MODULE_PATH "\${MEMO_CMAKE_MODULE_PATH}")
-${indent}set( \${${PROJECT_UPCASE_IDENTIFIER}_DEFINITIONS}
-${indent} \${${identifier}_DEFINITIONS}
-${indent} \${${PROJECT_UPCASE_IDENTIFIER}_DEFINITIONS}
-${indent}endif()
-EOF
-   if [ ! -z "${ifstatement}" ]
-   then
-      echo "endif()"
-   fi
-
-   echo
-}
-
-
-get_no_include_dependency_list()
-{
-   log_entry "get_no_include_dependency_list" "$@"
-
-   exekutor mulle-sde ${MULLE_SDE_FLAGS} dependency list \
-                                                    --marks no-cmake-include,build,link \
-                                                    -- \
-                                                    --output-raw \
-                                                    --no-output-header
-}
-
-
-get_include_dependency_list()
-{
-   log_entry "get_include_dependency_list" "$@"
-
-   exekutor mulle-sde ${MULLE_SDE_FLAGS} dependency list \
-                                                    --marks cmake-include,build,link \
-                                                    -- \
-                                                    --output-raw \
-                                                    --no-output-header
-}
-
-
-get_library_list()
-{
-  log_entry "get_library_list" "$@"
-
-   exekutor mulle-sde ${MULLE_SDE_FLAGS} library list --marks link \
-                                                      -- \
-                                                      --output-raw \
-                                                      --no-output-header
-}
-
-
-_emit_dependency()
-{
-   log_entry "_emit_dependency" "$@"
-
-   local name="$1"; shift
-   local dependency="$1"; shift
-   local emitter="$1"; shift
+   local dependencies="$1"
+   local emitter="$2"
+   local containername="$3"
 
    local dependency
 
    set -o noglob ; IFS="
 "
-   for dependency in ${dependency}
+   for dependency in ${dependencies}
    do
       IFS="${DEFAULT_IFS}"; set +o noglob
 
@@ -288,31 +277,25 @@ _emit_dependency()
       local marks
       local aliases
 
+      log_debug "read \"${dependency}\""
+
       IFS=";" read address marks aliases <<< "${dependency}"
+
+      log_debug "address: ${address}"
+      log_debug "marks:   ${marks}"
+      log_debug "aliases: ${aliases}"
 
       if [ ! -z "${address}" ]
       then
-         log_verbose "Emit statements for ${name} ${C_MAGENTA}${C_BOLD}${address}"
-         ${emitter} "${address}" "${marks}" "${aliases}" "$@"
+         log_verbose "Emit statements for ${C_MAGENTA}${C_BOLD}${address}"
+         emit_cmake_dependency "${emitter}" \
+                               "${containername}" \
+                               "${address}" \
+                               "${marks}" \
+                               "${aliases}"
       fi
    done
    IFS="${DEFAULT_IFS}"; set +o noglob
-}
-
-
-emit_dependency()
-{
-   log_entry "emit_dependency" "$@"
-
-   _emit_dependency "dependency" "$@"
-}
-
-
-emit_library()
-{
-   log_entry "emit_library" "$@"
-
-   _emit_dependency "library" "$@"
 }
 
 
@@ -320,29 +303,115 @@ emit_library()
 # collect library and dependency, with routines in
 # mulle-sde-updatesupport.sh for reuse with stuff other than cmake
 #
-emit_cmake_library()
+write_libraries_file()
 {
-   log_entry "emit_cmake_library" "$@"
+   log_entry "write_libraries_file" "$@"
+
+
+   MULLE_SDE_LIBRARIES_FILE="${MULLE_SDE_LIBRARIES_FILE:-cmake/_Libraries.cmake}"
+   if [ "${MULLE_SDE_LIBRARIES_FILE}" = "NONE" ]
+   then
+      return
+   fi
 
    local library
+   local header
+   local text_header
+   local text_lib
 
-   library="`get_library_list`" || return 1
-   emit_library "${library}" emit_cmake_legacy_dependency "OS_SPECIFIC_LIBRARIES"
+   header="`exekutor mulle-sde ${MULLE_SDE_FLAGS} library list \
+                                                      --marks header,no-link \
+                                                      -- \
+                                                      --output-raw \
+                                                      --no-output-header`" || return 1
+   log_debug "header: ${header}"
+   text_header="`emit_cmake_dependencies "${header}" \
+                                         "_emit_cmake_header_only" \
+                                         "HEADER_ONLY_LIBRARIES"`"
+
+   library="`exekutor mulle-sde ${MULLE_SDE_FLAGS} library list \
+                                                      --marks link \
+                                                      -- \
+                                                      --output-raw \
+                                                      --no-output-header`" || return 1
+   log_debug "library: ${library}"
+   text_lib="`emit_cmake_dependencies "${library}" \
+                                      "_emit_cmake_dependency" \
+                                      "OS_SPECIFIC_LIBRARIES"`" || return 1
+
+   text_lib="`add_line "${text_header}" "${text_lib}"`"
+
+   #
+   if [ -z "${text_lib}" ]
+   then
+      text_lib="# no library"
+   fi
+   text_lib="# This file will be regenerated by \`mulle-sde output|monitor\`. Edits will be lost.
+${text_lib}"
+
+   log_verbose "Writing ${C_RESET_BOLD}${MULLE_SDE_LIBRARIES_FILE}"
+   exekutor mkdir -p  "`fast_dirname "${MULLE_SDE_LIBRARIES_FILE}"`" 2> /dev/null
+   exekutor chmod a+w "${MULLE_SDE_LIBRARIES_FILE}"  2> /dev/null
+   redirect_exekutor "${MULLE_SDE_LIBRARIES_FILE}" echo "${text_lib}"
+   exekutor chmod a-w "${MULLE_SDE_LIBRARIES_FILE}"
 }
 
 
-emit_cmake_dependency()
+
+write_dependencies_file()
 {
-   log_entry "emit_cmake_dependency" "$@"
+   log_entry "write_dependencies_file" "$@"
+
+
+   MULLE_SDE_DEPENDENCIES_FILE="${MULLE_SDE_DEPENDENCIES_FILE:-cmake/_Dependencies.cmake}"
+   if [ "${MULLE_SDE_DEPENDENCIES_FILE}" = "NONE" ]
+   then
+      return
+   fi
 
    local dependency
+   local header
+   local text_dep
+   local text_header
 
-   # OBJC is in this
-   dependency="`get_include_dependency_list`" || return 1
-   emit_dependency "${dependency}" emit_cmake_include_dependency
+   header="`exekutor mulle-sde ${MULLE_SDE_FLAGS} dependency list \
+                                                     --marks header,no-link \
+                                                     -- \
+                                                     --output-raw \
+                                                     --no-output-header`" || return 1
+   log_debug "header: ${header}"
 
-   dependency="`get_no_include_dependency_list`" || return 1
-   emit_dependency "${dependency}" emit_cmake_legacy_dependency "DEPENDENCY_LIBRARIES"
+   text_header="`emit_cmake_dependencies "${header}" \
+                                         "_emit_cmake_header_only" \
+                                         "HEADER_ONLY_LIBRARIES"`"
+
+   dependency="` exekutor mulle-sde ${MULLE_SDE_FLAGS} dependency list \
+                                                     --marks link \
+                                                     -- \
+                                                     --output-raw \
+                                                     --no-output-header`" || return 1
+   log_debug "header: ${header}"
+   text_dep="`emit_cmake_dependencies "${dependency}" \
+                                      "_emit_cmake_dependency" \
+                                      "DEPENDENCY_LIBRARIES"`"
+   text_dep="`add_line "${text_header}" "${text_dep}"`"
+
+   if [ -z "${text_dep}" ]
+   then
+      text_dep="# no linkable dependency"
+   fi
+
+   text_dep="# This file will be regenerated by \`mulle-sde output|monitor\`. Edits will be lost.
+
+${text_dep}"
+
+   log_fluff "Create cmake files (${PWD})"
+
+   log_verbose "Writing ${C_RESET_BOLD}${MULLE_SDE_DEPENDENCIES_FILE}"
+   exekutor mkdir -p  "`fast_dirname "${MULLE_SDE_DEPENDENCIES_FILE}"`" 2> /dev/null
+   exekutor chmod a+w "${MULLE_SDE_DEPENDENCIES_FILE}"  2> /dev/null
+   redirect_exekutor "${MULLE_SDE_DEPENDENCIES_FILE}" echo "${text_dep}"
+   exekutor chmod a-w "${MULLE_SDE_DEPENDENCIES_FILE}"
 }
 
 
@@ -359,7 +428,7 @@ main()
       fi
 
       case "$1" in
-         -h|--help)
+         -h*|--help|help)
             usage
          ;;
 
@@ -384,44 +453,12 @@ main()
 
    options_setup_trace "${MULLE_TRACE}"
 
-   local text_lib
-   local text_dep
+   write_dependencies_file "${categorized_files}" &
+   write_libraries_file "${categorized_files}" &
 
-   text_lib="`emit_cmake_library`"     || exit 1
-   text_dep="`emit_cmake_dependency`"  || exit 1
-
-   if [ -z "${text_lib}" ]
-   then
-      text_lib="# no library"
-   fi
-   if [ -z "${text_dep}" ]
-   then
-      text_dep="# no linkable dependency"
-   fi
-
-   text_lib="# This file will be regenerated by \`mulle-sde output|monitor\`. Edits will be lost.
-${text_lib}"
-
-   text_dep="# This file will be regenerated by \`mulle-sde output|monitor\`. Edits will be lost.
-
-${text_dep}"
-
-   log_fluff "Create cmake files (${PWD})"
-
-   MULLE_SDE_LIBRARIES_FILE="${MULLE_SDE_LIBRARIES_FILE:-cmake/_CMakeLibraries.cmake}"
-   MULLE_SDE_DEPENDENCIES_FILE="${MULLE_SDE_DEPENDENCIES_FILE:-cmake/_CMakeDependencies.cmake}"
-
-   log_verbose "Writing ${C_RESET_BOLD}${MULLE_SDE_LIBRARIES_FILE}"
-   exekutor mkdir -p  "`fast_dirname "${MULLE_SDE_LIBRARIES_FILE}"`" 2> /dev/null
-   exekutor chmod a+w "${MULLE_SDE_LIBRARIES_FILE}"  2> /dev/null
-   redirect_exekutor "${MULLE_SDE_LIBRARIES_FILE}" echo "${text_lib}"
-   exekutor chmod a-w "${MULLE_SDE_LIBRARIES_FILE}"
-
-   log_verbose "Writing ${C_RESET_BOLD}${MULLE_SDE_DEPENDENCIES_FILE}"
-   exekutor mkdir -p  "`fast_dirname "${MULLE_SDE_DEPENDENCIES_FILE}"`" 2> /dev/null
-   exekutor chmod a+w "${MULLE_SDE_DEPENDENCIES_FILE}"  2> /dev/null
-   redirect_exekutor "${MULLE_SDE_DEPENDENCIES_FILE}" echo "${text_dep}"
-   exekutor chmod a-w "${MULLE_SDE_DEPENDENCIES_FILE}"
+   log_verbose "waiting..."
+   wait
+   log_verbose 'done!'
 }
 
 

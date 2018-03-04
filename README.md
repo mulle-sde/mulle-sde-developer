@@ -28,12 +28,12 @@ choosing the *buildtool* extension `mulle-sde:cmake`.
 The callbacks trigger the "cmake-source-update" and "cmake-sourcetree-update"
 tasks. 
 
-**cmake-source-update** will create the files `_CMakeHeaders.cmake`
-and `_CMakeSources.cmake` from the examination of the `src` folder and its
+**cmake-source-update** will create the files `_Headers.cmake`
+and `_Sources.cmake` from the examination of the `src` folder and its
 subfolders according to the installed *patternfiles*.
 
-**cmake-sourcetree-update** will create `_CMakeDependencies.cmake`
-and `_CMakeLibraries.cmake` from the contents of the
+**cmake-sourcetree-update** will create `_Dependencies.cmake`
+and `_Libraries.cmake` from the contents of the
 [mulle-sourcetree](/mulle-sde/mulle-sourcetree).
 
 

@@ -10,8 +10,8 @@
 #
 # === MULLE-SDE START ===
 
-include( _CMakeHeaders)
-include( _CMakeSources)
+include( _Headers)
+include( _Sources)
 
 # === MULLE-SDE END ===
 #

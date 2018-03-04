@@ -29,7 +29,7 @@
 #   ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 #   POSSIBILITY OF SUCH DAMAGE.
 #
-# Create fresh CMakeHeadersAndSources.cmake from filesystem information
+# Create fresh HeadersAndSources.cmake from filesystem information
 #
 [ "${TRACE}" = "YES" ] && set -x && : "$0" "$@"
 
@@ -121,9 +121,9 @@ emit_by_category()
 }
 
 
-emit_headers()
+create_headers_file()
 {
-   log_entry "emit_headers" "$@"
+   log_entry "create_headers_file" "$@"
 
    local categorized_files="$1"
 
@@ -156,19 +156,19 @@ ${text_hdr2}"
 
    log_fluff "Create cmake header files (${PWD})"
 
-   MULLE_SDE_CMAKE_HEADERS_FILE="${MULLE_SDE_CMAKE_HEADERS_FILE:-cmake/_CMakeHeaders.cmake}"
+   MULLE_SDE_CMAKE_HEADERS_FILE="${MULLE_SDE_CMAKE_HEADERS_FILE:-cmake/_Headers.cmake}"
 
    log_verbose "Writing ${C_RESET_BOLD}${MULLE_SDE_CMAKE_HEADERS_FILE}"
    exekutor mkdir -p  "`fast_dirname "${MULLE_SDE_CMAKE_HEADERS_FILE}"`"
    exekutor chmod a+w "${MULLE_SDE_CMAKE_HEADERS_FILE}"  2> /dev/null
    redirect_exekutor "${MULLE_SDE_CMAKE_HEADERS_FILE}" echo "${text_hdr}"
-   exekutor chmod a-w "${MULLE_SDE_CMAKE_HEADERS_FILE}" 
+   exekutor chmod a-w "${MULLE_SDE_CMAKE_HEADERS_FILE}"
 }
 
 
-emit_sources()
+create_sources_file()
 {
-   log_entry "emit_sources" "$@"
+   log_entry "create_sources_file" "$@"
 
    local categorized_files="$1"
 
@@ -204,14 +204,14 @@ ${text_src}"
 
    log_fluff "Create cmake source files (${PWD})"
 
-   MULLE_SDE_CMAKE_SOURCES_FILE="${MULLE_SDE_CMAKE_SOURCES_FILE:-cmake/_CMakeSources.cmake}"
+   MULLE_SDE_CMAKE_SOURCES_FILE="${MULLE_SDE_CMAKE_SOURCES_FILE:-cmake/_Sources.cmake}"
 
    log_verbose "Writing ${C_RESET_BOLD}${MULLE_SDE_CMAKE_SOURCES_FILE}"
    exekutor mkdir -p  "`fast_dirname "${MULLE_SDE_CMAKE_SOURCES_FILE}"`" 2> /dev/null
    exekutor chmod a+w "${MULLE_SDE_CMAKE_SOURCES_FILE}"  2> /dev/null
    redirect_exekutor "${MULLE_SDE_CMAKE_SOURCES_FILE}" echo "${text_src}"
-   exekutor chmod a-w "${MULLE_SDE_CMAKE_SOURCES_FILE}" 
-} 
+   exekutor chmod a-w "${MULLE_SDE_CMAKE_SOURCES_FILE}"
+}
 
 
 main()
@@ -244,7 +244,7 @@ main()
       fi
 
       case "$1" in
-         -h|--help)
+         -h*|--help|help)
             usage
          ;;
 
@@ -290,8 +290,8 @@ main()
 
    categorized_files="`sort -t';' -k 1,2 <<< "${categorized_files}" `"
 
-   emit_headers "${categorized_files}" &
-   emit_sources "${categorized_files}" &
+   create_headers_file "${categorized_files}" &
+   create_sources_file "${categorized_files}" &
 
    log_verbose "waiting..."
    wait

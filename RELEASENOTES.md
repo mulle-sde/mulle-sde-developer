@@ -1,3 +1,9 @@
+## 0.4.0
+
+* lose redundant CMake prefix off many files
+* use an improved scheme do locate and inherit DependenciesAndLibraries.cmake
+
+
 ## 0.3.0
 
 * greatly improved the cmake include code
