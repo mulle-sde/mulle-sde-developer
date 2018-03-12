@@ -21,12 +21,12 @@ other       | Install prerequisite [mulle-sde](//github.com/mulle-sde/mulle-sde)
 
 **mulle-sde** affects an *update* by calling the `source` and `sourcetree`
 callbacks and executing the required tasks. These callbacks and tasks are when
-choosing the *buildtool* extension `mulle-sde:cmake`.
+choosing the *buildtool* extension `mulle-sde/cmake`.
 
 ![](dox/mulle-sde-update.png)
 
 The callbacks trigger the "cmake-source-update" and "cmake-sourcetree-update"
-tasks. 
+tasks.
 
 **cmake-source-update** will create the files `_Headers.cmake`
 and `_Sources.cmake` from the examination of the `src` folder and its

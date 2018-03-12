@@ -264,6 +264,9 @@ main()
 
    [ $# -ne 0 ] && usage "superflous arguments $*"
 
+   MULLE_MATCH="${MULLE_MATCH:-`command -v mulle-match`}"
+   [ -z "${MULLE_MATCH}" ] && fail "mulle-match not in PATH"
+
    #
    # With 1000 header and 1000 source files, a full update takes ~7s on
    # my machine. It certainly would be interesting to make this properly
@@ -275,8 +278,8 @@ main()
    #
    local categorized_files
 
-   if ! categorized_files="`exekutor mulle-monitor ${MULLE_MONITOR_FLAGS} \
-                                 find --format "%I;%f\\n" \
+   if ! categorized_files="`exekutor "${MULLE_MATCH}" ${MULLE_MONITOR_FLAGS} \
+                                 find --format "%C;%f\\n" \
                                       --match-filter "source"`"
    then
       return 1

@@ -1,3 +1,7 @@
+### 0.4.1
+
+* fix for different format
+
 ## 0.4.0
 
 * lose redundant CMake prefix off many files
