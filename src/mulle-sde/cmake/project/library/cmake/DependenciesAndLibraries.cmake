@@ -1,7 +1,9 @@
 if( NOT __<|PROJECT_UPCASE_IDENTIFIER|>_DEPENDENCIES_AND_LIBRARIES_CMAKE__)
    set( __<|PROJECT_UPCASE_IDENTIFIER|>_DEPENDENCIES_AND_LIBRARIES_CMAKE__ ON)
 
-   message( STATUS "# Include <|PROJECT_NAME|> DependenciesAndLibraries.cmake")
+   if( MULLE_TRACE_INCLUDE)
+      message( STATUS "# Include \"${CMAKE_CURRENT_LIST_FILE}\"")
+   endif()
 
    #
    # Put your find_library() statements here to import other libraries
@@ -16,8 +18,6 @@ if( NOT __<|PROJECT_UPCASE_IDENTIFIER|>_DEPENDENCIES_AND_LIBRARIES_CMAKE__)
    # overwritten frequently.
    #
    # === MULLE-SDE START ===
-
-   # `mulle-sde update` will generate these files
 
    include( _Dependencies)
    include( _Libraries)

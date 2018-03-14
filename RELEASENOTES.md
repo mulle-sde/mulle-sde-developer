@@ -1,3 +1,7 @@
+### 0.4.2
+
+* general improvements in generated files with `MULLE_TRACE_INCLUDE`
+
 ### 0.4.1
 
 * fix for different format

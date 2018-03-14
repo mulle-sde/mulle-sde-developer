@@ -1,7 +1,6 @@
-#
-# You can put source and resource file definitions here.
-#
-
+if( MULLE_TRACE_INCLUDE)
+   message( STATUS "# Include \"${CMAKE_CURRENT_LIST_FILE}\"" )
+endif()
 
 #
 # The following includes include definitions generated
