@@ -1,3 +1,7 @@
+### 0.4.3
+
+* no date in generated files for less git problems
+
 ### 0.4.2
 
 * general improvements in generated files with `MULLE_TRACE_INCLUDE`
