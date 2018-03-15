@@ -1,3 +1,7 @@
+### 0.4.4
+
+* use new clobber an all subdirs
+
 ### 0.4.3
 
 * no date in generated files for less git problems
