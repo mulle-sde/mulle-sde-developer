@@ -208,7 +208,6 @@ EOF
 }
 
 
-
 emit_cmake_dependency()
 {
    log_entry "emit_cmake_dependency" "$@"
@@ -365,7 +364,6 @@ ${text_lib}"
    redirect_exekutor "${MULLE_SDE_LIBRARIES_FILE}" echo "${text_lib}"
    exekutor chmod a-w "${MULLE_SDE_LIBRARIES_FILE}"
 }
-
 
 
 write_dependencies_file()

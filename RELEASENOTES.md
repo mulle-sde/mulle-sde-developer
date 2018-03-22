@@ -1,3 +1,7 @@
+### 0.4.5
+
+* put cmake files into clobber
+
 ### 0.4.4
 
 * use new clobber an all subdirs
