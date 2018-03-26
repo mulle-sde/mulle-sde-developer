@@ -1,3 +1,7 @@
+### 0.4.6
+
+* improved output of cmake files
+
 ### 0.4.5
 
 * put cmake files into clobber

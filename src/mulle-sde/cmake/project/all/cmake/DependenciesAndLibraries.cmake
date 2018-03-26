@@ -16,5 +16,5 @@ include( _Libraries)
 # with the sourcetree, add them here.
 #
 # Add OS specific dependencies to OS_SPECIFIC_LIBRARIES
-# Add all other dependencies (rest) to DEPENDENCIES_LIBRARIES
+# Add all other dependencies (rest) to DEPENDENCY_LIBRARIES
 #

@@ -127,18 +127,39 @@ osexclude_to_cmake_if()
 }
 
 
-_emit_cmake_dependency()
+_emit_cmake_find_library()
 {
-   log_entry "_emit_cmake_dependency" "$@"
+   log_entry "_emit_cmake_find_library" "$@"
+
+   local preference="$1"; shift
 
    local aliases="$1"
    local identifier="$2"
    local containername="$3"
    local indent="$4"
 
+   local libraries
+   local i
+
+   for i in ${aliases}
+   do
+      case "${preference}" in
+         "static")
+            libraries="`concat "${libraries}" "\\\${CMAKE_STATIC_LIBRARY_PREFIX}${i}\\\${CMAKE_STATIC_LIBRARY_SUFFIX}"`"
+         ;;
+
+         "shared")
+            libraries="`concat "${libraries}" "\\\${CMAKE_SHARED_LIBRARY_PREFIX}${i}\\\${CMAKE_SHARED_LIBRARY_SUFFIX}"`"
+         ;;
+      esac
+
+      # fallback to whatever linkage
+      libraries="`concat "${libraries}" "${i}"`"
+   done
+
    cat <<EOF
 ${indent}if( NOT ${identifier}_LIBRARY)
-${indent}   find_library( ${identifier}_LIBRARY NAMES ${aliases})
+${indent}   find_library( ${identifier}_LIBRARY NAMES ${libraries})
 ${indent}   message( STATUS "${identifier}_LIBRARY is \${${identifier}_LIBRARY}")
 ${indent}   set( ${containername}
 ${indent}      \${${identifier}_LIBRARY}
@@ -147,28 +168,48 @@ ${indent}      CACHE INTERNAL "need to cache this"
 ${indent}   )
 ${indent}   if( ${identifier}_LIBRARY)
 ${indent}      # temporarily expand CMAKE_MODULE_PATH
-${indent}      get_filename_component( TMP_${identifier}_ROOT "\${${identifier}_LIBRARY}" DIRECTORY)
-${indent}      get_filename_component( TMP_${identifier}_ROOT "\${TMP_${identifier}_ROOT}" DIRECTORY)
+${indent}      get_filename_component( _TMP_${identifier}_ROOT "\${${identifier}_LIBRARY}" DIRECTORY)
+${indent}      get_filename_component( _TMP_${identifier}_ROOT "\${_TMP_${identifier}_ROOT}" DIRECTORY)
 ${indent}      set( MEMO_CMAKE_MODULE_PATH "\${CMAKE_MODULE_PATH}")
-${indent}      list( INSERT CMAKE_MODULE_PATH 0 "\${TMP_${identifier}_ROOT}/include/cmake")
-${indent}      # use explicit path to avoid "surprises"
 ${indent}      unset( ${identifier}_DEFINITIONS)
-${indent}      include( "\${TMP_${identifier}_ROOT}/include/cmake/DependenciesAndLibraries.cmake" OPTIONAL)
-${indent}      set( CMAKE_MODULE_PATH "\${MEMO_CMAKE_MODULE_PATH}")
 ${indent}
-${indent}      set( INHERITED_DEFINITIONS
-${indent}           \${${identifier}_DEFINITIONS}
-${indent}           \${INHERITED_DEFINITIONS}
-${indent}      )
+${indent}      foreach( _TMP_${identifier}_NAME in ${aliases})
+${indent}         set( CMAKE_MODULE_PATH "\${MEMO_CMAKE_MODULE_PATH}")
+${indent}         list( INSERT CMAKE_MODULE_PATH 0 "\${_TMP_${identifier}_ROOT}/include/\${_TMP_${identifier}_NAME}/cmake")
+${indent}         # use explicit path to avoid "surprises"
+${indent}         if( EXISTS "\${_TMP_${identifier}_ROOT}/include/\${_TMP_${identifier}_NAME}/cmake/DependenciesAndLibraries.cmake")
+${indent}            include( "\${_TMP_${identifier}_ROOT}/include/\${_TMP_${identifier}_NAME}/cmake/DependenciesAndLibraries.cmake")
+${indent}            set( INHERITED_DEFINITIONS
+${indent}                    \${${identifier}_DEFINITIONS}
+${indent}                    \${INHERITED_DEFINITIONS}
+${indent}            )
+${indent}            break()
+${indent}         endif()
+${indent}      endforeach()
+${indent}      set( CMAKE_MODULE_PATH "\${MEMO_CMAKE_MODULE_PATH}")
 ${indent}  endif()
 ${indent}endif()
 EOF
 }
 
 
+_emit_cmake_library()
+{
+   log_entry "_emit_cmake_library" "$@"
+
+   _emit_cmake_find_library "any" "$@"
+}
+
+
+_emit_cmake_dependency()
+{
+   log_entry "_emit_cmake_dependency" "$@"
+
+   _emit_cmake_find_library "static" "$@"
+}
+
+
 #
-# I suppose header only libraries might want to expose link stuff too ?
-# shouldn't hurt
 #
 _emit_cmake_header_only()
 {
@@ -179,30 +220,27 @@ _emit_cmake_header_only()
    local containername="$3"
    local indent="$4"
 
+   local headers
+   local i
+
+   for i in ${aliases}
+   do
+      headers="`concat "${headers}" "${i}.h"`"
+      headers="`concat "${headers}" "${i}/${i}.h"`"
+   done
+
+   #
+   # the idea here is that cmake should generate the proper -I option
+   #
    cat <<EOF
 ${indent}if( NOT ${identifier}_HEADER)
-${indent}   find_file( ${identifier}_HEADER NAMES ${aliases})
+${indent}   find_file( ${identifier}_HEADER NAMES ${headers})
 ${indent}   message( STATUS "${identifier}_HEADER is \${${identifier}_HEADER}")
 ${indent}   set( ${containername}
 ${indent}      \${${identifier}_HEADER}
 ${indent}      \${${containername}}
 ${indent}      CACHE INTERNAL "need to cache this"
 ${indent}   )
-${indent}   if( ${identifier}_HEADER)
-${indent}      # temporarily expand CMAKE_MODULE_PATH
-${indent}      get_filename_component( TMP_${identifier}_ROOT "\${${identifier}_HEADER}" DIRECTORY)
-${indent}      set( MEMO_CMAKE_MODULE_PATH "\${CMAKE_MODULE_PATH}")
-${indent}      list( INSERT CMAKE_MODULE_PATH 0 "\${TMP_${identifier}_ROOT}/cmake")
-${indent}      # use explicit path to avoid "surprises"
-${indent}      unset( ${identifier}_DEFINITIONS)
-${indent}      include( "\${TMP_${identifier}_ROOT}/cmake/DependenciesAndLibraries.cmake" OPTIONAL)
-${indent}      set( CMAKE_MODULE_PATH "\${MEMO_CMAKE_MODULE_PATH}")
-${indent}
-${indent}      set( INHERITED_DEFINITIONS
-${indent}           \${${identifier}_DEFINITIONS}
-${indent}           \${INHERITED_DEFINITIONS}
-${indent}      )
-${indent}  endif()
 ${indent}endif()
 EOF
 }
@@ -281,7 +319,7 @@ emit_cmake_dependencies()
 
       log_debug "read \"${dependency}\""
 
-      IFS=";" read address marks aliases <<< "${dependency}"
+      IFS=";" read address marks aliases include <<< "${dependency}"
 
       log_debug "address: ${address}"
       log_debug "marks:   ${marks}"
@@ -338,7 +376,7 @@ write_libraries_file()
                                                          --no-output-header`" || return 1
       log_debug "library: ${library}"
       text_lib="`emit_cmake_dependencies "${library}" \
-                                         "_emit_cmake_dependency" \
+                                         "_emit_cmake_library" \
                                          "OS_SPECIFIC_LIBRARIES"`" || return 1
 
       text_lib="`add_line "${text_header}" "${text_lib}"`"
