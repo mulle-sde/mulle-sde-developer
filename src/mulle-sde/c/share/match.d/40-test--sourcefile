@@ -1,0 +1,3 @@
+test/**/*.h
+test/**/*.inc
+test/**/*.c

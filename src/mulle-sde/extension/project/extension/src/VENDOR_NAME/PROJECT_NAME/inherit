@@ -1,0 +1,10 @@
+# Optional: Specify an extension to inherit from
+#           meta extensions specify multiple extensions like so:
+#              mulle.sde/c;runtime
+#              mulle.sde/cmake;buildtool
+#
+# If you don't need it, delete it.
+#
+# mulle-sde/sde
+# mulle-sde/c
+# mulle-sde/cmake

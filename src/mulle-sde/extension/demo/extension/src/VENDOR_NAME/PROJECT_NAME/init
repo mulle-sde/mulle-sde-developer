@@ -1,0 +1,105 @@
+#! /usr/bin/env bash
+#
+
+[ "${TRACE}" = "YES" ] && set -x && : "$0" "$@"
+
+
+setup_project()
+{
+   log_entry "setup_project" "$@"
+
+   fail "<|PROJECT_NAME|> setup_project is sloppy"
+}
+
+
+setup_demo()
+{
+   log_entry "setup_demo" "$@"
+
+   fail "<|PROJECT_NAME|> setup_demo is sloppy"
+}
+
+
+setup()
+{
+   log_entry "setup" "$@"
+
+   fail "<|PROJECT_NAME|> setup is sloppy"
+}
+
+
+main()
+{
+   local OPTION_MARKS
+   local MULLE_FLAG_MAGNUM_FORCE="NO"
+
+   while [ $# -ne 0 ]
+   do
+      if options_technical_flags "$1"
+      then
+         shift
+         continue
+      fi
+
+      case "$1" in
+         --f)
+            MULLE_FLAG_MAGNUM_FORCE="YES"
+         ;;
+
+         --marks)
+            shift
+            OPTION_MARKS="$1"
+         ;;
+
+         -*)
+            log_error "unknown option \"$1\""
+            exit 1
+         ;;
+
+         *)
+            break
+         ;;
+      esac
+
+      shift
+   done
+
+   options_setup_trace "${MULLE_TRACE}"
+
+   case ",${OPTION_MARKS}," in
+      *,no-demo,*)
+      ;;
+
+      *)
+         setup_demo "$@"
+      ;;
+   esac
+
+   case ",${OPTION_MARKS}," in
+      *,no-project,*)
+      ;;
+
+      *)
+         setup_project "$@"
+      ;;
+   esac
+
+   setup "$@"
+}
+
+
+_init()
+{
+   if [ -z "${MULLE_BASHFUNCTIONS_LIBEXEC_DIR}" ]
+   then
+      MULLE_BASHFUNCTIONS_LIBEXEC_DIR="`mulle-bashfunctions-env "libexec-dir" 2> /dev/null`"
+      [ -z "${MULLE_BASHFUNCTIONS_LIBEXEC_DIR}" ] && \
+         echo "mulle-bashfunctions-env not installed" >&2 && \
+         exit 1
+   fi
+
+   . "${MULLE_BASHFUNCTIONS_LIBEXEC_DIR}/mulle-bashfunctions.sh" "minimal" || exit 1
+}
+
+_init "$@"
+main "$@"

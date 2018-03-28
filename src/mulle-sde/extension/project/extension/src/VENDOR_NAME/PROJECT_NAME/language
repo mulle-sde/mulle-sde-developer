@@ -1,0 +1,5 @@
+# optional: specify a language like "c"
+#
+# If your extension doesn't need it, delete it.
+#
+<|PROJECT_LANGUAGE|>

@@ -1,0 +1,9 @@
+cc
+clang
+gcc
+ld
+otool
+name
+install_name_tool
+xcrun
+xcodebuild

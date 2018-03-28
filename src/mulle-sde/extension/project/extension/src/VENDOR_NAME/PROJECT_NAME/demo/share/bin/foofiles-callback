@@ -1,0 +1,6 @@
+#! /bin/sh
+
+# a callback to trigger a task. If you have no callbacks delete bin and
+# libexec.
+#
+echo "compile-foo"
