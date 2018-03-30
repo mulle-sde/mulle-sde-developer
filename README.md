@@ -1,4 +1,4 @@
-# 🏋🏼 mulle-sde, cmake support
+# 🏋🏼 mulle-sde, c, cmake and extension support
 
 This is a [mulle-sde](//github.com/mulle-sde/mulle-sde) *buildtool extension*
 for the [cmake](//cmake.org) build-system.
@@ -6,8 +6,6 @@ It is generally installed as a dependency to a *meta extension* such as
 [mulle-sde-cmake-c](//github.com/mulle-sde/mulle-sde-cmake-c), but it is usable
 on its own.
 
-This extension generates the cmake files that perform the `find_library`
-calls to locate dependencies.
 
 ## Install
 

@@ -1,3 +1,8 @@
+### 0.4.7
+
+* various improvements
+* initial version, mostly based on old mulle-sde-cmake
+
 ### 0.4.6
 
 * improved output of cmake files
