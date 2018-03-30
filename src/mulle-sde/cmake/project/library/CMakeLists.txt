@@ -64,8 +64,4 @@ install( FILES ${PRIVATE_HEADERS} DESTINATION "include/<|PROJECT_NAME|>/private"
 
 install( FILES ${CMAKE_INCLUDES}  DESTINATION "include/<|PROJECT_NAME|>/cmake")
 
-if( EXISTS ".mulle-craft/etc/info" )
-   install( DIRECTORIES ".mulle-craft/etc/info" DESTINATION "share/mulle-craft")
-endif()
-
 include( PostInstall OPTIONAL)

@@ -39,7 +39,7 @@ usage()
 Usage:
    c-sourcetree-update <action> <filename> <category>
 
-   This produces _dependencies.h
+   This produces the _dependencies.h or some similiarly named file.
 
 EOF
    exit 1
@@ -212,12 +212,20 @@ emit_c_include_dependency()
 }
 
 
-_emit_headers()
+emit_c_header()
 {
-   log_entry "_emit_headers" "$@"
+   log_entry "emit_c_header" "$@"
 
-   local headers="$1"; shift
-   local emitter="$1"; shift
+   # since the order of the headers is important and needs to be in treeorder
+   # we use mulle-sourcetree directly
+   local headers
+
+   headers="`exekutor mulle-sourcetree list \
+                                       --format "%a;%m;%i={aliases,,-------};\
+%i={include,,-------}\\n" \
+                                       --marks header \
+                                       --output-raw \
+                                       --no-output-header`" || return 1
 
    local dependency
 
@@ -233,38 +241,33 @@ _emit_headers()
 
       IFS=";" read address marks aliases include <<< "${header}"
 
-      if [ ! -z "${address}" ]
+      if [ -z "${address}" ]
       then
-         log_verbose "Emit statements for ${C_MAGENTA}${C_BOLD}${address}"
-         ${emitter} "${address}" "${marks}" "${aliases}" "${include}" "$@"
+         continue
       fi
+
+      log_verbose "Emit statements for ${C_MAGENTA}${C_BOLD}${address}"
+
+      case ",${marks}," in
+         *,no-dependency,*)
+            emit_c_include_library "${address}" \
+                                   "${marks}" \
+                                   "${aliases}" \
+                                   "${include}" \
+                                   "$@"
+         ;;
+
+         *)
+            emit_c_include_dependency "${address}" \
+                                      "${marks}" \
+                                      "${aliases}" \
+                                      "${include}" \
+                                      "$@"
+         ;;
+      esac
    done
+
    IFS="${DEFAULT_IFS}"; set +o noglob
-}
-
-
-
-emit_c_header()
-{
-   log_entry "emit_c_header" "$@"
-
-   local headers
-
-   headers="`exekutor mulle-sde dependency list \
-                                   --marks header \
-                                   --\
-                                   --output-raw \
-                                   --no-output-header`" || return 1
-
-   _emit_headers "${headers}" emit_c_include_dependency
-
-   headers="`exekutor mulle-sde library list \
-                                   --marks header \
-                                   --\
-                                   --output-raw \
-                                   --no-output-header`" || return 1
-   _emit_headers "${headers}" emit_c_include_library
-
 }
 
 
@@ -273,6 +276,7 @@ main()
    log_entry "main" "$@"
 
    # technical flags
+   local MULLE_TRACE
    local MULLE_FLAG_DONT_DEFER="NO"
    local MULLE_FLAG_EXEKUTOR_DRY_RUN="NO"
    local MULLE_FLAG_FOLLOW_SYMLINKS="YES"
