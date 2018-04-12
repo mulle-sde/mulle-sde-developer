@@ -1,7 +1,0 @@
-# optional: specify a language dialect (like objc)
-# you should inherit from another runtime then though, if you specify a
-# dialect. A runtime which specifies the language.
-#
-# If your extension doesn't need it, delete it.
-#
-Sloppy_<|PROJECT_IDENTIFIER|>

@@ -1,2 +1,2 @@
 # inherit from sde, to get sourcetree callback and task stuff
-mulle-sde/sde
+mulle-sde/sde;extra

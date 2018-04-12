@@ -318,6 +318,14 @@ emit_cmake_dependency()
    local indent
    local ifstatement
    local endifstatement
+   local name
+
+   #
+   # ALL_LOAD_ is the default for Objective-C static libraries and is the
+   # default. "C" libraries are marked with no-all-load and remove the
+   # prefix
+   #
+   name="ALL_LOAD_${containername}"
 
    if [ ! -z "${marks}" ]
    then
@@ -326,6 +334,12 @@ emit_cmake_dependency()
       then
          indent="   "
       fi
+
+      case ",${marks}," in
+         *,no-all-load,*)
+            name="${containername}"
+         ;;
+      esac
    fi
 
    if [ ! -z "${ifstatement}" ]
@@ -340,7 +354,7 @@ emit_cmake_dependency()
 
    "${emitter}" "${aliases}" \
                 "${identifier}" \
-                "${containername}" \
+                "${name}" \
                 "${marks}" \
                 "${indent}"
 

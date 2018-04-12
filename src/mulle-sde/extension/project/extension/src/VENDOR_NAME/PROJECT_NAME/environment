@@ -8,6 +8,6 @@
 
 #
 # Assume we are not cmake backed, we should tell mulle-sde that our callback
-# should run during UPDATE. Callbacks are comma-separated.
+# should run during UPDATE.
 #
-MULLE_SDE_UPDATE_CALLBACKS="foofiles"
+MULLE_SDE_UPDATE_CALLBACKS+="foofiles"

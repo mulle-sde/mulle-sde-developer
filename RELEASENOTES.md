@@ -1,3 +1,7 @@
+### 0.4.8
+
+* improved extension handling with respect to environment
+
 ### 0.4.7
 
 * various improvements

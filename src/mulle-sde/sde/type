@@ -1,5 +1,5 @@
 #
-# its a buildtool, because buildtools inherit from it to gain
-# sourcetree and motd
+# Its a runtime, so it's run first when runtimes inherit from it.
+# If it was a buildtool, it would come second.
 #
-buildtool
+extra
