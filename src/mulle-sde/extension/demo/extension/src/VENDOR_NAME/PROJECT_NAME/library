@@ -1,6 +1,0 @@
-# Specify arguments to `mulle-sde library add --if-missing <arguments>`
-# to add libraries to the mulle-sourcetree
-#
-# If you don't need it, delete it.
-#
-<|PROJECT_DOWNCASE_IDENTIFIER|>_is_sloppy

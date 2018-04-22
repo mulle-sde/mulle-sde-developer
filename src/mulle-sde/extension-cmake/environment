@@ -1,14 +1,4 @@
 #
-# No headers needed for an extension (is shell scripts)
-#
-MULLE_SDE_CMAKE_HEADERS_FILE="NONE"
-
-#
-# We have no dependencies or libraries
-#
-MULLE_SDE_UPDATE_CALLBACKS="source"
-
-#
 #
 #
 MULLE_SDE_CRAFT_STYLE="project"

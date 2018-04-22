@@ -1,53 +1,42 @@
 # 🏋🏼 mulle-sde, c, cmake and extension support
 
-This is a [mulle-sde](//github.com/mulle-sde/mulle-sde) *buildtool extension*
-for the [cmake](//cmake.org) build-system.
-It is generally installed as a dependency to a *meta extension* such as
-[mulle-sde-cmake-c](//github.com/mulle-sde/mulle-sde-cmake-c), but it is usable
-on its own.
+This is a base collection of [mulle-sde](//github.com/mulle-sde/mulle-sde)
+*extensions*.
+
+
+Extension                      | Type      | Description
+-------------------------------|-----------|-----------------------------------
+mulle-sde/c-developer          | meta      | Create plain C projects
+mulle-sde/extension-developer  | meta      | Create mulle-sde extesnsions
+mulle-sde/sde                  | extra     | Base extension functionality
 
 
 ## Install
 
 OS          | Command
 ------------|------------------------------------
-macos       | `brew install mulle-kybernetik/software/mulle-sde-cmake`
+macos       | `brew install mulle-kybernetik/software/mulle-sde-developer`
 other       | Install prerequisite [mulle-sde](//github.com/mulle-sde/mulle-sde) first. Then `./install.sh`
 
 
-## mulle-sde integration
+## Using the extensions
 
-**mulle-sde** affects an *update* by calling the `source` and `sourcetree`
-callbacks and executing the required tasks. These callbacks and tasks are when
-choosing the *buildtool* extension `mulle-sde/cmake`.
-
-![](dox/mulle-sde-update.png)
-
-The callbacks trigger the "cmake-source-update" and "cmake-sourcetree-update"
-tasks.
-
-**cmake-source-update** will create the files `_Headers.cmake`
-and `_Sources.cmake` from the examination of the `src` folder and its
-subfolders according to the installed *patternfiles*.
-
-**cmake-sourcetree-update** will create `_Dependencies.cmake`
-and `_Libraries.cmake` from the contents of the
-[mulle-sourcetree](/mulle-sde/mulle-sourcetree).
-
-
-![](dox/mulle-sde-update-fs.png)
-
-
-## Customization
-
-`cmake-source-update` will emit cmake definitions according to the
-*patternfile* category. As an example:
-
-Your *patternfile* is called `00-source--experimental`. All files matching
-this *patternfile* will be emitted as:
+Check that the (meta) extensions are found:
 
 ```
-set( EXPERIMENTAL
-...
-)
+mulle-sde extension list
 ```
+
+Create a C project like so:
+
+```
+mulle-sde init -m mulle-sde/c-developer executable
+```
+
+Create a mulle-sde extension project like so:
+
+```
+mulle-sde init -m mulle-sde/extension-developer extension
+```
+
+

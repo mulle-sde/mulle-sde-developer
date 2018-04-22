@@ -1,0 +1,20 @@
+#! /usr/bin/env bash
+
+[ "${TRACE}" = "YES" ] && set -x && : "$0" "$@"
+
+VENDOR_NAME="`MULLE_VIRTUAL_ROOT="${PWD}" \
+   mulle-env -s ${MULLE_ENV_FLAGS} environment get VENDOR_NAME`"
+
+if [ -z "${VENDOR_NAME}" ]
+then
+   cat << EOF
+You must specify -DVENDOR_NAME=<your vendor> for an extension.
+
+Example:
+   mulle-sde init -m mulle-sde/extension-developer \\
+                  -DVENDOR_NAME="mulle-nat" \\
+                  extension
+
+EOF
+   exit 1
+fi

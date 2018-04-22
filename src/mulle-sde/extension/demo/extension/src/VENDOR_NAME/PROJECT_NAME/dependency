@@ -1,6 +1,0 @@
-# Specify arguments to `mulle-sde dependency add --if-missing <arguments>`
-# to add dependencies to the mulle-sourcetree
-#
-# If you don't need it, delete it.
-#
-https://www.sloppy.com/deleteme/<|PROJECT_DOWNCASE_IDENTIFIER|>.git
