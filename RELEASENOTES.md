@@ -1,3 +1,8 @@
+### 0.4.9
+
+* adapt to versionfile change in mulle-sde, remove some clutter, fix stuff
+* adapt to versionfile change in mulle-sde, remove some clutter, fix stuff
+
 ### 0.4.8
 
 * improved extension handling with respect to environment
