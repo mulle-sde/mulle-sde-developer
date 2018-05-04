@@ -1,7 +1,7 @@
 #
 # These are used by `mulle-match find` to locate files
 #
-MULLE_MATCH_FIND_LOCATIONS+="src"
+MULLE_MATCH_FIND_LOCATIONS="${PROJECT_SOURCE_DIR}"
 
 #
 # These are used by `mulle-match find` to speed up the search.

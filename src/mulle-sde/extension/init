@@ -2,12 +2,16 @@
 
 [ "${TRACE}" = "YES" ] && set -x && : "$0" "$@"
 
+#
+# For extra extensions and the like we keep VENDOR_NAME around in the
+# persisten environment, so upgrading works
+#
 VENDOR_NAME="`MULLE_VIRTUAL_ROOT="${PWD}" \
    mulle-env -s ${MULLE_ENV_FLAGS} environment get VENDOR_NAME`"
 
 if [ -z "${VENDOR_NAME}" ]
 then
-   cat << EOF
+   cat <<EOF >&2
 You must specify -DVENDOR_NAME=<your vendor> for an extension.
 
 Example:

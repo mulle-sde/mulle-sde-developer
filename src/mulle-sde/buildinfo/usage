@@ -1,0 +1,8 @@
+Used by `mulle-sde dependency definition` to set up a subproject to hold the
+build settings for a dependency. This somewhat complicated setup is used to
+make your settings inheritable for other projects.
+
+Define then environment variable ONESHOT_NAME for properly named extension
+file names and file contents.
+
+   mulle-sde extension pimp --oneshot-name "foo" mulle-sde/buildinfo

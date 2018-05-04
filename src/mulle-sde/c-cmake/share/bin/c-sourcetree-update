@@ -119,9 +119,10 @@ _emit_c_include()
 {
    log_entry "_emit_c_include" "$@"
 
-   local header="$1"
-   local marks="$2"
-   local aliases="$3"
+   local address="$1"
+   local header="$2"
+   local marks="$3"
+   local aliases="$4"
 
    local indent
    local ifstatement
@@ -160,7 +161,7 @@ _emit_c_include()
       indent=" "
    fi
 
-   echo "# ${indent}include <${header}>"
+   echo "# ${indent}include <${header}>   // ${address}"
    if [ ! -z "${ifstatement}" ]
    then
       echo "# endif"
@@ -174,7 +175,7 @@ emit_c_include_library()
 {
    log_entry "emit_c_include_library" "$@"
 
-   local name="$1"
+   local address="$1"
    local marks="$2"
    local aliases="$3"
    local header="$4"
@@ -184,10 +185,13 @@ emit_c_include_library()
    #
    if [ -z "${header}" ]
    then
+      local name
+
+      name="`fast_basename "${address}"`"
       header="${name}.h"
    fi
 
-   _emit_c_include "${header}" "${marks}" "${aliases}"
+   _emit_c_include "${address}" "${header}" "${marks}" "${aliases}"
 
 }
 
@@ -195,7 +199,7 @@ emit_c_include_dependency()
 {
    log_entry "emit_c_include_dependency" "$@"
 
-   local name="$1"
+   local address="$1"
    local marks="$2"
    local aliases="$3"
    local header="$4"
@@ -205,10 +209,13 @@ emit_c_include_dependency()
    #
    if [ -z "${header}" ]
    then
+      local name
+
+      name="`fast_basename "${address}"`"
       header="${name}/${name}.h"
    fi
 
-   _emit_c_include "${header}" "${marks}" "${aliases}"
+   _emit_c_include "${address}" "${header}" "${marks}" "${aliases}"
 }
 
 
