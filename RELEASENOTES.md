@@ -1,3 +1,8 @@
+### 0.5.1
+
+* unified version across all extensions
+* add buildinfo oneshot extension, reorganize source patternfiles
+
 ### 0.4.9
 
 * adapt to versionfile change in mulle-sde, remove some clutter, fix stuff
