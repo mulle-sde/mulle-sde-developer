@@ -195,6 +195,7 @@ emit_c_include_library()
 
 }
 
+
 emit_c_include_dependency()
 {
    log_entry "emit_c_include_dependency" "$@"
@@ -337,8 +338,7 @@ main()
 
    local projectname
 
-   projectname="${MULLE_SDE_PROJECT_NAME}"
-   projectname="${projectname:-${PROJECT_NAME}}"
+   projectname="${PROJECT_NAME}"
    if [ -z "${projectname}" ]
    then
       projectname="`fast_basename "${PWD}"`" # could be nicer
@@ -351,7 +351,7 @@ main()
 
    if [ -z "${MULLE_SDE_DEPENDENCIES_HEADER_FILE}" ]
    then
-      MULLE_SDE_DEPENDENCIES_HEADER_FILE="src/_${projectname}-dependencies.h"
+      MULLE_SDE_DEPENDENCIES_HEADER_FILE="${PROJECT_SOURCE_DIR:-src}/_${projectname}-dependencies.h"
    fi
 
    local text_h

@@ -1,3 +1,7 @@
+### 0.5.2
+
+* rename install.sh to install and some more improvements
+
 ### 0.5.1
 
 * unified version across all extensions

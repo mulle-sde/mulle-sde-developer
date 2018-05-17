@@ -13,10 +13,44 @@ mulle-sde/sde                  | extra     | Base extension functionality
 
 ## Install
 
+There is an install-all script, that installs the pre-requisites and mulle-sde
+itself into `/usr`. Suitable for environments without packages:
+
+
+### Script
+
+There is an `install-all` script, that installs the pre-requisites and
+mulle-sde-developer itself into `/usr`. Suitable for environments without
+supported package managers:
+
+```
+curl -L -O 'https://raw.githubusercontent.com/mulle-sde/mulle-sde/release/install-all' && \
+chmod 755 install-all && \
+SDE_PROJECTS="mulle-sde-developer;latest" sudo ./install /usr
+```
+
+
+### Manually
+
+Install the pre-requisite and its pre-requisites:
+
+* [mulle-sde](https://github.com/mulle-sde/mulle-sde)
+
+
+Install latest version into `/usr` with sudo:
+
+```
+curl -L 'https://github.com/mulle-sde-developer/mulle-sde/archive/latest.tar.gz' \
+ | tar xfz - && cd 'mulle-sde-developer-latest' && sudo ./install /usr
+```
+
+
+### Packages
+
+
 OS          | Command
 ------------|------------------------------------
 macos       | `brew install mulle-kybernetik/software/mulle-sde-developer`
-other       | Install prerequisite [mulle-sde](//github.com/mulle-sde/mulle-sde) first. Then `./install.sh`
 
 
 ## Using the extensions
