@@ -13,10 +13,6 @@ mulle-sde/sde                  | extra     | Base extension functionality
 
 ## Install
 
-There is an install-all script, that installs the pre-requisites and mulle-sde
-itself into `/usr`. Suitable for environments without packages:
-
-
 ### Script
 
 There is an `install-all` script, that installs the pre-requisites and
@@ -41,7 +37,7 @@ Install latest version into `/usr` with sudo:
 
 ```
 curl -L 'https://github.com/mulle-sde-developer/mulle-sde/archive/latest.tar.gz' \
- | tar xfz - && cd 'mulle-sde-developer-latest' && sudo ./install /usr
+ | tar xfz - && cd 'mulle-sde-developer-latest' && sudo ./install-all /usr
 ```
 
 

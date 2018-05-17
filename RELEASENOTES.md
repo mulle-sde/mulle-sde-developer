@@ -1,3 +1,7 @@
+### 0.5.3
+
+* fix dox
+
 ### 0.5.2
 
 * rename install.sh to install and some more improvements
