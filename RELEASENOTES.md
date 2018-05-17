@@ -1,3 +1,7 @@
+### 0.5.4
+
+* fix install
+
 ### 0.5.3
 
 * fix dox
