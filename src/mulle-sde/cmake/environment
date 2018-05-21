@@ -1,8 +1,9 @@
 #
 # By default assume a project has source and a sourcetree
+# The order should be sourcetree then source
 #
-MULLE_SDE_UPDATE_CALLBACKS+="source"
 MULLE_SDE_UPDATE_CALLBACKS+="sourcetree"
+MULLE_SDE_UPDATE_CALLBACKS+="source"
 
 #
 # These are directories and files used by `mulle-match find` to locate files

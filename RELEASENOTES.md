@@ -1,3 +1,8 @@
+## 0.6.0
+
+* simplifiy the mulle-sde-developer callbacks as the monitor now crafts...
+
+
 ### 0.5.5
 
 * refix again because life is hard
