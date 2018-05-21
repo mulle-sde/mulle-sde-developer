@@ -21,7 +21,7 @@ supported package managers:
 
 ```
 curl -L -O 'https://raw.githubusercontent.com/mulle-sde/mulle-sde/release/installer-all' && \
-chmod 755 install-all && \
+chmod 755 installer-all && \
 sudo SDE_PROJECTS="mulle-sde-developer;latest" ./installer-all /usr
 ```
 
