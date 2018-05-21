@@ -1,3 +1,7 @@
+### 0.6.1
+
+* rename install to installer, because of name conflict
+
 ## 0.6.0
 
 * simplifiy the mulle-sde-developer callbacks as the monitor now crafts...

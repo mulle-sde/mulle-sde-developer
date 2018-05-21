@@ -20,9 +20,9 @@ mulle-sde-developer itself into `/usr`. Suitable for environments without
 supported package managers:
 
 ```
-curl -L -O 'https://raw.githubusercontent.com/mulle-sde/mulle-sde/release/install-all' && \
+curl -L -O 'https://raw.githubusercontent.com/mulle-sde/mulle-sde/release/installer-all' && \
 chmod 755 install-all && \
-sudo SDE_PROJECTS="mulle-sde-developer;latest" ./install /usr
+sudo SDE_PROJECTS="mulle-sde-developer;latest" ./installer-all /usr
 ```
 
 
