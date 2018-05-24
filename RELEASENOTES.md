@@ -1,3 +1,7 @@
+### 0.6.3
+
+* fix aliases output
+
 ### 0.6.2
 
 * rename fix README
