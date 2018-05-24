@@ -1,0 +1,4 @@
+# specify an extension of the same type to inherit, if any.
+# A meta extension may inherit a runtime and a buildtool in this order.
+# But a meta extension may inherit also any number for extra extensions.
+

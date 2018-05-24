@@ -1,3 +1,7 @@
+### 0.6.4
+
+* make README.md a demo thing
+
 ### 0.6.3
 
 * fix aliases output

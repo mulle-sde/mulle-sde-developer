@@ -45,7 +45,7 @@ Let extension do its thing someplace non-problematic:
 ```
 MULLE_SDE_EXTENSION_PATH="${PWD}/src:${MULLE_SDE_EXTENSION_PATH}" \
 MULLE_VIRTUAL_ROOT=  \
-   mulle-sde init -vvv -ld -lx -d /tmp/xxx -e <|VENDOR_NAME|>/<|PROJECT_NAME|> library
+   mulle-sde -vvv -ld -lx init -d /tmp/xxx -e <|VENDOR_NAME|>/<|PROJECT_NAME|> library
 ```
 
 ## Install
