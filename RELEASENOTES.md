@@ -1,3 +1,7 @@
+### 0.6.5
+
+* fix homebrew install ruby script
+
 ### 0.6.4
 
 * make README.md a demo thing
