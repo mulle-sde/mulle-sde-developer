@@ -1,3 +1,7 @@
+### 0.6.7
+
+* add DISABLED to `MULLE_SDE_CMAKE_SOURCES/HEADERS_FILE`
+
 ### 0.6.6
 
 * fix package dependencies more
