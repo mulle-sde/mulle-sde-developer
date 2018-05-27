@@ -1,3 +1,7 @@
+### 0.6.10
+
+* fix debian deps
+
 ### 0.6.9
 
 * add travis
