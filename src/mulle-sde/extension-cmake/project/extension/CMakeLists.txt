@@ -18,8 +18,9 @@ src/  #backslash is important
 )
 
 
-INSTALL( DIRECTORY ${EXTENSIONS}
-DESTINATION "share/mulle-sde/extensions")
+install( DIRECTORY ${EXTENSIONS}
+DESTINATION "share/mulle-sde/extensions"
+USE_SOURCE_PERMISSIONS)
 
 
 ######

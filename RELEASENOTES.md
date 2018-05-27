@@ -1,3 +1,7 @@
+### 0.6.11
+
+* fix init permission problem on install
+
 ### 0.6.10
 
 * fix debian deps
