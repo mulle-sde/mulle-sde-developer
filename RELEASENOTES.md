@@ -1,3 +1,7 @@
+### 0.6.9
+
+* add travis
+
 ### 0.6.8
 
 * improve debian package, fix a bug
