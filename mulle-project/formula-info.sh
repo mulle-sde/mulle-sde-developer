@@ -2,8 +2,8 @@
 # If you don't have this file, there will be no homebrew
 # formula operations.
 #
-PROJECT="mulle-sde-cmake"      # your project/repository name
-DESC="🏋🏼 mulle-sde, cmake support"
+PROJECT="mulle-sde-developer"      # your project/repository name
+DESC="🏋🏼 mulle-sde extensions for c/cmake/extension development"
 LANGUAGE="bash"             # c,cpp, objc, bash ...
 
 # LANGUAGE="c"             # c,cpp, objc, bash ...
@@ -17,10 +17,12 @@ LANGUAGE="bash"             # c,cpp, objc, bash ...
 # DEPENDENCIES and BUILD_DEPENDENCIES will be evaled later!
 # So keep them single quoted.
 #
-DEPENDENCIES='${TOOLS_TAP}mulle-sde
+DEPENDENCIES='${DEPENDENCY_TAP}/mulle-sde
 cmake
+git
 '
 
-DEBIAN_DEPENDENCIES="mulle-sde, cmake"
-
-
+DEBIAN_DEPENDENCIES='mulle-sde
+cmake( >= 3.0)
+git
+'

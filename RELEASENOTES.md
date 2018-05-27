@@ -1,3 +1,7 @@
+### 0.6.8
+
+* improve debian package, fix a bug
+
 ### 0.6.7
 
 * add DISABLED to `MULLE_SDE_CMAKE_SOURCES/HEADERS_FILE`
