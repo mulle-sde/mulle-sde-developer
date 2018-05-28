@@ -61,7 +61,7 @@ mulle-sde/c-developer
 ```
 
 
-## Using the extensions
+# Using the extensions
 
 Check that the (meta) extensions are found:
 
