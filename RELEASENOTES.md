@@ -1,3 +1,7 @@
+### 0.6.18
+
+* add Dockerfile
+
 ### 0.6.17
 
 * improve README.md

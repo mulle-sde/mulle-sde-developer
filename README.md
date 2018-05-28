@@ -51,6 +51,11 @@ chmod 755 installer-all && \
 sudo SDE_PROJECTS="mulle-sde-developer;latest" ./installer-all /usr
 ```
 
+### Docker
+
+There is a [Dockerfile](https://raw.githubusercontent.com/mulle-sde/mulle-sde-developer/release/Dockerfile) in the project.
+
+
 # Usage
 
 Check that the (meta) extensions are found:
