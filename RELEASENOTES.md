@@ -1,3 +1,8 @@
+### 0.6.13
+
+* improved brew formula defintion
+* fix formula tap prefix
+
 ### 0.6.12
 
 * fix formula tap prefix
