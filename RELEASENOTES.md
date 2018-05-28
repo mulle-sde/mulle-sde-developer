@@ -1,3 +1,7 @@
+### 0.6.16
+
+* simplify README
+
 ### 0.6.15
 
 * smallish chage

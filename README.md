@@ -1,7 +1,8 @@
 # 🏋🏼 mulle-sde, c, cmake and extension support
 
+
 This is a base collection of [mulle-sde](//github.com/mulle-sde/mulle-sde)
-*extensions*.
+*extensions*. It is also the most covenient way to install mulle-sde.
 
 
 Extension                      | Type      | Description
@@ -46,22 +47,7 @@ chmod 755 installer-all && \
 sudo SDE_PROJECTS="mulle-sde-developer;latest" ./installer-all /usr
 ```
 
-### Post Install
-
-
-After installation check with `mulle-sde extension list` that the extension
-is discoverable by **mulle-sde**
-
-```
-$ mulle-sde extension list | grep mulle-c
-Available meta extensions [-m <extension>]:
-...
-mulle-sde/c-developer
-...
-```
-
-
-# Using the extensions
+# Usage
 
 Check that the (meta) extensions are found:
 
