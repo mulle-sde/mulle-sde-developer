@@ -1,3 +1,7 @@
+### 0.6.12
+
+* fix formula tap prefix
+
 ### 0.6.11
 
 * fix init permission problem on install

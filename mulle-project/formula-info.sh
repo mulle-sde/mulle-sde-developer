@@ -17,7 +17,7 @@ LANGUAGE="bash"             # c,cpp, objc, bash ...
 # DEPENDENCIES and BUILD_DEPENDENCIES will be evaled later!
 # So keep them single quoted.
 #
-DEPENDENCIES='${DEPENDENCY_TAP}/mulle-sde
+DEPENDENCIES='${DEPENDENCY_TAP}mulle-sde
 cmake
 git
 '
