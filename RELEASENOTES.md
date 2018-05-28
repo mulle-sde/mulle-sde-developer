@@ -1,3 +1,7 @@
+### 0.6.14
+
+* improve README.md
+
 ### 0.6.13
 
 * improved brew formula defintion

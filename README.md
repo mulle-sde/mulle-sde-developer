@@ -13,10 +13,31 @@ mulle-sde/sde                  | extra     | Base extension functionality
 
 ## Install
 
+### Packages
+
+OS      | Command
+--------|------------------------------------
+macos   | `brew install mulle-kybernetik/software/mulle-sde-developer`
+debian  | `sudo apt-get -y install mulle-sde-developer` (but see below)
+ubuntu  | same as debian
+
+
+#### Debian Mulle kybernetiK repository
+
+For apt installation you need to add the Mulle kybernetiK debian repository
+first:
+
+```
+wget -O - "https://www.mulle-kybernetik.com/dists/debian-admin-pub.asc" | sudo apt-key add -
+echo "deb [arch=all] http://www.mulle-kybernetik.com `lsb_release -c -s` main" | sudo tee "/etc/apt/sources.list.d/mulle-kybernetik.com-main.list" > /dev/null
+sudo apt-get update
+```
+
+
 ### Script
 
 There is an `install-all` script, that installs the pre-requisites and
-mulle-sde-developer itself into `/usr`. Suitable for environments without
+mulle-c-developer itself into `/usr`. Suitable for environments without
 supported package managers:
 
 ```
@@ -25,28 +46,19 @@ chmod 755 installer-all && \
 sudo SDE_PROJECTS="mulle-sde-developer;latest" ./installer-all /usr
 ```
 
-
-### Manually
-
-Install the pre-requisite and its pre-requisites:
-
-* [mulle-sde](https://github.com/mulle-sde/mulle-sde)
+### Post Install
 
 
-Install latest version into `/usr` with sudo:
+After installation check with `mulle-sde extension list` that the extension
+is discoverable by **mulle-sde**
 
 ```
-curl -L 'https://github.com/mulle-sde-developer/mulle-sde/archive/latest.tar.gz' \
- | tar xfz - && cd 'mulle-sde-developer-latest' && sudo ./install-all /usr
+$ mulle-sde extension list | grep mulle-c
+Available meta extensions [-m <extension>]:
+...
+mulle-sde/c-developer
+...
 ```
-
-
-### Packages
-
-
-OS          | Command
-------------|------------------------------------
-macos       | `brew install mulle-kybernetik/software/mulle-sde-developer`
 
 
 ## Using the extensions
