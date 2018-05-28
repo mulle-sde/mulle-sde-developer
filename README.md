@@ -2,7 +2,10 @@
 
 
 This is a base collection of [mulle-sde](//github.com/mulle-sde/mulle-sde)
-*extensions*. It is also the most covenient way to install mulle-sde.
+*extensions*. It is also a convenient way to install mulle-sde.
+
+See the [mulle-sde Wiki](https://github.com/mulle-sde/mulle-sde/wiki) for
+an introduction on what **mulle-sde** is.
 
 
 Extension                      | Type      | Description
@@ -10,6 +13,7 @@ Extension                      | Type      | Description
 mulle-sde/c-developer          | meta      | Create plain C projects
 mulle-sde/extension-developer  | meta      | Create mulle-sde extesnsions
 mulle-sde/sde                  | extra     | Base extension functionality
+mulle-sde/sublime-text         | extra     | A sublime project file for editing
 
 
 ## Install

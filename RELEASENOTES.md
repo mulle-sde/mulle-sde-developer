@@ -1,3 +1,7 @@
+### 0.6.17
+
+* improve README.md
+
 ### 0.6.16
 
 * simplify README
