@@ -65,19 +65,26 @@ docker run -i -t --rm mulle-sde
 
 # Usage
 
-Check that the (meta) extensions are found:
+#### Check that the (meta) extensions are found:
 
 ```
 mulle-sde extension list
 ```
 
-Create a C project like so:
+### Create a C executable project
 
 ```
 mulle-sde init -m mulle-sde/c-developer executable
 ```
 
-Create a mulle-sde extension project like so:
+### Create a C library project
+
+```
+mulle-sde init -m mulle-sde/c-developer library
+```
+
+
+### Create a mulle-sde extension project
 
 ```
 mulle-sde init -m mulle-sde/extension-developer extension
