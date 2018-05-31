@@ -86,7 +86,7 @@ emit_common_directories()
 
    local collection
 
-   collection="`rexekutor sed -n -e 's|^[^;]*;\(.*\)/[^/]*\.h|\1|p' <<< "${items}" | sort -u`"
+   collection="`rexekutor sed -n -e 's|^[^;]*;\(.*\)/[^/]*\.h|\1|p' <<< "${items}" | LC_ALL=C sort -u`"
 
    if [ ! -z "${collection}" ]
    then
@@ -323,7 +323,7 @@ main()
       # exit 0 # but still create empty files, otherwise cmake is unhappy
    fi
 
-   categorized_files="`rexekutor sort -t';' -k 1,2 <<< "${categorized_files}" `"
+   categorized_files="`LC_ALL=C rexekutor sort -d -t';' -k 1,2 <<< "${categorized_files}" `"
 
    create_headers_file "${categorized_files}" &
    create_sources_file "${categorized_files}" &
