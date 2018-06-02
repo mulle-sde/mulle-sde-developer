@@ -1,3 +1,8 @@
+### 0.6.19
+
+* move `ALL_LOAD` up to sde
+* use `LC_ALL=C` for sort, improve .gitignore contents
+
 ### 0.6.18
 
 * add Dockerfile

@@ -55,22 +55,36 @@ sudo SDE_PROJECTS="mulle-sde-developer;latest" ./installer-all /usr
 
 There is a [Dockerfile](https://raw.githubusercontent.com/mulle-sde/mulle-sde-developer/release/Dockerfile) in the project.
 
+This will build and run an ephemeral mulle-sde container:
+
+```
+docker build -t mulle-sde 'https://raw.githubusercontent.com/mulle-sde/mulle-sde-developer/release/Dockerfile'
+docker run -i -t --rm mulle-sde
+```
+
 
 # Usage
 
-Check that the (meta) extensions are found:
+#### Check that the (meta) extensions are found:
 
 ```
 mulle-sde extension list
 ```
 
-Create a C project like so:
+### Create a C executable project
 
 ```
 mulle-sde init -m mulle-sde/c-developer executable
 ```
 
-Create a mulle-sde extension project like so:
+### Create a C library project
+
+```
+mulle-sde init -m mulle-sde/c-developer library
+```
+
+
+### Create a mulle-sde extension project
 
 ```
 mulle-sde init -m mulle-sde/extension-developer extension
