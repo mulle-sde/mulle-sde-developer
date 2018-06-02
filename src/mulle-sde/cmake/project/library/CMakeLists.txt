@@ -48,8 +48,6 @@ add_library( "<|PROJECT_NAME|>"
 if( BUILD_SHARED_LIBS)
    target_link_libraries( <|PROJECT_NAME|>
       ${DEPENDENCY_LIBRARIES}
-      ${ALL_LOAD_DEPENDENCY_LIBRARIES}
-      ${OPTIONAL_DEPENDENCY_LIBRARIES}
       ${OS_SPECIFIC_LIBRARIES}
    )
 endif()

@@ -13,4 +13,9 @@ include( _Sources)
 
 #
 # You can put more source and resource file definitions here.
+# If you don't like the "automatic" way of generating _Headers
+# and/or _Sources:
+#
+# MULLE_SDE_CMAKE_HEADERS_FILE="DISABLED" # or NONE
+# MULLE_SDE_CMAKE_SOURCES_FILE="DISABLED" # or NONE
 #

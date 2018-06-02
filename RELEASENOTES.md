@@ -1,3 +1,7 @@
+### 0.6.20
+
+* * don't overcomplicate sde, keep complexity in mulle-c
+
 ### 0.6.19
 
 * move `ALL_LOAD` up to sde
