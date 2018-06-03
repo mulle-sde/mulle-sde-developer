@@ -30,25 +30,35 @@ endforeach()
 
 include( PostFiles OPTIONAL)
 
-
-### Executable
-
-include( PreExecutable OPTIONAL)
-
-add_executable( <|PROJECT_NAME|>
+set( PROJECT_FILES
+   ${PROJECT_FILES}
    ${SOURCES}
    ${PUBLIC_HEADERS}
    ${PRIVATE_HEADERS}
    ${CMAKE_EDITABLE_FILES}
 )
 
+### Executable
 
-target_link_libraries( <|PROJECT_NAME|>
+include( PreExecutable OPTIONAL)
+
+add_executable( <|PROJECT_NAME|>
+   ${PROJECT_FILES}
+)
+
+set( EXECUTABLE_LIBRARY_LIST
    ${DEPENDENCY_LIBRARIES}
+   ${OPTIONAL_DEPENDENCY_LIBRARIES}
    ${OS_SPECIFIC_LIBRARIES}
 )
 
 include( PostExecutable OPTIONAL)
+
+
+target_link_libraries( <|PROJECT_NAME|>
+   ${EXECUTABLE_LIBRARY_LIST}
+)
+
 
 ### Install
 

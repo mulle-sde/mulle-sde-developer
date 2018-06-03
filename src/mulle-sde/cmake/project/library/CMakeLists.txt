@@ -34,31 +34,55 @@ include_directories( ${INCLUDE_DIRS})
 
 include( PostFiles OPTIONAL)
 
-### Library
-
-include( PreLibrary OPTIONAL)
-
-add_library( "<|PROJECT_NAME|>"
+set( PROJECT_FILES
+   ${PROJECT_FILES}
    ${SOURCES}
    ${PUBLIC_HEADERS}
    ${PRIVATE_HEADERS}
    ${CMAKE_EDITABLE_FILES}
 )
 
+### Library
+
+include( PreLibrary OPTIONAL)
+
+add_library( "<|PROJECT_NAME|>"
+   ${PROJECT_FILES}
+)
+
+
+set( INSTALL_LIBRARY_TARGETS
+   "<|PROJECT_NAME|>"
+)
+
+include( PostLibrary OPTIONAL)
+
+#
+# defined by cmake -DBUILD_SHARED_LIBS=ON
+#
 if( BUILD_SHARED_LIBS)
-   target_link_libraries( <|PROJECT_NAME|>
+   set( SHARED_LIBRARY_LIST
       ${DEPENDENCY_LIBRARIES}
+      ${OPTIONAL_DEPENDENCY_LIBRARIES}
       ${OS_SPECIFIC_LIBRARIES}
+   )
+
+   include( PostSharedLibrary OPTIONAL) # additional hook
+
+   target_link_libraries( <|PROJECT_NAME|>
+      ${SHARED_LIBRARY_LIST}
    )
 endif()
 
-include( PostLibrary OPTIONAL)
+# used by mulle-test
+include( Standalone OPTIONAL)
+
 
 ### Install
 
 include( PreInstall OPTIONAL)
 
-install( TARGETS "<|PROJECT_NAME|>" DESTINATION "lib")
+install( TARGETS ${INSTALL_LIBRARY_TARGETS} DESTINATION "lib")
 install( FILES ${PUBLIC_HEADERS}  DESTINATION "include/<|PROJECT_NAME|>")
 install( FILES ${PRIVATE_HEADERS} DESTINATION "include/<|PROJECT_NAME|>/private")
 

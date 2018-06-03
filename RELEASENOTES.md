@@ -1,3 +1,7 @@
+### 0.6.21
+
+* simplify and enhance CMakeLists.txt again
+
 ### 0.6.20
 
 * * don't overcomplicate sde, keep complexity in mulle-c
