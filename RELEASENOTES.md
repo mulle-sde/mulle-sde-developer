@@ -1,3 +1,7 @@
+### 0.6.22
+
+* improved logging, fixes for subprojects. small helper tool cmake-graphviz-include added
+
 ### 0.6.21
 
 * simplify and enhance CMakeLists.txt again

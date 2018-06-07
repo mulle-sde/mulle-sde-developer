@@ -74,9 +74,6 @@ if( BUILD_SHARED_LIBS)
    )
 endif()
 
-# used by mulle-test
-include( Standalone OPTIONAL)
-
 
 ### Install
 

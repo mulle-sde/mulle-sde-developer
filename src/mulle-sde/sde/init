@@ -27,8 +27,8 @@ setup_gitignore()
 .mulle-env/bin/
 .mulle-env/libexec/
 
-# style is "fluctuating" on a per-user level so not interesting
-.mulle-env/share/style
+# env/style is "fluctuating" on a per-user level so not interesting
+.mulle-env/env/style
 
 # per user/ per host tweaks are probably not interesting in the repository
 

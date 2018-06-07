@@ -1,6 +1,5 @@
 #
-# By default assume a project has source and a sourcetree
-# The order should be sourcetree then source
+# By default assume a project has source and a sourcetree in that order.
 #
 MULLE_SDE_UPDATE_CALLBACKS+="sourcetree"
 MULLE_SDE_UPDATE_CALLBACKS+="source"

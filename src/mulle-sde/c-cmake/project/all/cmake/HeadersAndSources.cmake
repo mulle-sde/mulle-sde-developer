@@ -13,7 +13,7 @@ include( _Sources)
 
 # add ignored header back in
 set( PUBLIC_HEADERS
-"src/_<|PROJECT_NAME|>-dependencies.h"
+"<|PROJECT_SOURCE_DIR|>/_<|PROJECT_NAME|>-dependencies.h"
 ${PUBLIC_HEADERS}
 )
 
