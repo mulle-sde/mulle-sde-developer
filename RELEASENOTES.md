@@ -1,3 +1,7 @@
+### 0.6.23
+
+* ensure `.DS_Store` crap is not actually copied and installed
+
 ### 0.6.22
 
 * improved logging, fixes for subprojects. small helper tool cmake-graphviz-include added
