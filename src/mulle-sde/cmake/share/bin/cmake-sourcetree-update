@@ -612,7 +612,7 @@ main()
          ;;
 
          -p|--projectname)
-            [ "$#" -eq 1 ] && usage "missing argument to \"$1\""
+            [ "$#" -eq 1 ] && usage "Missing argument to \"$1\""
             shift
 
             PROJECT_NAME="$1"

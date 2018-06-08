@@ -1,3 +1,7 @@
+### 0.6.24
+
+* fix for `PROJECT_SOURCE_DIR` being .
+
 ### 0.6.23
 
 * ensure `.DS_Store` crap is not actually copied and installed
