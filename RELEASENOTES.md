@@ -1,3 +1,7 @@
+### 0.6.25
+
+* improved generation of platform specific code + better support for subprojects
+
 ### 0.6.24
 
 * fix for `PROJECT_SOURCE_DIR` being .

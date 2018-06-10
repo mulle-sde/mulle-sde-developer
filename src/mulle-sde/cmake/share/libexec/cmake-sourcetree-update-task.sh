@@ -33,5 +33,7 @@ cmake_sourcetree_update_task_run()
 {
    log_entry "mulle-sde/cmake::cmake_sourcetree_update_task_run" "$@"
 
+   log_info "Updating ${C_MAGENTA}${C_BOLD}${PROJECT_NAME}${C_INFO} sourcetree"
+
    exekutor cmake-sourcetree-update ${CMAKE_SOURCETREE_UPDATE_FLAGS} "$@"
 }
