@@ -1,3 +1,7 @@
+### 0.6.26
+
+* fix library generation bug, fix buildinfo structure, raise cmake baseline to 3.1, add C11 as default
+
 ### 0.6.25
 
 * improved generation of platform specific code + better support for subprojects

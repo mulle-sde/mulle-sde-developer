@@ -1,4 +1,4 @@
-cmake_minimum_required( VERSION 3.0)
+cmake_minimum_required( VERSION 3.1)
 
 project( <|PROJECT_NAME|> <|PROJECT_UPCASE_LANGUAGE|>)
 
@@ -49,6 +49,9 @@ include( PreLibrary OPTIONAL)
 add_library( "<|PROJECT_NAME|>"
    ${PROJECT_FILES}
 )
+
+# useful for mulle-c, but can be commented out
+set_property( TARGET <|PROJECT_NAME|> PROPERTY CXX_STANDARD 11)
 
 
 set( INSTALL_LIBRARY_TARGETS
