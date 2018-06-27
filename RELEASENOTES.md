@@ -1,3 +1,7 @@
+### 0.6.27
+
+* improve private headers a bit, improve log statement
+
 ### 0.6.26
 
 * fix library generation bug, fix buildinfo structure, raise cmake baseline to 3.1, add C11 as default

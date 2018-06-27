@@ -251,7 +251,7 @@ emit_c_header()
          continue
       fi
 
-      log_verbose "Emit statements for ${C_MAGENTA}${C_BOLD}${address}"
+      log_verbose "Emit cmake statements for ${C_MAGENTA}${C_BOLD}${address}"
 
       case ",${marks}," in
          *,no-dependency,*)
