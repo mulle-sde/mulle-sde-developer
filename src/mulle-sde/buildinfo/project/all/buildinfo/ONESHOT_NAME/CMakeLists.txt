@@ -7,5 +7,5 @@ file( GLOB BUILDINFO_DIRS
 )
 
 foreach( DIR ${BUILDINFO_DIRS} )
-   install( DIRECTORY "${DIR}" DESTINATION "share/mulle-craft/buidinfo")
+   install( DIRECTORY "${DIR}" DESTINATION "share/mulle-craft")
 endforeach()

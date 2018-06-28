@@ -1,3 +1,7 @@
+### 0.6.28
+
+* correct buildinfo install directory
+
 ### 0.6.27
 
 * improve private headers a bit, improve log statement
