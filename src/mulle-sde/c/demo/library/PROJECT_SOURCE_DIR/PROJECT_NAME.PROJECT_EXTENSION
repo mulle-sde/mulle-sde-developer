@@ -2,12 +2,11 @@
 
 #include "<|PROJECT_NAME|>.h"
 
-#include "version.h"
-
 
 int   __<|PROJECT_UPCASE_IDENTIFIER|>_ranlib__;
 
-uint32_t   projectVersion( void)
+
+uint32_t   <|PROJECT_IDENTIFIER|>_get_version( void)
 {
    return( <|PROJECT_UPCASE_IDENTIFIER|>_VERSION);
 }

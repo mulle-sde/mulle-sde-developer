@@ -90,10 +90,12 @@ add_library( "<|PROJECT_NAME|>"
    ${ALL_OBJECT_FILES}
 )
 
-set( INSTALL_LIBRARY_TARGETS "<|PROJECT_NAME|>")
-
 include( Library OPTIONAL)
 
+set( INSTALL_LIBRARY_TARGETS
+   "<|PROJECT_NAME|>"
+   ${INSTALL_LIBRARY_TARGETS}
+)
 
 #
 # defined by cmake -DBUILD_SHARED_LIBS=ON

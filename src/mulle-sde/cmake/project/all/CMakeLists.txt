@@ -35,11 +35,15 @@ include( PostFiles OPTIONAL)
 #
 #include( PreLibrary OPTIONAL)
 #
+#include( Library OPTIONAL)
+#
 #include( PostLibrary OPTIONAL)
 
 ### Executable
 #
 #include( PreExecutable OPTIONAL)
+#
+#include( Executable OPTIONAL)
 #
 #include( PostExecutable OPTIONAL)
 #

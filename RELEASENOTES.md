@@ -1,3 +1,7 @@
+### 0.8.1
+
+* fix `INSTALL_LIBRARY_TARGETS`
+
 ## 0.8.0
 
 * need a third stage for Library/Executable
