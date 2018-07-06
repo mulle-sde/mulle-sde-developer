@@ -1,3 +1,8 @@
+## 0.7.0
+
+* dependencies.h is replaced by include.h
+
+
 ### 0.6.28
 
 * correct buildinfo install directory

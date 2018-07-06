@@ -1,5 +1,4 @@
-#include "dependencies.h"
-#include "version.h"
+#include "include-private.h"
 
 #include <stdio.h>
 

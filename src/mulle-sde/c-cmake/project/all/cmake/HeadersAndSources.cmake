@@ -11,10 +11,15 @@ include( _Sources)
 # === MULLE-SDE END ===
 #
 
-# add ignored header back in
+# add ignored headers back in
 set( PUBLIC_HEADERS
-"<|PROJECT_SOURCE_DIR|>/_<|PROJECT_NAME|>-dependencies.h"
+"<|PROJECT_SOURCE_DIR|>/_<|PROJECT_NAME|>-include.h"
 ${PUBLIC_HEADERS}
+)
+
+set( PRIVATE_HEADERS
+"<|PROJECT_SOURCE_DIR|>/_<|PROJECT_NAME|>-include-private.h"
+${PRIVATE_HEADERS}
 )
 
 #

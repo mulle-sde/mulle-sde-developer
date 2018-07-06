@@ -1,3 +1,6 @@
+#ifndef <|PROJECT_DOWNCASE_IDENTIFIER|>_version_h__
+#define <|PROJECT_DOWNCASE_IDENTIFIER|>_version_h__
+
 /*
  *  version:  major, minor, patch
  */
@@ -20,3 +23,5 @@ static inline unsigned int   <|PROJECT_IDENTIFIER|>_get_version_patch( void)
 {
    return( <|PROJECT_UPCASE_IDENTIFIER|>_VERSION & 0xFF);
 }
+
+#endif

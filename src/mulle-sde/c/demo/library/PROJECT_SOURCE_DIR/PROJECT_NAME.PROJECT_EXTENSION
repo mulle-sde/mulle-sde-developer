@@ -1,3 +1,5 @@
+#include "include-private.h"
+
 #include "<|PROJECT_NAME|>.h"
 
 #include "version.h"

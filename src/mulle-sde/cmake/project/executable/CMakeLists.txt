@@ -57,7 +57,6 @@ set( EXECUTABLE_LIBRARY_LIST
 
 include( PostExecutable OPTIONAL)
 
-
 target_link_libraries( <|PROJECT_NAME|>
    ${EXECUTABLE_LIBRARY_LIST}
 )
