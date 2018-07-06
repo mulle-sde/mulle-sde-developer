@@ -1,3 +1,8 @@
+## 0.8.0
+
+* need a third stage for Library/Executable
+
+
 ## 0.7.0
 
 * dependencies.h is replaced by include.h

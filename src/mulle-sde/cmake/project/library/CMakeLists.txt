@@ -90,10 +90,9 @@ add_library( "<|PROJECT_NAME|>"
    ${ALL_OBJECT_FILES}
 )
 
-
 set( INSTALL_LIBRARY_TARGETS "<|PROJECT_NAME|>")
 
-include( PostLibrary OPTIONAL)
+include( Library OPTIONAL)
 
 
 #
@@ -112,6 +111,9 @@ if( BUILD_SHARED_LIBS)
       ${SHARED_LIBRARY_LIST}
    )
 endif()
+
+include( PostLibrary OPTIONAL)
+
 
 
 ### Install

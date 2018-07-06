@@ -55,11 +55,13 @@ set( EXECUTABLE_LIBRARY_LIST
    ${OS_SPECIFIC_LIBRARIES}
 )
 
-include( PostExecutable OPTIONAL)
+include( Executable OPTIONAL)
 
 target_link_libraries( <|PROJECT_NAME|>
    ${EXECUTABLE_LIBRARY_LIST}
 )
+
+include( PostExecutable OPTIONAL)
 
 
 ### Install
