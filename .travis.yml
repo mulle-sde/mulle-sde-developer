@@ -24,6 +24,6 @@ script:
    - mulle-sde -vvv craft
    - cd ..
    - mulle-sde init -d lib -m mulle-sde/c-developer library
-   - cd exe
+   - cd lib
    - mulle-sde -vvv craft
    - cd ..
