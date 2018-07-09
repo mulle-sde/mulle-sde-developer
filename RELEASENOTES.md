@@ -1,3 +1,7 @@
+### 0.8.3
+
+* add MotdAux for consistency
+
 ### 0.8.2
 
 * forgot a file
