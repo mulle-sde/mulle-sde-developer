@@ -21,9 +21,9 @@ before_install:
 script:
    - mulle-sde init -d exe -m mulle-sde/c-developer executable
    - cd exe
-   - mulle-sde -vvv craft
+   - mulle-sde -v craft
+   - ./build/Release/exe
    - cd ..
    - mulle-sde init -d lib -m mulle-sde/c-developer library
    - cd lib
-   - mulle-sde -vvv craft
-   - cd ..
+   - mulle-sde -v craft
