@@ -1,0 +1,7 @@
+# https://stackoverflow.com/questions/115983/how-can-i-add-an-empty-directory-to-a-git-repository
+# We need a file to get this directory. But init will ignore .gitignore
+#
+# Ignore everything in this directory
+*
+# Except this file
+!.gitignore

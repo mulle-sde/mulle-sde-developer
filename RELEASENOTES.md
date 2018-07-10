@@ -1,3 +1,8 @@
+## 0.9.0
+
+* adapt to use of delete instead of clobber
+
+
 ### 0.8.3
 
 * add MotdAux for consistency
