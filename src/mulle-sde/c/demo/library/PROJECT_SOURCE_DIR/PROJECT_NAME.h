@@ -1,4 +1,4 @@
-#include "include.h"
+#<|INCLUDE_COMMAND|> "<|INCLUDE_COMMAND|>.h"
 
 #include <stdint.h>
 

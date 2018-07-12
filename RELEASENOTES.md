@@ -1,3 +1,8 @@
+### 0.9.1
+
+* fix aliases to include name again, improve README
+* adapt to use of delete instead of clobber
+
 ## 0.9.0
 
 * adapt to use of delete instead of clobber

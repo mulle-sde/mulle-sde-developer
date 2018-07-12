@@ -1,4 +1,4 @@
-# 🏋🏼 mulle-sde, c, cmake and extension support
+# 🏋🏼 mulle-sde with C, cmake and mulle-sde extension support
 
 
 This is a base collection of [mulle-sde](//github.com/mulle-sde/mulle-sde)
@@ -41,9 +41,8 @@ sudo apt-get update
 
 ### Script
 
-There is an `install-all` script, that installs the pre-requisites and
-mulle-c-developer itself into `/usr`. Suitable for environments without
-supported package managers:
+mulle-sde provides an `[installer-all](https://raw.githubusercontent.com/mulle-sde/mulle-sde/release/installer-all)` script to installs the required commands and mulle-sde-developer itself into `/usr`.
+This is suitable for environments without supported package managers:
 
 ```
 curl -L -O 'https://raw.githubusercontent.com/mulle-sde/mulle-sde/release/installer-all' && \

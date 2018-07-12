@@ -1,4 +1,4 @@
-#include "include-private.h"
+#<|INCLUDE_COMMAND|> "<|INCLUDE_COMMAND|>-private.h"
 
 #include <stdio.h>
 

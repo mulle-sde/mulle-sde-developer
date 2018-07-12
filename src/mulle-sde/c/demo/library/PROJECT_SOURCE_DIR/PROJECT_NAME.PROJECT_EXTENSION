@@ -1,6 +1,6 @@
-#include "include-private.h"
+#<|INCLUDE_COMMAND|> "<|INCLUDE_COMMAND|>-private.h"
 
-#include "<|PROJECT_NAME|>.h"
+#<|INCLUDE_COMMAND|> "<|PROJECT_NAME|>.h"
 
 
 int   __<|PROJECT_UPCASE_IDENTIFIER|>_ranlib__;
