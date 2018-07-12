@@ -1,3 +1,5 @@
 fswatch
 inotifywait
 ssh
+curl
+wget

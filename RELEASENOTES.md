@@ -1,3 +1,7 @@
+### 0.9.3
+
+* curl can be replaced by wget
+
 ### 0.9.2
 
 * improve Documentation
