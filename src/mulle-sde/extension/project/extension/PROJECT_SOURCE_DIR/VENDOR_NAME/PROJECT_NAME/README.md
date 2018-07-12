@@ -1,10 +1,9 @@
 # project folder
 
 The project folder holds the files to be installed. Each supported project type
-should have a subfolder there of the name.
-
-So if you want to create a .travis.yml file for executable projects you provide
-a suitable template as `project/executable/.travis.yml`.
+should have a subfolder there of the same name. So if you want to create a 
+`.travis.yml` file for executable projects you provide a suitable template as 
+`project/executable/.travis.yml`.
 
 Use subfolder "all" if the project type doesn't matter.
 
@@ -13,14 +12,17 @@ These files will not overwrite existing files. They will be rewritten on update.
 # demo folder
 
 The `demo` folder is made up the same as the project folder, but the files are
-considered "fluff"/helloworld files, that a user may not want to have. These
+considered "fluff"/hello-world files, that a user may not want to have. These
 files will be installed only once during init.
 
-# clobber folder
+# delete folder
 
-The `clobber` folder is also made up the same as the project folder. These
-files will overwrite whatever is present! Be very sure that the user is aware
-of this. By convention place these folders into a folder called 'share'.
+The `delete` folder is used to delete folders called "share" in the project.
+This is useful to clean and repopulate extension managed files during an
+extension upgrade, that are not installed into `.mulle-sde/share`. 
+The user must be aware, that files in this folder are ephemeral.
+
+Example: `cmake/share`. 
 
 # share folder
 

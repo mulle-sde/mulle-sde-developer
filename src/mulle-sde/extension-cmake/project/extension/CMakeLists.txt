@@ -10,7 +10,7 @@ set( PROJECT_VERSION 0.0.0)
 list( INSERT CMAKE_MODULE_PATH 0 "${PROJECT_SOURCE_DIR}/cmake/share")
 list( INSERT CMAKE_MODULE_PATH 0 "${PROJECT_SOURCE_DIR}/cmake")
 
-include( Environment)
+include( Environment OPTIONAL)
 
 
 set( EXTENSIONS

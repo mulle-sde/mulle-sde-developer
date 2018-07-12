@@ -41,7 +41,7 @@ sudo apt-get update
 
 ### Script
 
-mulle-sde provides an `[installer-all](https://raw.githubusercontent.com/mulle-sde/mulle-sde/release/installer-all)` script to installs the required commands and mulle-sde-developer itself into `/usr`.
+mulle-sde provides an [installer-all](https://raw.githubusercontent.com/mulle-sde/mulle-sde/release/installer-all) script to install the required commands and mulle-sde-developer itself into `/usr` or some other place.
 This is suitable for environments without supported package managers:
 
 ```
@@ -73,20 +73,22 @@ mulle-sde extension list
 ### Create a C executable project
 
 ```
+mkdir foo
+cd foo
 mulle-sde init -m mulle-sde/c-developer executable
 ```
 
 ### Create a C library project
 
 ```
-mulle-sde init -m mulle-sde/c-developer library
+mulle-sde init -m mulle-sde/c-developer -d foolib library
 ```
 
 
 ### Create a mulle-sde extension project
 
 ```
-mulle-sde init -m mulle-sde/extension-developer extension
+mulle-sde init -m mulle-sde/extension-developer -d my-sde-extension extension
 ```
 
 

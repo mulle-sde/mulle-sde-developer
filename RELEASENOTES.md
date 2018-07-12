@@ -1,3 +1,7 @@
+### 0.9.2
+
+* improve Documentation
+
 ### 0.9.1
 
 * fix aliases to include name again, improve README

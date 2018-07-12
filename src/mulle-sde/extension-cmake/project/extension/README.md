@@ -8,8 +8,11 @@ information about how to develop extensions.
 
 ## Quick start
 
-This is a minimal setup to make this extension add a file to any project type.
-This makes this extension a perfect example of an "extra" extension:
+Let's assume the purpose of this extension is to add a file `club.txt` to
+a project. Adding files one time only is a perfect example of an "extra" 
+extension.
+
+This is the minimal setup:
 
 ```
 (
@@ -45,7 +48,9 @@ Let extension do its thing someplace non-problematic:
 ```
 MULLE_SDE_EXTENSION_PATH="${PWD}/src:${MULLE_SDE_EXTENSION_PATH}" \
 MULLE_VIRTUAL_ROOT=  \
-   mulle-sde -vvv -ld -lx init -d /tmp/xxx -e <|VENDOR_NAME|>/<|PROJECT_NAME|> library
+   mulle-sde -v -lx init -d /tmp/xxx -e <|VENDOR_NAME|>/<|PROJECT_NAME|> library
+exit # leave environment
+mulle-sde /tmp/xxx
 ```
 
 ## Install
