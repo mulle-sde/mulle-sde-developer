@@ -27,4 +27,4 @@ script:
    - cd ..
    - mulle-sde -DMULLE_SDE_EXTENSION_BASE_PATH="${PWD}/src" init -d lib -m mulle-sde/c-developer library
    - cd lib
-   - mulle-sde -v craft
+   - mulle-sde craft
