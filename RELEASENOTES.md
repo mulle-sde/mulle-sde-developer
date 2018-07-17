@@ -1,3 +1,7 @@
+### 0.9.6
+
+* fix travis .travis.yml
+
 ### 0.9.5
 
 * improve .travis.yml
