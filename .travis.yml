@@ -19,11 +19,12 @@ before_install:
    - sudo apt-get -y install mulle-sde
 
 script:
-   - mulle-sde -DMULLE_SDE_EXTENSION_BASE_PATH=\"${PWD}/src\" init -d exe -m mulle-sde/c-developer executable
+   - mulle-sde -DMULLE_SDE_EXTENSION_BASE_PATH="${PWD}/src" extension list
+   - mulle-sde -DMULLE_SDE_EXTENSION_BASE_PATH="${PWD}/src" init -d exe -m mulle-sde/c-developer executable
    - cd exe
    - mulle-sde craft
    - "./build/Release/exe"
    - cd ..
-   - mulle-sde -DMULLE_SDE_EXTENSION_BASE_PATH=\"${PWD}/src\" init -d lib -m mulle-sde/c-developer library
+   - mulle-sde -DMULLE_SDE_EXTENSION_BASE_PATH="${PWD}/src" init -d lib -m mulle-sde/c-developer library
    - cd lib
    - mulle-sde -v craft
