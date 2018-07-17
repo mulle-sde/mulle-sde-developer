@@ -1,3 +1,7 @@
+### 0.9.5
+
+* improve .travis.yml
+
 ### 0.9.4
 
 * Various small improvements
