@@ -167,10 +167,16 @@ _emit_cmake_find_library()
    local failstatus
 
    case ",${marks}," in
-      *,no-require-link,*)
+      *',no-require-link,'*)
 
          failstatus="STATUS"
-         failstring="${identifier}_LIBRARY is missing but it\'s \"no-require-link\""
+         failstring="${identifier}_LIBRARY is missing but it is marked as \"no-require-link\""
+      ;;
+
+      *',no-require,'*)
+
+         failstatus="STATUS"
+         failstring="${identifier}_LIBRARY is missing but it is marked as \"no-require\""
       ;;
 
       *)
@@ -293,10 +299,16 @@ _emit_cmake_header_only()
    IFS="${DEFAULT_IFS}"; set +o noglob
 
    case ",${marks}," in
-      *,no-require-link,*)
+      *',no-require-header,'*)
 
          failstatus="STATUS"
-         failstring="${identifier}_HEADER is missing but it\'s \"no-require-link\""
+         failstring="${identifier}_HEADER is missing but it is marked as \"no-require-header\""
+      ;;
+
+      *',no-require,'*)
+
+         failstatus="STATUS"
+         failstring="${identifier}_LIBRARY is missing but it is marked as \"no-require\""
       ;;
 
       *)
