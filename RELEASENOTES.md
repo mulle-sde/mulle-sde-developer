@@ -1,3 +1,7 @@
+### 0.9.9
+
+* fix quoting problem
+
 ### 0.9.8
 
 * respect no-require flag for library and header

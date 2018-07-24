@@ -170,13 +170,13 @@ _emit_cmake_find_library()
       *',no-require-link,'*)
 
          failstatus="STATUS"
-         failstring="${identifier}_LIBRARY is missing but it is marked as \"no-require-link\""
+         failstring="${identifier}_LIBRARY is missing but it is marked as \\\"no-require-link\\\""
       ;;
 
       *',no-require,'*)
 
          failstatus="STATUS"
-         failstring="${identifier}_LIBRARY is missing but it is marked as \"no-require\""
+         failstring="${identifier}_LIBRARY is missing but it is marked as \\\"no-require\\\""
       ;;
 
       *)
@@ -302,13 +302,13 @@ _emit_cmake_header_only()
       *',no-require-header,'*)
 
          failstatus="STATUS"
-         failstring="${identifier}_HEADER is missing but it is marked as \"no-require-header\""
+         failstring="${identifier}_HEADER is missing but it is marked as \\\"no-require-header\\\""
       ;;
 
       *',no-require,'*)
 
          failstatus="STATUS"
-         failstring="${identifier}_LIBRARY is missing but it is marked as \"no-require\""
+         failstring="${identifier}_LIBRARY is missing but it is marked as \\\"no-require\\\""
       ;;
 
       *)
