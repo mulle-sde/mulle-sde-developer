@@ -53,12 +53,16 @@ uname_to_cpp()
    local uname="$1"  # the part after only-os or no
 
    case "${uname}" in
-      "darwin")
+      'darwin')
          echo "__APPLE__"
       ;;
 
-      "freebsd")
+      'freebsd')
          echo "BSD4_3"  # guess
+      ;;
+
+      'mingw'*)
+         echo "_WIN32"
       ;;
 
       *)

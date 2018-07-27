@@ -66,6 +66,10 @@ uname_to_cmake()
          fail "uname is empty"
       ;;
 
+      'mingw')
+         systemname="Windows"
+      ;;
+      
       *)
          systemname="`tr 'a-z' 'A-Z' <<< "${uname:0:1}"`"
          systemname="${systemname}${uname:1}"
