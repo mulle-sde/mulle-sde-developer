@@ -3,3 +3,4 @@ inotifywait
 ssh
 curl
 wget
+uuidgen
