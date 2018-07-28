@@ -1,3 +1,8 @@
+### 0.9.10
+
+* fix mingw cmake systemname to Windows and C define to `_WIN32`
+* fixes for mingw
+
 ### 0.9.9
 
 * fix quoting problem
