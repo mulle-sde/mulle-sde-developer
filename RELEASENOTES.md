@@ -1,3 +1,7 @@
+### 0.9.11
+
+* Various small improvements
+
 ### 0.9.10
 
 * fix mingw cmake systemname to Windows and C define to `_WIN32`
