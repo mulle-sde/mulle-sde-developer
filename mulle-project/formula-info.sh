@@ -3,7 +3,7 @@
 # formula operations.
 #
 PROJECT="mulle-sde-developer"      # your project/repository name
-DESC="🏋🏼 mulle-sde with C, cmake and mulle-sde extension support"
+DESC="🎓 mulle-sde installer + various extensions for mulle-sde"
 LANGUAGE="bash"             # c,cpp, objc, bash ...
 
 # LANGUAGE="c"             # c,cpp, objc, bash ...

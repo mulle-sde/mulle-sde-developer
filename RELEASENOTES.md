@@ -1,3 +1,7 @@
+### 0.9.12
+
+* improve comment
+
 ### 0.9.11
 
 * Various small improvements

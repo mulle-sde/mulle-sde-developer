@@ -12,7 +12,7 @@ set( CPACK_PACKAGE_NAME "${PROJECT_NAME}")
 set( CPACK_PACKAGE_VERSION "${PROJECT_VERSION}")
 set( CPACK_PACKAGE_CONTACT "Nat! <nat@mulle-kybernetik.de>")
 set( CPACK_PACKAGE_DESCRIPTION_FILE "${CMAKE_SOURCE_DIR}/README.md")
-set( CPACK_PACKAGE_DESCRIPTION_SUMMARY "🏋🏼 mulle-sde with C, cmake and mulle-sde extension support")
+set( CPACK_PACKAGE_DESCRIPTION_SUMMARY "🎓 mulle-sde installer + various extensions for mulle-sde")
 set( CPACK_RESOURCE_FILE_LICENSE "${CMAKE_SOURCE_DIR}/LICENSE")
 set( CPACK_STRIP_FILES false)
 
