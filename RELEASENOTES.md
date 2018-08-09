@@ -1,3 +1,8 @@
+## 0.10.0
+
+* Various small improvements
+
+
 ### 0.9.12
 
 * improve comment

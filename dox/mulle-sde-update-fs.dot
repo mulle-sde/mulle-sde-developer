@@ -6,23 +6,14 @@ digraph G {
     "project"          [ color="gray", fontcolor="gray" ]
 
     "src"  [ penwidth="2"]
-    "data"
     "cmake"
-    ".mulle-sde"
     ".mulle-sourcetree"
 
     node[ shape="note", penwidth="2"]
 
-    "config"
-    "_Headers.cmake"
-    "_Sources.cmake"
-    "_Dependencies.cmake"
-    "_Libraries.cmake"
-
     { rank = same;  "project" };
-    { rank = same;  "src", ".mulle-sde", ".mulle-sourcetree" }
-    { rank = same;  "data", "config" }
-    { rank = same;  "cmake" }
+    { rank = same;  "src", "cmake", ".mulle-sourcetree" }
+    { rank = same;  "config" }
     { rank = same;  "_Headers.cmake","_Sources.cmake",
                     "_Dependencies.cmake","_Libraries.cmake"  }
 
@@ -32,9 +23,7 @@ digraph G {
     ".mulle-sourcetree" -> "config"
     "project" -> "src"
     "project" -> ".mulle-sourcetree"
-    "project" -> ".mulle-sde"
-    ".mulle-sde" -> "data"
-    "data"    -> "cmake"
+    "project" -> "cmake"
 
     "cmake" -> "_Headers.cmake"
     "cmake" -> "_Sources.cmake"
@@ -52,7 +41,6 @@ digraph G {
     "cmake-sourcetree-update" [ color="magenta", fontcolor="magenta" ]
 
     "src"    -> "cmake-source-update"     [ style="invis"]
-    "config" -> "cmake-source-update"  [ style="invis"]
 
     edge [ arrowhead="", style="dotted", label=" read"]
 
