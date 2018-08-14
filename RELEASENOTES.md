@@ -1,3 +1,9 @@
+## 0.11.0
+
+* craftinfo moved to mulle-sde
+* rename buildinfo to makeinfo and craftinfo to keep the two concepts distinct
+
+
 ## 0.10.0
 
 * Various small improvements

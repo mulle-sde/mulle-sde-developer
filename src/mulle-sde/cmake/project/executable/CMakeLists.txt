@@ -49,17 +49,23 @@ add_executable( <|PROJECT_NAME|>
 # useful for mulle-c, but can be commented out
 set_property( TARGET <|PROJECT_NAME|> PROPERTY CXX_STANDARD 11)
 
-set( EXECUTABLE_LIBRARY_LIST
-   ${DEPENDENCY_LIBRARIES}
-   ${OPTIONAL_DEPENDENCY_LIBRARIES}
-   ${OS_SPECIFIC_LIBRARIES}
-)
 
 include( Executable OPTIONAL)
+
+if( NOT EXECUTABLE_LIBRARY_LIST)
+   set( EXECUTABLE_LIBRARY_LIST
+      ${DEPENDENCY_LIBRARIES}
+      ${OPTIONAL_DEPENDENCY_LIBRARIES}
+      ${OS_SPECIFIC_LIBRARIES}
+   )
+endif()
+
 
 target_link_libraries( <|PROJECT_NAME|>
    ${EXECUTABLE_LIBRARY_LIST}
 )
+
+
 
 include( PostExecutable OPTIONAL)
 

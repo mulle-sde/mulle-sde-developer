@@ -7,7 +7,6 @@
 VERSIONFILE=CMakeLists.txt
 VERSIONNAME=PROJECT_VERSION
 VERSIONFILEMIRRORS="\
-src/mulle-sde/buildinfo/version
 src/mulle-sde/c/version
 src/mulle-sde/c-cmake/version
 src/mulle-sde/c-developer/version
