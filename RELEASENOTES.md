@@ -1,3 +1,7 @@
+### 0.12.1
+
+* add vs-code extensions
+
 ## 0.12.0
 
 * use `r_` functions of mulle-bashfunctions 1.8.0

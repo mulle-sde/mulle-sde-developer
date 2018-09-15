@@ -1,0 +1,17 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug <|PROJECT_NAME|>",
+            "type": "cppdbg",
+            "request": "launch",
+            "args": [],
+            "stopAtEntry": true,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "additionalSOLibSearchPath": "${workspaceFolder}/dependency/Debug/lib:${workspaceFolder}/dependency/lib",
+            "MIMode": "lldb",
+            "preLaunchTask": "Debug"
+        }
+    ]
+}
