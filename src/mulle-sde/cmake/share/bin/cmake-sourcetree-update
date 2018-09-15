@@ -158,7 +158,6 @@ ${indent}      # search for DependenciesAndLibraries.cmake to include
 ${indent}      foreach( _TMP_${identifier}_NAME ${quoted_names})
 ${indent}         set( _TMP_${identifier}_DIR "\${_TMP_${identifier}_ROOT}/include/\${_TMP_${identifier}_NAME}/cmake")
 ${indent}         # use explicit path to avoid "surprises"
-${indent}         message( STATUS "_TMP_${identifier}_DIR is \${_TMP_${identifier}_DIR}")
 ${indent}         if( EXISTS "\${_TMP_${identifier}_DIR}/DependenciesAndLibraries.cmake")
 ${indent}            unset( ${identifier}_DEFINITIONS)
 ${indent}            list( INSERT CMAKE_MODULE_PATH 0 "\${_TMP_${identifier}_DIR}")
@@ -438,8 +437,6 @@ ${indent}      get_filename_component( _TMP_${identifier}_ROOT "\${${identifier}
 ${indent}      get_filename_component( _TMP_${identifier}_NAME "\${_TMP_${identifier}_ROOT}" NAME)
 ${indent}      get_filename_component( _TMP_${identifier}_ROOT "\${_TMP_${identifier}_ROOT}" DIRECTORY)
 ${indent}      get_filename_component( _TMP_${identifier}_ROOT "\${_TMP_${identifier}_ROOT}" DIRECTORY)
-${indent}      message( STATUS "_TMP_${identifier}_NAME is \${_TMP_${identifier}_NAME}")
-${indent}      message( STATUS "_TMP_${identifier}_ROOT is \${_TMP_${identifier}_ROOT}")
 EOF
 
          #
@@ -510,11 +507,14 @@ emit_cmake_dependency()
    local identifier
    local filename
    local names
+   local RVAL
 
-   names="`comma_concat "${aliases}" "${address}" `"
+   r_comma_concat "${aliases}" "${address}"
+   names="${RVAL}"
 
    # first alias determines the identifier
-   filename="`fast_basename "${names%%,*}"`"
+   r_fast_basename "${names%%,*}"
+   filename="${RVAL}"
 
    if [ -z "${MULLE_CASE_SH}" ]
    then
@@ -522,8 +522,9 @@ emit_cmake_dependency()
       . "${MULLE_BASHFUNCTIONS_LIBEXEC_DIR}/mulle-case.sh" || return 1
    fi
 
-   identifier="`tweaked_de_camel_case "${filename}"`"
-   identifier="`printf "%s" "${identifier}" | tr -c 'a-zA-Z0-9' '_'`"
+   local RVAL
+   r_tweaked_de_camel_case "${PROJECT_NAME}"
+   identifier="`printf "%s" "${RVAL}" | tr -c 'a-zA-Z0-9' '_'`"
    identifier="`tr 'a-z' 'A-Z' <<< "${identifier}"`"
 
    "${emitter}" "${names}" \

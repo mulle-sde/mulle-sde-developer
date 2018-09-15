@@ -6,6 +6,8 @@ if( NOT __ENVIRONMENT__CMAKE__)
    endif()
 
    set( MULLE_VIRTUAL_ROOT "$ENV{MULLE_VIRTUAL_ROOT}")
+   set( DEPENDENCY_DIR "$ENV{DEPENDENCY_DIR}")
+   set( ADDICTION_DIR "$ENV{ADDICTION_DIR}")
 
    if( NOT MULLE_VIRTUAL_ROOT)
       set( MULLE_VIRTUAL_ROOT "${PROJECT_SOURCE_DIR}")
@@ -67,7 +69,7 @@ if( NOT __ENVIRONMENT__CMAKE__)
             endif()
          endif()
       endif()
-      
+
       if( FALLBACK_BUILD_TYPE STREQUAL "Release")
          unset( FALLBACK_BUILD_TYPE)
       endif()

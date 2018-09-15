@@ -22,5 +22,5 @@ cmake
 git
 '
 
-DEBIAN_DEPENDENCIES='mulle-sde, cmake( >= 3.0), git'
-
+DEBIAN_DEPENDENCIES='mulle-sde'
+DEBIAN_RECOMMENDATIONS="cmake( >= 3.0), git"

@@ -1,3 +1,8 @@
+## 0.12.0
+
+* use `r_` functions of mulle-bashfunctions 1.8.0
+
+
 ## 0.11.0
 
 * craftinfo moved to mulle-sde

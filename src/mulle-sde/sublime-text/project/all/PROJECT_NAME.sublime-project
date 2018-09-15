@@ -22,6 +22,22 @@
             "build",
             "dependency",
             "stash"
+         ],
+         "binary_patterns":
+         [
+            "*.o",
+            "*.lib",
+            "*.a",
+            "*.so",
+            "*.exe",
+            "*.zip",
+            "*.tgz",
+            "*.bz2",
+            "*.xz",
+            "*.gif",
+            "*.png",
+            "*.jpg",
+            "*.tiff"
          ]
       }
    ]
