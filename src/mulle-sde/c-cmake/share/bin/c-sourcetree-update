@@ -29,17 +29,19 @@
 #   ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 #   POSSIBILITY OF SUCH DAMAGE.
 #
-
-[ "${TRACE}" = "YES" ] && set -x && : "$0" "$@"
+[ "${TRACE}" = "YES" -o "${C_SOURCETREE_UPDATE_TRACE}" = "YES" ] && set -x && : "$0" "$@"
 
 
 usage()
 {
    cat <<EOF >&2
 Usage:
-   c-sourcetree-update <action> <filename> <category>
+   c-sourcetree-update [flags]
 
    Produces the _<project>-include.h files and related headers.
+
+Flags:
+      --stdout :  Emit to stdout instead
 
 EOF
    exit 1
@@ -298,14 +300,15 @@ c_include()
 
    local text_h
 
-   if [ "${MULLE_SDE_INCLUDE_FILENAME}" = "NONE" ]
-   then
-      return
-   fi
-   if [ -z "${MULLE_SDE_INCLUDE_FILENAME}" ]
-   then
-      MULLE_SDE_INCLUDE_FILENAME="${PROJECT_SOURCE_DIR}/_${projectname}-include.h"
-   fi
+   case "${MULLE_SDE_INCLUDE_FILENAME}" in
+      "NONE")
+         return
+      ;;
+
+      "")
+         MULLE_SDE_INCLUDE_FILENAME="${PROJECT_SOURCE_DIR}/_${projectname}-include.h"
+      ;;
+   esac
 
    local marks
 
@@ -338,8 +341,14 @@ ${text_h}
 
 #endif"
 
-   log_verbose "Writing ${C_RESET_BOLD}${MULLE_SDE_INCLUDE_FILENAME}"
-   redirect_exekutor "${MULLE_SDE_INCLUDE_FILENAME}" echo "${text_h}"
+   if [ "${MULLE_SDE_INCLUDE_FILENAME}" = "-" ]
+   then
+      log_info "-include.h"
+      rexekutor echo "${text_h}"
+   else
+      log_verbose "Writing ${C_RESET_BOLD}${MULLE_SDE_INCLUDE_FILENAME}"
+      redirect_exekutor "${MULLE_SDE_INCLUDE_FILENAME}" echo "${text_h}"
+   fi
 }
 
 
@@ -352,14 +361,15 @@ objc_import()
 
    local text_h
 
-   if [ "${MULLE_SDE_IMPORT_FILENAME}" = "NONE" ]
-   then
-      return
-   fi
-   if [ -z "${MULLE_SDE_IMPORT_FILENAME}" ]
-   then
-      MULLE_SDE_IMPORT_FILENAME="${PROJECT_SOURCE_DIR}/_${projectname}-import.h"
-   fi
+   case "${MULLE_SDE_IMPORT_FILENAME}" in
+      "NONE")
+         return
+      ;;
+
+      "")
+         MULLE_SDE_IMPORT_FILENAME="${PROJECT_SOURCE_DIR}/_${projectname}-import.h"
+      ;;
+   esac
 
    text_h="`emit_c_header "import,public"`" || exit 1
 
@@ -381,8 +391,14 @@ ${text_h}
 
 #endif"
 
-   log_verbose "Writing ${C_RESET_BOLD}${MULLE_SDE_IMPORT_FILENAME}"
-   redirect_exekutor "${MULLE_SDE_IMPORT_FILENAME}" echo "${text_h}"
+   if [ "${MULLE_SDE_IMPORT_FILENAME}" = "-" ]
+   then
+      log_info "-import.h"
+      rexekutor echo "${text_h}"
+   else
+      log_verbose "Writing ${C_RESET_BOLD}${MULLE_SDE_IMPORT_FILENAME}"
+      redirect_exekutor "${MULLE_SDE_IMPORT_FILENAME}" echo "${text_h}"
+   fi
 }
 
 
@@ -395,14 +411,15 @@ c_include_private()
 
    local text_h
 
-   if [ "${MULLE_SDE_INCLUDE_PRIVATE_FILENAME}" = "NONE" ]
-   then
-      return
-   fi
-   if [ -z "${MULLE_SDE_INCLUDE_PRIVATE_FILENAME}" ]
-   then
-      MULLE_SDE_INCLUDE_PRIVATE_FILENAME="${PROJECT_SOURCE_DIR}/_${projectname}-include-private.h"
-   fi
+   case "${MULLE_SDE_INCLUDE_PRIVATE_FILENAME}" in
+      "NONE")
+         return
+      ;;
+
+      "")
+         MULLE_SDE_INCLUDE_PRIVATE_FILENAME="${PROJECT_SOURCE_DIR}/_${projectname}-include-private.h"
+      ;;
+   esac
 
    local marks
 
@@ -435,8 +452,14 @@ ${text_h}
 
 #endif"
 
-   log_verbose "Writing ${C_RESET_BOLD}${MULLE_SDE_INCLUDE_PRIVATE_FILENAME}"
-   redirect_exekutor "${MULLE_SDE_INCLUDE_PRIVATE_FILENAME}" echo "${text_h}"
+   if [ "${MULLE_SDE_INCLUDE_PRIVATE_FILENAME}" = "-" ]
+   then
+      log_info "-include-private.h"
+      rexekutor echo "${text_h}"
+   else
+      log_verbose "Writing ${C_RESET_BOLD}${MULLE_SDE_INCLUDE_PRIVATE_FILENAME}"
+      redirect_exekutor "${MULLE_SDE_INCLUDE_PRIVATE_FILENAME}" echo "${text_h}"
+   fi
 }
 
 
@@ -449,14 +472,15 @@ objc_import_private()
 
    local text_h
 
-   if [ "${MULLE_SDE_IMPORT_PRIVATE_FILENAME}" = "NONE" ]
-   then
-      return
-   fi
-   if [ -z "${MULLE_SDE_IMPORT_PRIVATE_FILENAME}" ]
-   then
-      MULLE_SDE_IMPORT_PRIVATE_FILENAME="${PROJECT_SOURCE_DIR}/_${projectname}-import-private.h"
-   fi
+   case "${MULLE_SDE_IMPORT_PRIVATE_FILENAME}" in
+      "NONE")
+         return
+      ;;
+
+      "")
+         MULLE_SDE_IMPORT_PRIVATE_FILENAME="${PROJECT_SOURCE_DIR}/_${projectname}-import-private.h"
+      ;;
+   esac
 
    text_h="`emit_c_header "import,no-public"`" || exit 1
 
@@ -478,8 +502,14 @@ ${text_h}
 
 #endif"
 
-   log_verbose "Writing ${C_RESET_BOLD}${MULLE_SDE_IMPORT_PRIVATE_FILENAME}"
-   redirect_exekutor "${MULLE_SDE_IMPORT_PRIVATE_FILENAME}" echo "${text_h}"
+   if [ "${MULLE_SDE_IMPORT_PRIVATE_FILENAME}" = "-" ]
+   then
+      log_info "-import-private.h"
+      rexekutor echo "${text_h}"
+   else
+      log_verbose "Writing ${C_RESET_BOLD}${MULLE_SDE_IMPORT_PRIVATE_FILENAME}"
+      redirect_exekutor "${MULLE_SDE_IMPORT_PRIVATE_FILENAME}" echo "${text_h}"
+   fi
 }
 
 
@@ -554,6 +584,13 @@ main()
             shift
 
             PROJECT_DIALECT="$1"
+         ;;
+
+         --stdout)
+            MULLE_SDE_INCLUDE_FILENAME="-"
+            MULLE_SDE_INCLUDE_PRIVATE_FILENAME="-"
+            MULLE_SDE_IMPORT_FILENAME="-"
+            MULLE_SDE_IMPORT_PRIVATE_FILENAME="-"
          ;;
 
          -*)

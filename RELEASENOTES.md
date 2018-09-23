@@ -1,3 +1,7 @@
+### 0.12.2
+
+* c-sourcetree-update can now output to --stdout
+
 ### 0.12.1
 
 * add vs-code extensions
