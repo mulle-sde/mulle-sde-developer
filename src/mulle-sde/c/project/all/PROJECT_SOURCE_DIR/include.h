@@ -1,6 +1,14 @@
 #ifndef <|PROJECT_DOWNCASE_IDENTIFIER|>_include_h__
 #define <|PROJECT_DOWNCASE_IDENTIFIER|>_include_h__
 
+/* DO:    #include this files in public headers.
+
+   DONT:  #include this files in private headers.
+          #include this file directly in sources.
+          #import this file anywhere (except in import.h)
+ */
+
+
 /* This is a central include file to keep dependencies out of the library
    C files. It is usally included by .h files only.
 
