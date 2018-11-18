@@ -29,7 +29,7 @@
 #   ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 #   POSSIBILITY OF SUCH DAMAGE.
 #
-[ "${TRACE}" = "YES" -o "${C_SOURCETREE_UPDATE_TRACE}" = "YES" ] && set -x && : "$0" "$@"
+[ "${TRACE}" = 'YES' -o "${C_SOURCETREE_UPDATE_TRACE}" = 'YES' ] && set -x && : "$0" "$@"
 
 
 usage()
@@ -48,35 +48,35 @@ EOF
 }
 
 
-uname_to_cpp()
+r_uname_to_cpp()
 {
-   log_entry "uname_to_cmake" "$@"
+   log_entry "r_uname_to_cpp" "$@"
 
    local uname="$1"  # the part after only-os or no
 
    case "${uname}" in
       'darwin')
-         echo "__APPLE__"
+         RVAL="__APPLE__"
       ;;
 
       'freebsd')
-         echo "BSD4_3"  # guess
+         RVAL="BSD4_3"  # guess
       ;;
 
       'mingw'*)
-         echo "_WIN32"
+         RVAL="_WIN32"
       ;;
 
       *)
-         echo "__${uname}__"
+         RVAL="__${uname}__"
       ;;
    esac
 }
 
 
-osexclude_to_cpp_if()
+r_osexclude_to_cpp_if()
 {
-   log_entry "osexclude_to_cpp_if" "$@"
+   log_entry "r_osexclude_to_cpp_if" "$@"
 
    local marks="$1"
 
@@ -93,13 +93,15 @@ osexclude_to_cpp_if()
 
       case "${osexclude}" in
          only-os-*)
-            cppvar="`uname_to_cpp "${osexclude:8}"`"
-            onlys="`concat "${onlys}" "defined( ${cppvar})" " || " `"
+				r_uname_to_cpp "${osexclude:8}"
+            r_concat "${onlys}" "defined( ${RVAL})" " || "
+            onlys="${RVAL}"
          ;;
 
          no-os-*)
-            cppvar="`uname_to_cpp "${osexclude:6}"`"
-            excludes="`concat "${excludes}" "! defined( ${cppvar})" " && "`"
+				r_uname_to_cpp "${osexclude:6}"
+            r_concat "${excludes}" "! defined( ${RVAL})" " && "
+            excludes="${RVAL}"
          ;;
       esac
    done
@@ -107,14 +109,17 @@ osexclude_to_cpp_if()
 
    if [ ! -z "${onlys}" ]
    then
-      echo "# if ${onlys}"
+      RVAL="# if ${onlys}"
       return
    fi
 
    if [ ! -z "${excludes}" ]
    then
-      echo "# if ${excludes}"
+      RVAL="# if ${excludes}"
+      return
    fi
+
+   RVAL=""
 }
 
 
@@ -130,13 +135,14 @@ _emit_c_include()
    local ifstatement
    local include
    local mark
+   local RVAL
 
    #
    # so objc can reuse this, make a provision for import with --objc flag
    # but allow #include if the mark no-objc is set
    #
    include="include"
-   if [ "${OPTION_IMPORT}" = "YES" ]
+   if [ "${OPTION_IMPORT}" = 'YES' ]
    then
       include="import"
 
@@ -149,7 +155,8 @@ _emit_c_include()
 
    if [ ! -z "${marks}" ]
    then
-      ifstatement="`osexclude_to_cpp_if "${marks}" `"
+   	r_osexclude_to_cpp_if "${marks}"
+      ifstatement="${RVAL}"
    fi
 
    if [ ! -z "${ifstatement}" ]
@@ -190,6 +197,8 @@ emit_c_include_library()
    local marks="$2"
    local header="$3"
 
+   local RVAL
+
    #
    # the default for libraries is old style <name.h> not <name/name.h>
    #
@@ -197,7 +206,8 @@ emit_c_include_library()
    then
       local name
 
-      name="`fast_basename "${address}"`"
+      r_fast_basename "${address}"
+      name="${RVAL}"
       header="${name}.h"
    fi
 
@@ -214,6 +224,7 @@ emit_c_include_dependency()
    local marks="$2"
    local header="$3"
 
+   local RVAL
    #
    # the default for dependencies is <name/name.h>
    #
@@ -221,7 +232,8 @@ emit_c_include_dependency()
    then
       local name
 
-      name="`fast_basename "${address}"`"
+      r_fast_basename "${address}"
+      name="${RVAL}"
       header="${name}/${name}.h"
    fi
 
@@ -237,7 +249,8 @@ emit_c_header()
 
    local filter_marks
 
-   filter_marks="`comma_concat "header" "${marks}" `"
+   r_comma_concat "header" "${marks}"
+   filter_marks="${RVAL}"
 
    # since the order of the headers is important and needs to be in treeorder
    # we use mulle-sourcetree directly
@@ -519,21 +532,21 @@ main()
 
    # technical flags
    local MULLE_TRACE
-   local MULLE_FLAG_DONT_DEFER="NO"
-   local MULLE_FLAG_EXEKUTOR_DRY_RUN="NO"
-   local MULLE_FLAG_FOLLOW_SYMLINKS="YES"
-   local MULLE_FLAG_LOG_CACHE="NO"
-   local MULLE_FLAG_LOG_DEBUG="NO"
-   local MULLE_FLAG_LOG_EXEKUTOR="NO"
-   local MULLE_FLAG_LOG_FLUFF="NO"
-   local MULLE_FLAG_LOG_MERGE="NO"
-   local MULLE_FLAG_LOG_SCRIPTS="NO"
-   local MULLE_FLAG_LOG_SETTINGS="NO"
-   local MULLE_FLAG_LOG_VERBOSE="NO"
-   local MULLE_TRACE_PATHS_FLIP_X="NO"
-   local MULLE_TRACE_POSTPONE="NO"
-   local MULLE_TRACE_RESOLVER_FLIP_X="NO"
-   local MULLE_TRACE_SETTINGS_FLIP_X="NO"
+   local MULLE_FLAG_DONT_DEFER='NO'
+   local MULLE_FLAG_EXEKUTOR_DRY_RUN='NO'
+   local MULLE_FLAG_FOLLOW_SYMLINKS='YES'
+   local MULLE_FLAG_LOG_CACHE='NO'
+   local MULLE_FLAG_LOG_DEBUG='NO'
+   local MULLE_FLAG_LOG_EXEKUTOR='NO'
+   local MULLE_FLAG_LOG_FLUFF='NO'
+   local MULLE_FLAG_LOG_MERGE='NO'
+   local MULLE_FLAG_LOG_SCRIPTS='NO'
+   local MULLE_FLAG_LOG_SETTINGS='NO'
+   local MULLE_FLAG_LOG_VERBOSE='NO'
+   local MULLE_TRACE_PATHS_FLIP_X='NO'
+   local MULLE_TRACE_POSTPONE='NO'
+   local MULLE_TRACE_RESOLVER_FLIP_X='NO'
+   local MULLE_TRACE_SETTINGS_FLIP_X='NO'
 
    local OPTION_IMPORT="DEFAULT"
 
@@ -551,11 +564,11 @@ main()
          ;;
 
          --import)
-            OPTION_IMPORT="YES"
+            OPTION_IMPORT='YES'
          ;;
 
          --no-import)
-            OPTION_IMPORT="NO"
+            OPTION_IMPORT='NO'
          ;;
 
          -p|--project-name)
@@ -608,21 +621,24 @@ main()
 
    options_setup_trace "${MULLE_TRACE}"
 
+   [ -z "${MULLE_VIRTUAL_ROOT}" ] && fail "Must run inside the mulle-sde environment"
+
    if [ -z "${MULLE_CASE_SH}" ]
    then
       # shellcheck source=mulle-case.sh
-      . "${MULLE_BASHFUNCTIONS_LIBEXEC_DIR}/mulle-case.sh"      || return 1
+      . "${MULLE_BASHFUNCTIONS_LIBEXEC_DIR}/mulle-case.sh" || return 1
    fi
+
+   local RVAL
 
    if [ -z "${PROJECT_NAME}" ]
    then
-      PROJECT_NAME="`fast_basename "${PWD}"`" # could be nicer
+   	r_fast_basename "${PWD}"
+      PROJECT_NAME="${RVAL}" # could be nicer
    fi
 
    local PROJECT_IDENTIFIER
    local PROJECT_DOWNCASE_IDENTIFIER
-
-   local RVAL
 
    r_tweaked_de_camel_case "${PROJECT_NAME}"
    PROJECT_IDENTIFIER="${RVAL}"
@@ -639,7 +655,7 @@ main()
    then
       if [ "${OPTION_IMPORT}" = "DEFAULT" ]
       then
-         OPTION_IMPORT="YES"
+         OPTION_IMPORT='YES'
       fi
 
       objc_import "${PROJECT_NAME}" "${PROJECT_DOWNCASE_IDENTIFIER}" || exit 1

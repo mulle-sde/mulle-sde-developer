@@ -6,7 +6,6 @@
 # === MULLE-SDE START ===
 
 include( _Headers)
-include( _Sources)
 
 # === MULLE-SDE END ===
 #
@@ -19,7 +18,6 @@ ${PUBLIC_HEADERS}
 
 # keep headers to install separate to make last minute changes
 set( INSTALL_PUBLIC_HEADERS ${PUBLIC_HEADERS})
-
 
 #
 # Do not install generated private headers and include-private.h

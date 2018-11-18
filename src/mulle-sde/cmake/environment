@@ -7,11 +7,11 @@ MULLE_SDE_UPDATE_CALLBACKS+="source"
 #
 # These are directories and files used by `mulle-match find` to locate files
 #
-MULLE_MATCH_FIND_LOCATIONS+="CMakeLists.txt"
-MULLE_MATCH_FIND_LOCATIONS+="cmake"
+MULLE_MATCH_PATH+="CMakeLists.txt"
+MULLE_MATCH_PATH+="cmake"
 
 #
 # These are used by `mulle-match find` for the actual file search.
 #
-MULLE_MATCH_FIND_NAMES+="CMakeLists.txt"
-MULLE_MATCH_FIND_NAMES+="*.cmake"
+MULLE_MATCH_FILENAMES+="CMakeLists.txt"
+MULLE_MATCH_FILENAMES+="*.cmake"

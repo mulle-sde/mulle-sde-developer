@@ -1,0 +1,20 @@
+{
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
+  "settings": {
+    "files.exclude": {
+      "**/.*": true,
+      "**/addiction": true,
+      "**/build": true,
+      "**/dependency": true,
+      "**/stash": true,
+      "**/cmake/share": true,
+      "**/_*.cmake": true,
+      "**/*.code-workspace": true
+    }
+  }
+}
+

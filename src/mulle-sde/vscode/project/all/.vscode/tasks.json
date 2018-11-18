@@ -55,6 +55,16 @@
               "clean"
            ],
            "problemMatcher": []
+        },
+        {
+           "label": "Clean All",
+           "type": "shell",
+           "command": "mulle-sde",
+           "args": [
+              "clean",
+              "all"
+           ],
+           "problemMatcher": []
         }
     ]
 }

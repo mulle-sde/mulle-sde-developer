@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-[ "${TRACE}" = "YES" ] && set -x && : "$0" "$@"
+[ "${TRACE}" = 'YES' ] && set -x && : "$0" "$@"
 
 
 setup_gitignore()
@@ -60,10 +60,8 @@ test*/**/*.exe
 }
 
 
-
 main()
 {
-
    while [ $# -ne 0 ]
    do
       if options_technical_flags "$1"
@@ -74,7 +72,7 @@ main()
 
       case "$1" in
          --f)
-            MULLE_FLAG_MAGNUM_FORCE="YES"
+            MULLE_FLAG_MAGNUM_FORCE='YES'
          ;;
 
          --marks)

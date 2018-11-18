@@ -116,6 +116,36 @@ if( NOT __ENVIRONMENT__CMAKE__)
       cmake/DependenciesAndLibraries.cmake
    )
 
+   #
+   # Parallel build support. run all "participating" projects once for
+   # HEADERS_PHASE in parallel.
+   # Now run all "participating" projects for COMPILE_PHASE in parallel.
+   # Finally run all participating and non-participating projects in buildorder
+   # serially together with the LINK_PHASE. What is tricky is that the
+   # sequential projects may need to run first.
+   #
+   option( HEADERS_PHASE  "Install headers only phase (1)" OFF)
+   option( COMPILE_PHASE  "Compile sources only phase (2)" OFF)
+   option( LINK_PHASE     "Link and install only phase (3)" OFF)
+
+   if( MULLE_MAKE_PHASE STREQUAL "HEADERS")
+      set( HEADERS_PHASE ON)
+   endif()
+   if( MULLE_MAKE_PHASE STREQUAL "COMPILE")
+      set( COMPILE_PHASE ON)
+   endif()
+   if( MULLE_MAKE_PHASE STREQUAL "LINK")
+      set( LINK_PHASE ON)
+   endif()
+
+   if( NOT HEADERS_PHASE AND
+       NOT COMPILE_PHASE AND
+       NOT LINK_PHASE)
+      set( HEADERS_PHASE ON)
+      set( COMPILE_PHASE ON)
+      set( LINK_PHASE ON)
+   endif()
+
    include( EnvironmentAux OPTIONAL)
 
 endif()

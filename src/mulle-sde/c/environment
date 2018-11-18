@@ -1,11 +1,11 @@
 #
 # These are used by `mulle-match find` to locate files
 #
-MULLE_MATCH_FIND_LOCATIONS="${PROJECT_SOURCE_DIR}"
+MULLE_MATCH_PATH="${PROJECT_SOURCE_DIR}"
 
 #
 # These are used by `mulle-match find` to speed up the search.
 #
-MULLE_MATCH_FIND_NAMES+="*.h"
-MULLE_MATCH_FIND_NAMES+="*.inc"
-MULLE_MATCH_FIND_NAMES+="*.c"
+MULLE_MATCH_FILENAMES+="*.h"
+MULLE_MATCH_FILENAMES+="*.inc"
+MULLE_MATCH_FILENAMES+="*.c"

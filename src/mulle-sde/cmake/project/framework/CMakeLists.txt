@@ -2,7 +2,6 @@ cmake_minimum_required( VERSION 3.1)
 
 project( <|PROJECT_NAME|> <|PROJECT_UPCASE_LANGUAGE|>)
 
-
 ### mulle-sde environment
 
 # add cmake module paths to search path
@@ -13,12 +12,13 @@ include( Environment)
 
 include( Files)
 
-### Executable
+### Frameworks can't pre-install headers
 
-include( Executable)
-include( InstallExecutable)
+include( Framework)
+
+set_target_properties( "<|PROJECT_NAME|>" PROPERTIES
+  FRAMEWORK_VERSION A
+)
+
+include( InstallFramework)
 include( FinalOutput OPTIONAL)
-
-# only for Executable
-include( Motd OPTIONAL)
-

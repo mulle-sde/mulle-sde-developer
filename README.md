@@ -41,13 +41,13 @@ sudo apt-get update
 
 ### Script
 
-mulle-sde provides an [installer-all](https://raw.githubusercontent.com/mulle-sde/mulle-sde/release/installer-all) script to install the required commands and mulle-sde-developer itself into `/usr` or some other place.
+mulle-sde provides an [installer-all](https://raw.githubusercontent.com/mulle-sde/mulle-sde/release/bin/installer-all) script to install the required commands and mulle-sde-developer itself into `/usr` or some other place.
 This is suitable for environments without supported package managers:
 
 #### Install into /usr with sudo
 
 ```
-curl -L -O 'https://raw.githubusercontent.com/mulle-sde/mulle-sde/release/installer-all' && \
+curl -L -O 'https://raw.githubusercontent.com/mulle-sde/mulle-sde/release/bin/installer-all' && \
 chmod 755 installer-all && \
 sudo SDE_PROJECTS="mulle-sde-developer;latest" ./installer-all /usr
 ```
@@ -55,7 +55,7 @@ sudo SDE_PROJECTS="mulle-sde-developer;latest" ./installer-all /usr
 #### Install into ${HOME} (without sudo)
 
 ```
-curl -L -O 'https://raw.githubusercontent.com/mulle-sde/mulle-sde/release/installer-all' && \
+curl -L -O 'https://raw.githubusercontent.com/mulle-sde/mulle-sde/release/bin/installer-all' && \
 chmod 755 installer-all && \
 SDE_PROJECTS="mulle-sde-developer;latest" ./installer-all ~ no
 ```
@@ -77,7 +77,7 @@ docker run -i -t --rm mulle-sde
 #### Check that the (meta) extensions are found:
 
 ```
-mulle-sde extension list
+mulle-sde extension show
 ```
 
 ### Create a C executable project
