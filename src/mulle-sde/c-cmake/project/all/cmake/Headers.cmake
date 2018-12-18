@@ -10,7 +10,15 @@ include( _Headers)
 # === MULLE-SDE END ===
 #
 
-# add ignored headers back in so that the generators pick them up
+#
+# If you don't like the "automatic" way of generating _Headers
+#
+# MULLE_SDE_CMAKE_HEADERS_FILE="DISABLE" # or NONE
+#
+
+#
+# Add ignored headers back in so that the generators pick them up
+#
 set( PUBLIC_HEADERS
 "<|PROJECT_SOURCE_DIR|>/_<|PROJECT_NAME|>-include.h"
 ${PUBLIC_HEADERS}
@@ -24,7 +32,9 @@ set( INSTALL_PUBLIC_HEADERS ${PUBLIC_HEADERS})
 # which aren't valid outside of the project scope.
 #
 set( INSTALL_PRIVATE_HEADERS ${PRIVATE_HEADERS})
-list( REMOVE_ITEM INSTALL_PRIVATE_HEADERS "include-private.h")
+if( INSTALL_PRIVATE_HEADERS)
+   list( REMOVE_ITEM INSTALL_PRIVATE_HEADERS "include-private.h")
+endif()
 
 # add ignored headers back in so that the generators pick them up
 set( PRIVATE_HEADERS

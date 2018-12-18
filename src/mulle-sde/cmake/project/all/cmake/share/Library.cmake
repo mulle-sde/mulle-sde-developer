@@ -7,8 +7,13 @@ endif()
 ### Library
 
 if( NOT LIBRARY_NAME)
-   set( LIBRARY_NAME "<|PROJECT_NAME|>")
+   set( LIBRARY_NAME "${PROJECT_NAME}")
 endif()
+
+if( NOT LIBRARY_SOURCES)
+   set( LIBRARY_SOURCES "${SOURCES}")
+endif()
+
 
 include( PreLibrary OPTIONAL)
 
@@ -25,7 +30,7 @@ include( PreLibrary OPTIONAL)
 # available yet.
 #
 add_library( "_1_${LIBRARY_NAME}" OBJECT
-   ${SOURCES}
+   ${LIBRARY_SOURCES}
 )
 
 set( ALL_OBJECT_FILES
@@ -80,13 +85,14 @@ if( LINK_PHASE)
 
    include( LibraryAux OPTIONAL)
 
-
    if( BUILD_SHARED_LIBS)
-      set( SHARED_LIBRARY_LIST
-         ${DEPENDENCY_LIBRARIES}
-         ${OPTIONAL_DEPENDENCY_LIBRARIES}
-         ${OS_SPECIFIC_LIBRARIES}
-      )
+      if( NOT SHARED_LIBRARY_LIST)
+         set( SHARED_LIBRARY_LIST
+            ${DEPENDENCY_LIBRARIES}
+            ${OPTIONAL_DEPENDENCY_LIBRARIES}
+            ${OS_SPECIFIC_LIBRARIES}
+         )
+      endif()
 
       include( PostSharedLibrary OPTIONAL) # additional hook
 

@@ -8,27 +8,34 @@ endif()
 # FRAMEWORKS do not support three-phase build
 #
 if( NOT FRAMEWORK_NAME)
-   set( FRAMEWORK_NAME "<|PROJECT_NAME|>")
+   set( FRAMEWORK_NAME "${PROJECT_NAME}")
 endif()
+
+if( NOT FRAMEWORK_FILES)
+   set( FRAMEWORK_FILES "${PROJECT_FILES}")
+endif()
+
 
 include( PreFramework OPTIONAL)
 
 add_library( "${FRAMEWORK_NAME}" SHARED
-   ${PROJECT_FILES}
+   ${FRAMEWORK_FILES}
 )
 
 include( FrameworkAux OPTIONAL)
 
-set( SHARED_LIBRARY_LIST
+if( NOT FRAMEWORK_LIBRARY_LIST)
    ${DEPENDENCY_LIBRARIES}
    ${OPTIONAL_DEPENDENCY_LIBRARIES}
    ${OS_SPECIFIC_LIBRARIES}
 )
 
+set( SHARED_LIBRARY_LIST ${FRAMEWORK_LIBRARY_LIST})
+
 include( PostSharedLibrary OPTIONAL) # additional hook
 
 target_link_libraries( "${FRAMEWORK_NAME}"
-   ${SHARED_LIBRARY_LIST}
+   ${SHARED_LIBRARY_LIST} # use SHARED_LIBRARY_LIST because of PostSharedLibrary
 )
 
 set( INSTALL_RESOURCES
@@ -55,7 +62,6 @@ set( INSTALL_FRAMEWORK_TARGETS
    "${FRAMEWORK_NAME}"
    ${INSTALL_FRAMEWORK_TARGETS}
 )
-
 
 include( PostFramework OPTIONAL)
 

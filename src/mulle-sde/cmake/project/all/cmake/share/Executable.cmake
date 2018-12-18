@@ -6,9 +6,12 @@ endif()
 
 
 if( NOT EXECUTABLE_NAME)
-   set( EXECUTABLE_NAME "<|PROJECT_NAME|>")
+   set( EXECUTABLE_NAME "${PROJECT_NAME}")
 endif()
 
+if( NOT EXECUTABLE_SOURCES)
+   set( EXECUTABLE_SOURCES "${SOURCES}")
+endif()
 
 #
 # must be ahead of AllLoadC
@@ -16,7 +19,7 @@ endif()
 include( PreExecutable OPTIONAL)
 
 add_library( "_1_${EXECUTABLE_NAME}" OBJECT
-   ${SOURCES}
+   ${EXECUTABLE_SOURCES}
 )
 
 set( ALL_OBJECT_FILES
@@ -39,16 +42,23 @@ if( LINK_PHASE)
    # useful for mulle-c, but can be commented out
    set_property( TARGET "${EXECUTABLE_NAME}" PROPERTY CXX_STANDARD 11)
 
+   #
+   # this will set EXECUTABLE_LIBRARY_LIST if ALL_LOAD is used
+   #
    include( ExecutableAux OPTIONAL)
 
+   if( NOT EXECUTABLE_LIBRARY_LIST)
+      if( ALL_LOAD_DEPENDENCY_LIBRARIES)
+         message( FATAL_ERROR "ALL_LOAD_DEPENDENCY_LIBRARIES \"${ALL_LOAD_DEPENDENCY_LIBRARIES}\" are not linked to ${EXECUTABLE_NAME}")
+      endif()
 
-   set( EXECUTABLE_LIBRARY_LIST
-      ${FORCE_ALL_LOAD_DEPENDENCY_LIBRARIES}
-      ${DEPENDENCY_LIBRARIES}
-      ${OPTIONAL_DEPENDENCY_LIBRARIES}
-      ${OS_SPECIFIC_LIBRARIES}
-      ${STARTUP_LIBRARY}
-   )
+      set( EXECUTABLE_LIBRARY_LIST
+         ${DEPENDENCY_LIBRARIES}
+         ${OPTIONAL_DEPENDENCY_LIBRARIES}
+         ${OS_SPECIFIC_LIBRARIES}
+         ${STARTUP_LIBRARY}
+      )
+   endif()
 
    target_link_libraries( "${EXECUTABLE_NAME}"
       ${EXECUTABLE_LIBRARY_LIST}

@@ -9,6 +9,11 @@ include( _Sources)
 
 # === MULLE-SDE END ===
 #
+#
+# If you don't like the "automatic" way of generating _Sources
+#
+# MULLE_SDE_CMAKE_SOURCES_FILE="DISABLE" # or NONE
+#
 
 #
 # You can put more source and resource file definitions here.

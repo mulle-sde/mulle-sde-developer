@@ -26,6 +26,10 @@ if( HEADERS_PHASE)
    endif()
 endif()
 
+if( LINK_PHASE)
+   include( Dependencies OPTIONAL)
+endif()
+
 include( Library)
 include( InstallLibrary)
 include( FinalOutput OPTIONAL)

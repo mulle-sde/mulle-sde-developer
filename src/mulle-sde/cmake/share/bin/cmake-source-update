@@ -140,11 +140,12 @@ create_headers_file()
    local text_hdr
 
    case "${MULLE_SDE_CMAKE_HEADERS_FILE}" in
-      "DISABLED")
-         log_verbose "Header generation disabled by MULLE_SDE_CMAKE_HEADERS_FILE=DISABLED"
+      DISABLE*)
+         log_verbose "Header generation disabled by MULLE_SDE_CMAKE_HEADERS_FILE=DISABLE"
+         return
       ;;
 
-      "NONE")
+      NONE)
          text_hdr="# Header generation disabled by MULLE_SDE_CMAKE_HEADERS_FILE=NONE"
          MULLE_SDE_CMAKE_HEADERS_FILE=""
       ;;
@@ -211,11 +212,12 @@ create_sources_file()
    local text_src
 
    case "${MULLE_SDE_CMAKE_SOURCES_FILE}" in
-      "DISABLED")
-         log_verbose "Source generation disabled by MULLE_SDE_CMAKE_SOURCES_FILE=DISABLED"
+      DISABLE*)
+         log_verbose "Source generation disabled by MULLE_SDE_CMAKE_SOURCES_FILE=DISABLE"
+         return
       ;;
 
-      "NONE")
+      NONE)
          text_src="# Source generation disabled by MULLE_SDE_CMAKE_SOURCES_FILE=NONE"
          MULLE_SDE_CMAKE_SOURCES_FILE=""
       ;;
@@ -234,7 +236,6 @@ create_sources_file()
             #
             text_src="message( FATAL_ERROR \" No sources found. \`mulle-sde environment set MULLE_SDE_CMAKE_SOURCES_FILE NONE\`, if this is intentional\")"
          fi
-
       ;;
    esac
 

@@ -12,6 +12,7 @@ list( INSERT CMAKE_MODULE_PATH 0 "${PROJECT_SOURCE_DIR}/cmake")
 include( Environment)
 
 include( Files)
+include( Dependencies)
 
 ### Executable
 

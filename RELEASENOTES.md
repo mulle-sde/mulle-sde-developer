@@ -1,3 +1,9 @@
+## 0.13.0
+
+* use DISABLE instead of NONE to turn off file generation
+* completely new cmake templates with support for three phase mulle-make
+
+
 ### 0.12.2
 
 * c-sourcetree-update can now output to --stdout

@@ -104,15 +104,18 @@ if( NOT __ENVIRONMENT__CMAKE__)
       )
    endif()
 
+   # include files that get installed
    set( CMAKE_INCLUDES
       "cmake/DependenciesAndLibraries.cmake"
       "cmake/_Dependencies.cmake"
       "cmake/_Libraries.cmake"
    )
 
+   # IDE visible cmake files
    set( CMAKE_EDITABLE_FILES
       CMakeLists.txt
-      cmake/HeadersAndSources.cmake
+      cmake/Headers.cmake
+      cmake/Sources.cmake
       cmake/DependenciesAndLibraries.cmake
    )
 
