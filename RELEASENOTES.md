@@ -1,3 +1,7 @@
+### 0.13.4
+
+* test osx too with travis
+
 ### 0.13.3
 
 * fix travis
