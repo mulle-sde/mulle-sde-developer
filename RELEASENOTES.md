@@ -1,3 +1,7 @@
+### 0.13.1
+
+* try to fix installer
+
 ## 0.13.0
 
 * use DISABLE instead of NONE to turn off file generation
