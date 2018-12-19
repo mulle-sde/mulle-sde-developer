@@ -32,8 +32,8 @@ setup_gitignore()
 
 # per user/ per host tweaks are probably not interesting in the repository
 
-.mulle-env/share/environment-user-*.sh
-.mulle-env/share/environment-host-*.sh
+environment-user-*.sh
+environment-host-*.sh
 
 # .mulle-sde is generally interesting
 

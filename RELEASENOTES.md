@@ -1,3 +1,7 @@
+### 0.13.2
+
+* fix travis, improved gitignore generation
+
 ### 0.13.1
 
 * try to fix installer
