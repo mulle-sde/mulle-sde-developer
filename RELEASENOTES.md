@@ -1,3 +1,7 @@
+### 0.13.3
+
+* fix travis
+
 ### 0.13.2
 
 * fix travis, improved gitignore generation
