@@ -162,23 +162,18 @@ main()
       installer_fail "\"${prefix}\" does not exist"
    fi
 
-
    local directory
 
    directory="`dirname -- "$0"`"
-   cd "${directory}" || installer_fail "Could not cd to \"$directory\" ($PWD)" 
+   cd "${directory}" || installer_fail "Could not cd to \"$directory\" ($PWD)"
    cd .. || installer_fail "Could not cd to \"..\" ($PWD)"  # compensate for installer being in bin
 
    local share
 
    share="${prefix}/share/mulle-sde"
    EXTENSION_DIR="${share}/extensions"
-   mkdir -p "${EXTENSION_DIR}" 2> /dev/null
-
-   for i in src/mulle-sde/*
-   do
-      cp -Rav "${i}" "${EXTENSION_DIR}/" || exit 1
-   done
+   mkdir -p "${EXTENSION_DIR}" || exit 1
+   cp -Rav "src/mulle-sde" "${EXTENSION_DIR}/" || exit 1
 }
 
 main "$@"

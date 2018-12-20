@@ -1,3 +1,7 @@
+### 0.13.5
+
+* fix extension placement
+
 ### 0.13.4
 
 * test osx too with travis
