@@ -1,3 +1,7 @@
+### 0.13.6
+
+* improve `EXECUTABLE_LIBRARY_LIST` use
+
 ### 0.13.5
 
 * fix extension placement
