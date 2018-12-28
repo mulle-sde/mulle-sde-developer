@@ -1,3 +1,7 @@
+### 0.13.7
+
+* search for MulleObjCLoader header instead of of objc-loader.inc
+
 ### 0.13.6
 
 * improve `EXECUTABLE_LIBRARY_LIST` use

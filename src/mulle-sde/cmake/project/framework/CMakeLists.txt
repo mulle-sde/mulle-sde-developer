@@ -17,7 +17,7 @@ include( Dependencies)
 
 include( Framework)
 
-set_target_properties( "<|PROJECT_NAME|>" PROPERTIES
+set_target_properties( "${FRAMEWORK_NAME}" PROPERTIES
   FRAMEWORK_VERSION A
 )
 

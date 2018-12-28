@@ -1,4 +1,8 @@
-# 🏋🏼 mulle-sde with C, cmake and mulle-sde extension support
+# mulle-sde-developer
+
+🎓 mulle-sde installer + various extensions for mulle-sde
+
+![Last version](https://img.shields.io/github/tag/mulle-sde/mulle-sde-developer.svg)
 
 
 This is a base collection of [mulle-sde](//github.com/mulle-sde/mulle-sde)
