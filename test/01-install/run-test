@@ -6,10 +6,10 @@
 run_mulle_sde()
 {
    log_fluff "####################################"
-   log_fluff mulle-sde ${MULLE_SDEFLAGS} "$@"
+   log_fluff mulle-sde ${MULLE_SDE_FLAGS} "$@"
    log_fluff "####################################"
 
-   exekutor mulle-sde ${MULLE_SDEFLAGS} "$@"
+   exekutor mulle-sde ${MULLE_SDE_FLAGS} "$@"
 }
 
 
@@ -88,8 +88,6 @@ main()
    local directory
    local projectdir
    local installdir
-   local RVAL
-
    directory="`make_tmp_directory`" || exit 1
 
 

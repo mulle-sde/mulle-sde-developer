@@ -5,14 +5,14 @@
 #
 # === MULLE-SDE START ===
 
-include( _Sources)
+include( _Sources OPTIONAL)
 
 # === MULLE-SDE END ===
 #
 #
 # If you don't like the "automatic" way of generating _Sources
 #
-# MULLE_SDE_CMAKE_SOURCES_FILE="DISABLE" # or NONE
+# MULLE_MATCH_TO_CMAKE_SOURCES_FILE="DISABLE" # or NONE
 #
 
 #

@@ -168,6 +168,12 @@ main()
    cd "${directory}" || installer_fail "Could not cd to \"$directory\" ($PWD)"
    cd .. || installer_fail "Could not cd to \"..\" ($PWD)"  # compensate for installer being in bin
 
+   for i in mulle-cmake-graphviz-include mulle-create-build-motd
+   do
+      install -m "${mode}" "$i" "${bin}/$i" || exit 1
+      printf "install: ${C_MAGENTA}${C_BOLD}%s${C_RESET}\n" "${bin}/$i" >&2
+   done
+
    local share
 
    share="${prefix}/share/mulle-sde"

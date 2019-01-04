@@ -2,7 +2,7 @@ cmake_minimum_required( VERSION 3.0)
 
 project( mulle-sde-cmake NONE)
 
-set( PROJECT_VERSION 0.13.7)
+set( PROJECT_VERSION 0.14.0)
 
 
 set( EXTENSIONS
@@ -15,6 +15,19 @@ install( DIRECTORY ${EXTENSIONS}
    PATTERN "*._DS_Store" EXCLUDE
    PATTERN "*.ignore" EXCLUDE
 )
+
+
+set( SCRIPTS
+   mulle-cmake-graphviz-include
+   mulle-create-build-motd
+)
+
+
+INSTALL( FILES ${SCRIPTS}
+PERMISSIONS OWNER_EXECUTE OWNER_WRITE OWNER_READ
+            GROUP_EXECUTE GROUP_READ
+            WORLD_EXECUTE WORLD_READ
+DESTINATION "bin")
 
 
 ######

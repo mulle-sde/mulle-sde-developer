@@ -29,11 +29,33 @@
 #   ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 #   POSSIBILITY OF SUCH DAMAGE.
 #
-cmake_source_update_task_run()
+craft_task_run()
 {
-   log_entry "mulle-sde/cmake::cmake_source_update_task_run" "$@"
+   log_entry "mulle-sde/sde:: craft_task_run" "$@"
 
-   log_info "Updating ${C_MAGENTA}${C_BOLD}${PROJECT_NAME}${C_INFO} source"
+   log_fluff "==> Craft"
 
-   exekutor cmake-source-update ${CMAKE_SOURCE_UPDATE_FLAGS} "$@"
+   #
+   # remove running test jobs, as they are invalid now
+   # but only if we restart them
+   #
+   if [ "${MULLE_SDE_TEST_AFTER_CRAFT}" = 'YES' ]
+   then
+      remove_task_job "test"
+   fi
+
+   if ! eval_exekutor mulle-sde "${MULLE_TECHNICAL_FLAGS}" \
+                                "${MULLE_CRAFT_TASK_FLAGS}" \
+                        craft "$@" \
+                           "${MULLE_CRAFT_TASK_ARGS}"
+   then
+      return 1
+   fi
+
+   if [ "${MULLE_SDE_TEST_AFTER_CRAFT}" = 'YES' ]
+   then
+      run_task_main "test"
+   fi
 }
+
+

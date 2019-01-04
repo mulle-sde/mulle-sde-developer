@@ -3,10 +3,11 @@
 tmp.*
 *.bak
 build/
+var/
 build-*.d/
 .mulle-env/
 .mulle-sde/
-mulle-project/publisher-info.sh
+publisher-info.sh
 _Headers.cmake
 _Sources.cmake
 *.sublime-workspace

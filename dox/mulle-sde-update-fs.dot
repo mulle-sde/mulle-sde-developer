@@ -32,20 +32,20 @@ digraph G {
 
     edge [ arrowhead="", style="dotted", label=" write"]
 
-    "cmake-source-update"     -> "_Headers.cmake"
-    "cmake-source-update"     -> "_Sources.cmake"
-    "cmake-sourcetree-update" -> "_Dependencies.cmake"
-    "cmake-sourcetree-update" -> "_Libraries.cmake"
+    "mulle-match-to-cmake"     -> "_Headers.cmake"
+    "mulle-match-to-cmake"     -> "_Sources.cmake"
+    "mulle-sourcetree-to-cmake" -> "_Dependencies.cmake"
+    "mulle-sourcetree-to-cmake" -> "_Libraries.cmake"
 
-    "cmake-source-update"     [ color="magenta", fontcolor="magenta" ]
-    "cmake-sourcetree-update" [ color="magenta", fontcolor="magenta" ]
+    "mulle-match-to-cmake"     [ color="magenta", fontcolor="magenta" ]
+    "mulle-sourcetree-to-cmake" [ color="magenta", fontcolor="magenta" ]
 
-    "src"    -> "cmake-source-update"     [ style="invis"]
+    "src"    -> "mulle-match-to-cmake"     [ style="invis"]
 
     edge [ arrowhead="", style="dotted", label=" read"]
 
-    "cmake-source-update"     -> "src"
-    "cmake-sourcetree-update" -> "config"
+    "mulle-match-to-cmake"     -> "src"
+    "mulle-sourcetree-to-cmake" -> "config"
 
-    { rank = same;  "cmake-source-update", "cmake-sourcetree-update"  };
+    { rank = same;  "mulle-match-to-cmake", "mulle-sourcetree-to-cmake"  };
 }

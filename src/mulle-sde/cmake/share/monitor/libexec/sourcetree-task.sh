@@ -29,20 +29,14 @@
 #   ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 #   POSSIBILITY OF SUCH DAMAGE.
 #
-[ "${TRACE}" = 'YES' ] && set -x && : "$0" "$@"
-
-
-#
-# if action is empty, assume it means we are inside mulle-sde monitor update
-#
-main()
+sourcetree_task_run()
 {
-   local action="$1"     # unused
-   local filename="$2"
-   local category="$3"
+   log_entry "mulle-sde/c-cmake::sourcetree_task_run" "$@"
 
-   echo "cmake-source-update"
+   log_info "Updating ${C_MAGENTA}${C_BOLD}${PROJECT_NAME}${C_INFO} sourcetree"
+
+   exekutor mulle-sourcetree-to-cmake \
+               ${MULLE_TECHNICAL_FLAGS} \
+               ${MULLE_SOURCETREE_TO_CMAKE_FLAGS} \
+               "$@"
 }
-
-main "$@"
-

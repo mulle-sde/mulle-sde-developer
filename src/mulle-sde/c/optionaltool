@@ -1,6 +1,7 @@
 # fallback for all platforms
 # make it optional, because we don't know if its there
 cc
+as
 clang
 gcc
 ld

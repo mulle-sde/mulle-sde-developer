@@ -6,6 +6,7 @@
 #
 VERSIONFILE=CMakeLists.txt
 VERSIONNAME=PROJECT_VERSION
+VERSIONMIRRORNAME=
 VERSIONFILEMIRRORS="\
 src/mulle-sde/c/version
 src/mulle-sde/c-cmake/version

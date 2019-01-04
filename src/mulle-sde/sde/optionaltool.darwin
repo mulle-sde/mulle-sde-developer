@@ -1,7 +1,6 @@
-inotifywait
+fswatch
 ssh
 curl
-wget
 uuidgen
 mulle-cmake-graphviz-include
 mulle-create-build-motd

@@ -87,7 +87,6 @@ main()
    [ -z "${PARENT_DIR}" ] && fail 'PARENT_DIR is undefined'
    [ -z "${PWD}" ]        && fail 'PWD is undefined'
 
-   local RVAL
    local parent_dir
    local subproject_dir
 
@@ -107,10 +106,11 @@ main()
    #
    (
       cd "${PARENT_DIR}"
+      PHYSPWD="`pwd -P`"
       if [ "${OPTION_REMOVE}" = "YES" ]
       then
          # remove plugin from parent searches
-         MULLE_VIRTUAL_ROOT="${PARENT_DIR}" \
+         MULLE_VIRTUAL_ROOT="${PHYSPWD}" \
             mulle-env ${MULLE_TECHNICAL_FLAGS} ${MULLE_ENV_FLAGS} \
                   environment \
                         --scope global \
@@ -118,7 +118,7 @@ main()
                         --remove MULLE_MATCH_IGNORE_PATH \
                         "${relative}"
       else
-         MULLE_VIRTUAL_ROOT="${PARENT_DIR}" \
+         MULLE_VIRTUAL_ROOT="${PHYSPWD}" \
             mulle-env ${MULLE_TECHNICAL_FLAGS} ${MULLE_ENV_FLAGS} \
                   environment \
                         --scope global \

@@ -6,7 +6,8 @@
 # For extra extensions and the like we keep VENDOR_NAME around in the
 # persisten environment, so upgrading works
 #
-VENDOR_NAME="`MULLE_VIRTUAL_ROOT="${PWD}" \
+PHYSPWD="`pwd -P`"
+VENDOR_NAME="`MULLE_VIRTUAL_ROOT="${PHYSPWD}" \
    mulle-env -s ${MULLE_ENV_FLAGS} environment get VENDOR_NAME`"
 
 if [ -z "${VENDOR_NAME}" ]

@@ -4,18 +4,18 @@ digraph G {
     node[shape=record];
     edge[ arrowhead="none", color="gray", label="run"]
 
-    { rank = same;  "cmake-sourcetree-update", "cmake-source-update" };
+    { rank = same;  "mulle-sourcetree-to-cmake", "mulle-match-to-cmake" };
     { rank = same;  "source-callback", "sourcetree-callback" };
     { rank = last;  "mulle-sde update" };
 
-    "source-callback"        [ label="{ callback: source| task: cmake-source-update}"];
-    "sourcetree-callback"    [ label="{ callback: sourcetree| task: cmake-sourcetree-update}"];
+    "source-callback"        [ label="{ callback: source| task: mulle-match-to-cmake}"];
+    "sourcetree-callback"    [ label="{ callback: sourcetree| task: mulle-sourcetree-to-cmake}"];
 
-    "cmake-source-update" [ color="magenta", fontcolor="magenta" ]
-    "cmake-sourcetree-update" [ color="magenta", fontcolor="magenta" ]
+    "mulle-match-to-cmake" [ color="magenta", fontcolor="magenta" ]
+    "mulle-sourcetree-to-cmake" [ color="magenta", fontcolor="magenta" ]
 
-    "source-callback"      ->  "cmake-source-update"
-    "sourcetree-callback"  ->  "cmake-sourcetree-update"
+    "source-callback"      ->  "mulle-match-to-cmake"
+    "sourcetree-callback"  ->  "mulle-sourcetree-to-cmake"
 
     "mulle-sde update"  [ shape="none", fontname="monospace", fontcolor="blue"]
 

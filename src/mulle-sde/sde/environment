@@ -11,7 +11,7 @@ MULLE_MATCH_FILENAMES="config"
 #
 # Used by `mulle-match find` to locate files
 #
-MULLE_MATCH_PATH=".mulle-sourcetree/etc/config"
+MULLE_MATCH_PATH=".mulle/etc/sourcetree/config"
 
 #
 # Used by `mulle-match find` to ignore boring subdirectories like .git
