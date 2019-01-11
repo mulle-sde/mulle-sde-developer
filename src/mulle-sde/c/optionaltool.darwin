@@ -1,9 +1,10 @@
+ar
+as
 cc
 clang
 gcc
-ld
-as
-otool
 install_name_tool
-xcrun
+ld
+otool
 xcodebuild
+xcrun
