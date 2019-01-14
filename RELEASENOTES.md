@@ -1,3 +1,12 @@
+### 0.14.1
+
+* added some optionaltools for a smother experience
+* RPATH install fix for shared libraries and executables
+* support for multiphase
+* c-sourcetree-update moved to mulle-sourcetree project
+* improved tool an optionaltool content
+* generally nicer templates for library/framework/executable
+
 ### 0.13.7
 
 * search for MulleObjCLoader header instead of of objc-loader.inc

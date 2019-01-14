@@ -16,38 +16,41 @@ run_mulle_sde()
 _setup_test()
 {
    (
-      exekutor cd "$1" || exit 1
-      exekutor mkdir repos || exit 1
+      exekutor cd "$1"     &&
+      exekutor mkdir repos &&
 
       (
-         exekutor cd repos    || exit 1
+         exekutor cd repos &&
 
-         run_mulle_sde init --no-post-init -m mulle-sde/c-developer -d a library || exit 1
-         run_mulle_sde init --no-post-init -m mulle-sde/c-developer -d c library || exit 1
+         log_fluff "setup a & c" &&
+         run_mulle_sde init --no-post-init -m mulle-sde/c-developer -d a library &&
+         run_mulle_sde init --no-post-init -m mulle-sde/c-developer -d c library &&
 
+         log_info "setup b with dependency c in a" &&
          (
-            exekutor cd a || exit 1
-            run_mulle_sde subproject init -d b library || exit 1
-            run_mulle_sde subproject --subproject b dependency add --nodetype git c || exit 1
-            run_mulle_sde update || exit 1
-         ) || exit 1
+            exekutor cd a &&
+            run_mulle_sde subproject init -d b library &&
+            run_mulle_sde subproject --subproject b dependency add --nodetype git c &&
+            log_fluff "run update in a" &&
+            run_mulle_sde update
+         ) &&
 
+         log_info "run update in c (leaf)" &&
          (
-            exekutor cd c || exit 1
-            run_mulle_sde update || exit 1
-         ) || exit 1
+            exekutor cd c &&
+            run_mulle_sde update
+         )
+      ) &&
 
-      ) || exit 1
-
+      log_info "add project with dependency a" &&
       (
-         run_mulle_sde init --no-post-init -m mulle-sde/c-developer -d project executable || exit 1
-         cd project || exit 1
+         run_mulle_sde init --no-post-init -m mulle-sde/c-developer -d project executable &&
+         cd project &&
 
-         run_mulle_sde environment set MULLE_FETCH_SEARCH_PATH "${PWD}/../repos"
+         run_mulle_sde environment set MULLE_FETCH_SEARCH_PATH "${PWD}/../repos" &&
          run_mulle_sde dependency add --nodetype git a
-      ) || exit 1
-
-   ) || exit 1
+      )
+   )
 }
 
 
@@ -63,13 +66,11 @@ main()
 
    directory="`make_tmp_directory`" || exit 1
 
-   _setup_test "${directory}"
+   _setup_test "${directory}" || fail "Test setup failed"
 
-   (
-      cd "${directory}/project"  || exit 1
-      run_mulle_sde fetch || exit 1
-      run_mulle_sde craft || exit 1
-   ) || exit 1
+   cd "${directory}/project"  || fail "cd failed"
+   run_mulle_sde fetch || fail "Test fetch failed"
+   run_mulle_sde craft || fail "Test craft failed"
 
    log_verbose "----- #1 PASSED -----"
 

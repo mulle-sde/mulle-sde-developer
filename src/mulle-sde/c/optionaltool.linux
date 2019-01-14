@@ -1,0 +1,15 @@
+#
+# Most of these aren't really optional though
+# for building or ?
+#
+ar
+as
+cc
+clang
+diff
+gcc
+ld
+nm
+valgrind
+vgdb
+valgrind.bin

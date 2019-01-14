@@ -1,10 +1,15 @@
+#
+#
 ar
 as
 cc
 clang
+diff
 gcc
 install_name_tool
 ld
+nm
 otool
 xcodebuild
 xcrun
+sw_vers

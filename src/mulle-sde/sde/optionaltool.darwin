@@ -1,6 +1,7 @@
-fswatch
-ssh
 curl
-uuidgen
+fswatch
 mulle-cmake-graphviz-include
 mulle-create-build-motd
+ssh
+tty
+uuidgen

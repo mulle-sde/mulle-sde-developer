@@ -4,5 +4,8 @@ ar
 as
 cc
 clang
+diff
 gcc
 ld
+nm
+

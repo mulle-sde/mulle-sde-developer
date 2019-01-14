@@ -1,7 +1,8 @@
-inotifywait
-ssh
 curl
-wget
-uuidgen
+inotifywait
 mulle-cmake-graphviz-include
 mulle-create-build-motd
+ssh
+tty
+uuidgen
+wget
