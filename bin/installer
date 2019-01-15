@@ -170,6 +170,7 @@ main()
    cd .. || installer_fail "Could not cd to \"..\" ($PWD)"  # compensate for installer being in bin
 
    bin="${prefix}/bin"
+   mkdir -p "${bin}" || exit 1
    for i in mulle-cmake-graphviz-include mulle-create-build-motd
    do
       install -m "${mode}" "$i" "${bin}/$i" || exit 1
