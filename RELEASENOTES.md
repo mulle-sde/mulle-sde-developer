@@ -1,3 +1,7 @@
+### 0.14.2
+
+* add some more tools
+
 ### 0.14.1
 
 * added some optionaltools for a smother experience

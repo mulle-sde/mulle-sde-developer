@@ -5,3 +5,5 @@ mulle-create-build-motd
 ssh
 tty
 uuidgen
+zip
+gzip
