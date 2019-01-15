@@ -10,6 +10,7 @@ install_name_tool
 ld
 nm
 otool
+ranlib
 xcodebuild
 xcrun
 sw_vers

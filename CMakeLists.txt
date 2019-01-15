@@ -2,7 +2,7 @@ cmake_minimum_required( VERSION 3.0)
 
 project( mulle-sde-cmake NONE)
 
-set( PROJECT_VERSION 0.14.4)
+set( PROJECT_VERSION 0.14.5)
 
 
 set( EXTENSIONS

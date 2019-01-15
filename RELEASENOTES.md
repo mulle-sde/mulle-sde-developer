@@ -1,3 +1,7 @@
+### 0.14.5
+
+* need ranlib on osx
+
 ### 0.14.4
 
 * fix installer one more time
