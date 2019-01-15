@@ -163,11 +163,13 @@ main()
    fi
 
    local directory
+   local bin
 
    directory="`dirname -- "$0"`"
    cd "${directory}" || installer_fail "Could not cd to \"$directory\" ($PWD)"
    cd .. || installer_fail "Could not cd to \"..\" ($PWD)"  # compensate for installer being in bin
 
+   bin="${prefix}/bin"
    for i in mulle-cmake-graphviz-include mulle-create-build-motd
    do
       install -m "${mode}" "$i" "${bin}/$i" || exit 1

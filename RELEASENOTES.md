@@ -1,3 +1,7 @@
+### 0.14.3
+
+* fix installer
+
 ### 0.14.2
 
 * add some more tools
