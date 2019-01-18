@@ -15,3 +15,9 @@ MULLE_MATCH_PATH+="cmake"
 #
 MULLE_MATCH_FILENAMES+="CMakeLists.txt"
 MULLE_MATCH_FILENAMES+="*.cmake"
+
+
+#
+# tell mulle-sde to keep files protected from read/write changes
+#
+MULLE_SDE_PROTECT_PATH+="cmake/share"

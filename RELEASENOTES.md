@@ -1,3 +1,7 @@
+### 0.14.6
+
+* support new `MULLE_SDE_PROTECT_PATH` feature
+
 ### 0.14.5
 
 * need ranlib on osx
