@@ -1,9 +1,0 @@
-curl
-fswatch
-mulle-cmake-graphviz-include
-mulle-create-build-motd
-ssh
-tty
-uuidgen
-zip
-gzip

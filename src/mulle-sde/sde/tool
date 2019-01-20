@@ -1,5 +1,19 @@
 column
-git
-gzip
-tar
+mulle-cmake-graphviz-include
+mulle-create-build-motd
 
+#
+# Optional tools
+#   Some things will should work if there are alternatives available
+#   Have no zip ? Not a deal breaker
+#   But we can also live without tar and gzip, if you use just git..
+#
+curl;optional
+git;optional
+gzip;optional
+inotifywait;optional
+ssh;optional
+tar;optional
+tty;optional
+wget;optional
+zip;optional
