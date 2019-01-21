@@ -1,3 +1,7 @@
+### 0.15.2
+
+* add optional id for mulle-craft
+
 ### 0.15.1
 
 * make some optional binaries optional
