@@ -1,3 +1,7 @@
+### 0.15.1
+
+* make some optional binaries optional
+
 ## 0.15.0
 
 * optionaltool -> tool migration

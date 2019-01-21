@@ -1,6 +1,11 @@
 column
-mulle-cmake-graphviz-include
-mulle-create-build-motd
+
+#
+# Why are these optional ? Because in a setting where you compile a project
+# without mulle-sde-developer installed it should still build.
+#
+mulle-cmake-graphviz-include;optional
+mulle-create-build-motd;optional
 
 #
 # Optional tools
