@@ -1,3 +1,7 @@
+### 0.15.3
+
+* adapt sublime-text to new .mulle folders
+
 ### 0.15.2
 
 * add optional id for mulle-craft
