@@ -92,8 +92,7 @@ list_cmake_includes()
    local includeinfo
    local optional
 
-   IFS="
-"
+   IFS=$'\n'
    for includeinfo in `get_includes "${filename}"`
    do
       IFS="${DEFAULT_IFS}"
