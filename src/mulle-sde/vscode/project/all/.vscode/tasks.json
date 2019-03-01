@@ -34,9 +34,7 @@
             "args": [
                 "craft",
             ],
-            "group": {
-                "kind": "build"
-            }
+            "group": "build"
         },
         {
            "label": "Update",
