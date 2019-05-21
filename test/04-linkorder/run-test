@@ -1,0 +1,122 @@
+#! /usr/bin/env bash
+
+[ "${TRACE}" = 'YES' ] && set -x && : "$0" "$@"
+
+
+run_mulle_sde()
+{
+   log_fluff "####################################"
+   log_fluff mulle-sde ${MULLE_SDE_FLAGS} "$@"
+   log_fluff "####################################"
+
+   exekutor mulle-sde ${MULLE_SDE_FLAGS} "$@"
+}
+
+
+expect_file()
+{
+   log_entry "expect_file" "$@"
+
+   local expected="$1"
+
+   if [ ! -f "${expected}" ]
+   then
+      fail "File \"${expected}\" was expected to exist"
+   fi
+}
+
+
+r_create_project()
+{
+   local projecttype="$1"; shift
+
+   local directory="$1"
+   local name="$2"
+
+   r_filepath_concat "${directory}" "${name}"
+   mkdir_if_missing "${RVAL}"
+   rexekutor "${RVAL}"
+   mulle-sourcetree
+}
+
+
+r_create_library()
+{
+   ( r_create_project library "$@" )
+}
+
+
+main()
+{
+   MULLE_SDE_FLAGS="$@"
+
+   _options_mini_main "$@"
+
+   #
+   # memo: remember we only deal with relative paths w/o leading /!
+   # for simplicity it's also assumed that no relative path contain a
+   # trailing '/'
+   #
+   local directory
+   local projectdir
+   local installdir
+
+   directory="`make_tmp_directory`" || exit 1
+
+   r_filepath_concat "${directory}" "a"
+   mkdir "${RVAL}"
+   ( cd  "${RVAL}" && mulle-sourcetree -N add b && ln -s ../b )
+
+   r_filepath_concat "${directory}" "b"
+   mkdir "${RVAL}"
+   ( cd  "${RVAL}" && mulle-sourcetree -N add c && ln -s ../c )
+
+   r_filepath_concat "${directory}" "c"
+   mkdir "${RVAL}"
+
+   r_filepath_concat "${directory}" "d"
+   mkdir "${RVAL}"
+   ( cd  "${RVAL}" && mulle-sourcetree -N add e && ln -s ../e)
+
+   r_filepath_concat "${directory}" "e"
+   mkdir "${RVAL}"
+
+   r_filepath_concat "${directory}" "f"
+   mkdir "${RVAL}"
+   ( cd  "${RVAL}" && mulle-sourcetree -N add c  && ln -s ../e )
+
+   r_filepath_concat "${directory}" "project"
+   projectdir="${RVAL}"
+
+   run_mulle_sde init -d "${projectdir}" none
+
+   cd "${projectdir}"
+
+   run_mulle_sde dependency add --nodetype git a
+   run_mulle_sde dependency add --nodetype git d
+   run_mulle_sde dependency add --nodetype git f
+
+   run_mulle_sde fetch --recurse
+   run_mulle_sde craftorder
+   run_mulle_sde linkorder --output-format node
+
+   log_info "----- ALL PASSED -----"
+
+   exekutor rmdir_safer "${directory}"
+}
+
+
+
+init()
+{
+   MULLE_BASHFUNCTIONS_LIBEXEC_DIR="`mulle-bashfunctions-env libexec-dir`" || exit 1
+
+   . "${MULLE_BASHFUNCTIONS_LIBEXEC_DIR}/mulle-bashfunctions.sh" || exit 1
+
+   MULLE_SDE_EXTENSION_PATH="${PWD}/../../src:${MULLE_SDE_EXTENSION_PATH}"
+}
+
+
+init "$@"
+main "$@"
+

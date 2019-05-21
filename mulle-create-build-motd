@@ -36,12 +36,12 @@ emit_executable_motd()
 {
    log_entry "emit_executable_motd" "$@"
 
-   local builddir="$1"
+   local kitchendir="$1"
    local name="$2"
 
    local filepath
 
-   filepath="`filepath_concat "${builddir}" "${name}" `"
+   filepath="`filepath_concat "${kitchendir}" "${name}" `"
    printf "%b\n"  "${C_INFO}Run your executable:${C_RESET}"
    printf "%b\n"  "${C_BOLD}   ${filepath#${MULLE_VIRTUAL_ROOT#/}}${C_RESET}"
 }
@@ -72,7 +72,7 @@ main()
    options_setup_trace "${MULLE_TRACE}"
 
    local buildtype="$1"
-   local builddir="$2"
+   local kitchendir="$2"
    local name="$3"
 
    case "${buildtype}" in
@@ -92,7 +92,7 @@ main()
    if [ ! -z "${text}" ]
    then
       log_fluff "Writing motd..."
-      redirect_exekutor "${builddir}/.motd" echo "${text}"
+      redirect_exekutor "${kitchendir}/.motd" echo "${text}"
    fi
 }
 

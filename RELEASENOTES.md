@@ -1,3 +1,9 @@
+## 0.16.0
+
+* improved searchpaths generation for cmake
+* remove boring folders from VS project and indexing
+
+
 ### 0.15.3
 
 * adapt sublime-text to new .mulle folders

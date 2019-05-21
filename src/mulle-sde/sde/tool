@@ -23,3 +23,5 @@ tar;optional
 tty;optional
 wget;optional
 zip;optional
+xz;optional
+bzip2;optional

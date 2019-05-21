@@ -89,10 +89,5 @@ the sourcetree and inherited sourcetrees.
 
    include( PostExecutable OPTIONAL)
 
-
-   ### Install
-
-   install( TARGETS ${INSTALL_EXECUTABLE_TARGETS} DESTINATION "bin")
-
 endif()
 

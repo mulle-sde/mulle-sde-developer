@@ -3,6 +3,7 @@
 tmp.*
 *.bak
 build/
+kitchen/
 var/
 build-*.d/
 .mulle-env/

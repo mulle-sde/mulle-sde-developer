@@ -10,6 +10,7 @@ VERSIONMIRRORNAME=
 VERSIONFILEMIRRORS="\
 src/mulle-sde/c/version
 src/mulle-sde/c-cmake/version
+src/mulle-sde/c-demo/version
 src/mulle-sde/c-developer/version
 src/mulle-sde/cmake/version
 src/mulle-sde/extension/version

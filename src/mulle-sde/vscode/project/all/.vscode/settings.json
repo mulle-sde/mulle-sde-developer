@@ -3,6 +3,7 @@
     "__error": "Not found",
     "**/stash": true,
     "**/build": true,
+    "**/kitchen": true,
     "**/var": true,
     "**/dependency": true
    },
@@ -10,6 +11,7 @@
     "__error": "Not found",
     "**/stash": true,
     "**/build": true,
+    "**/kitchen": true,
     "**/var": true,
     "**/dependency": true
    }
