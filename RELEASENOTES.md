@@ -1,3 +1,7 @@
+### 0.16.1
+
+* fix travus
+
 ## 0.16.0
 
 * improved searchpaths generation for cmake
