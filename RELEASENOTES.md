@@ -1,3 +1,7 @@
+### 0.16.2
+
+* apple RPATH needs trailing /
+
 ### 0.16.1
 
 * fix travus
