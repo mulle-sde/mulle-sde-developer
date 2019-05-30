@@ -1,3 +1,7 @@
+### 0.16.3
+
+* fix apple RPATH yet again
+
 ### 0.16.2
 
 * apple RPATH needs trailing /
