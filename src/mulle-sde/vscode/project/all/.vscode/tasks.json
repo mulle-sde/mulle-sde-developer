@@ -12,7 +12,7 @@
                 "base": "$gcc",
                 "fileLocation": [
                   "relative",
-                  "${workspaceFolder}/build/Debug"
+                  "${workspaceFolder}/kitchen/Debug"
                 ]
             },
             "group": {
@@ -28,7 +28,7 @@
                 "base": "$gcc",
                 "fileLocation": [
                   "relative",
-                  "${workspaceFolder}/build/Release"
+                  "${workspaceFolder}/kitchen/Release"
                 ]
             },
             "args": [

@@ -1,3 +1,6 @@
+#ifndef <|PROJECT_DOWNCASE_IDENTIFIER|>_h__
+#define <|PROJECT_DOWNCASE_IDENTIFIER|>_h__
+
 #<|INCLUDE_COMMAND|> "<|INCLUDE_COMMAND|>.h"
 
 #include <stdint.h>
@@ -36,3 +39,5 @@ extern uint32_t   <|PROJECT_IDENTIFIER|>_get_version( void);
 
    # include "foo.h"
 */
+#endif
+
