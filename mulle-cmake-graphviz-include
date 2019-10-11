@@ -27,7 +27,7 @@ find_cmake_file()
 
    local directory
 
-   IFS=":"
+   IFS=':'
    for directory in ${searchpath}
    do
       IFS="${DEFAULT_IFS}"
