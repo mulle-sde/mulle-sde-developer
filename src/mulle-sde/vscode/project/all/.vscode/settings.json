@@ -1,18 +1,18 @@
 {
   "files.exclude": {
-    "__error": "Not found",
-    "**/stash": true,
+    "**/addiction": true,
     "**/build": true,
+    "**/dependency": true,
     "**/kitchen": true,
-    "**/var": true,
-    "**/dependency": true
+    "**/stash": true,
+    "**/var": true
    },
    "files.watcherExclude": {
-    "__error": "Not found",
-    "**/stash": true,
+    "**/addiction": true,
     "**/build": true,
+    "**/dependency": true,
     "**/kitchen": true,
-    "**/var": true,
-    "**/dependency": true
+    "**/stash": true,
+    "**/var": true
    }
 }

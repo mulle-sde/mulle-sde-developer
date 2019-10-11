@@ -92,7 +92,7 @@ main()
    if [ ! -z "${text}" ]
    then
       log_fluff "Writing motd..."
-      redirect_exekutor "${kitchendir}/.motd" echo "${text}"
+      redirect_exekutor "${kitchendir}/.motd" printf "%s\n" "${text}"
    fi
 }
 

@@ -27,14 +27,14 @@ find_cmake_file()
 
    local directory
 
-   IFS=":"
+   IFS=':'
    for directory in ${searchpath}
    do
       IFS="${DEFAULT_IFS}"
 
       if [ -f "${directory}/${filename}" ]
       then
-         echo "${directory}/${filename}"
+         printf "%s\n" "${directory}/${filename}"
          return 0
       fi
    done
@@ -55,7 +55,7 @@ pretty()
       ;;
    esac
 
-   echo "${filename}"
+   printf "%s\n" "${filename}"
 }
 
 _list_cmake_include()
