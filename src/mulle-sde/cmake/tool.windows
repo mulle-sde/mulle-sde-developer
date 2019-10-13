@@ -1,0 +1,6 @@
+mulle-match-to-cmake;optional
+mulle-sourcetree-to-cmake;optional
+cmake;remove
+cmake.exe
+ninja.exe;optional
+nmake.exe;optional
