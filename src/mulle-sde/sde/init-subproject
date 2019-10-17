@@ -111,7 +111,7 @@ main()
       then
          # remove plugin from parent searches
          MULLE_VIRTUAL_ROOT="${PHYSPWD}" \
-            mulle-env ${MULLE_TECHNICAL_FLAGS} ${MULLE_ENV_FLAGS} \
+            mulle-env ${MULLE_TECHNICAL_FLAGS}  \
                   environment \
                         --scope global \
                      set \
@@ -119,7 +119,7 @@ main()
                         "${relative}"
       else
          MULLE_VIRTUAL_ROOT="${PHYSPWD}" \
-            mulle-env ${MULLE_TECHNICAL_FLAGS} ${MULLE_ENV_FLAGS} \
+            mulle-env ${MULLE_TECHNICAL_FLAGS}  \
                   environment \
                         --scope global \
                      set \

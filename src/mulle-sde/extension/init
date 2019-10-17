@@ -8,7 +8,7 @@
 #
 PHYSPWD="`pwd -P`"
 VENDOR_NAME="`MULLE_VIRTUAL_ROOT="${PHYSPWD}" \
-   mulle-env -s ${MULLE_ENV_FLAGS} environment get VENDOR_NAME`"
+   mulle-env -s environment get VENDOR_NAME`"
 
 if [ -z "${VENDOR_NAME}" ]
 then

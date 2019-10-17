@@ -1,3 +1,15 @@
+## 0.17.0
+
+* changed to mulle-bashfunctions 2 call convention
+* some improvements for vscode
+* ask mulle-env for the location of ETC SHARE and VAR directories
+* support `MULLE_SOURCETREE_TO_CMAKE_RUN` NO|DISABLE|OFF to disable mulle-sourcetree-to-cmake
+* support `MULLE_SOURCETREE_TO_C_RUN` NO|DISABLE|OFF to disable mulle-sourcetree-to-c
+* fix `@loader_path` for APPLE in cmake
+* STARTUP libraries must reside in separate projects now, which makes everything easier
+* support RESOURCES better
+
+
 ### 0.16.3
 
 * fix apple RPATH yet again

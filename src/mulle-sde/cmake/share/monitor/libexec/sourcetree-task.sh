@@ -37,6 +37,5 @@ sourcetree_task_run()
 
    exekutor mulle-sourcetree-to-cmake \
                ${MULLE_TECHNICAL_FLAGS} \
-               ${MULLE_SOURCETREE_TO_CMAKE_FLAGS} \
                "$@"
 }
