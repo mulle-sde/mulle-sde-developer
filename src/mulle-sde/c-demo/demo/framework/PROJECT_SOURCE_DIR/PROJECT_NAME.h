@@ -31,8 +31,7 @@ static inline unsigned int   <|PROJECT_IDENTIFIER|>_get_version_patch( void)
 extern uint32_t   <|PROJECT_IDENTIFIER|>_get_version( void);
 
 /*
-   Add other library headers here like so, for exposure to library
+   Add your library headers here for exposure to library
    consumers.
-
-   # include "foo.h"
 */
+// #include "foo.h"
