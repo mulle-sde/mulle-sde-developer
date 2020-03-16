@@ -1,6 +1,6 @@
 #
 # The following includes include definitions generated
-# during `mulle-sde update`. Don't edit those files. They are
+# during `mulle-sde reflect`. Don't edit those files. They are
 # overwritten frequently.
 #
 # === MULLE-SDE START ===

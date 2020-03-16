@@ -6,7 +6,7 @@ digraph G {
 
     { rank = same;  "mulle-sourcetree-to-cmake", "mulle-match-to-cmake" };
     { rank = same;  "source-callback", "sourcetree-callback" };
-    { rank = last;  "mulle-sde update" };
+    { rank = last;  "mulle-sde reflect" };
 
     "source-callback"        [ label="{ callback: source| task: mulle-match-to-cmake}"];
     "sourcetree-callback"    [ label="{ callback: sourcetree| task: mulle-sourcetree-to-cmake}"];
@@ -17,10 +17,10 @@ digraph G {
     "source-callback"      ->  "mulle-match-to-cmake"
     "sourcetree-callback"  ->  "mulle-sourcetree-to-cmake"
 
-    "mulle-sde update"  [ shape="none", fontname="monospace", fontcolor="blue"]
+    "mulle-sde reflect"  [ shape="none", fontname="monospace", fontcolor="blue"]
 
     edge[ arrowhead="", style="dotted", color="black" ]
 
-    "mulle-sde update"  -> "source-callback"
-    "mulle-sde update"  -> "sourcetree-callback"
+    "mulle-sde reflect"  -> "source-callback"
+    "mulle-sde reflect"  -> "sourcetree-callback"
 }

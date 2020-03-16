@@ -12,3 +12,4 @@ publisher-info.sh
 _Headers.cmake
 _Sources.cmake
 *.sublime-workspace
+dot.git/

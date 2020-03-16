@@ -37,11 +37,11 @@
             "group": "build"
         },
         {
-           "label": "Update",
+           "label": "Reflect",
            "type": "shell",
            "command": "mulle-sde",
            "args": [
-              "update"
+              "reflect"
            ],
            "problemMatcher": []
         },

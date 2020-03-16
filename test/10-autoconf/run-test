@@ -101,23 +101,22 @@ main()
    r_filepath_concat "${directory}" "install"
    installdir="${RVAL}"
 
-   r_create_library "${directory}" "a" &
-   r_create_library "${directory}" "b" &
-   r_create_library "${directory}" "c" &
-   r_create_library "${directory}" "d" &
-
-   wait
-
    r_create_executable "${directory}" "foo"
    projectdir="${RVAL}"
 
+   exekutor cp repos/executable/executable.c "${projectdir}/src/main.c"
+
    # add two libs to foo
+   local reposdir
+
+   reposdir="${PWD}/repos"
 
    (
       cd "${projectdir}" &&
-      run_mulle_sde environment --global set MULLE_FETCH_SEARCH_PATH "${directory}"
-      run_mulle_sde dependency add --marks no-singlephase https://foo.com/a.git &&
-      run_mulle_sde dependency add --marks no-singlephase https://foo.com/b.git &&
+      run_mulle_sde environment --global set MULLE_FETCH_SEARCH_PATH "${reposdir}"
+      run_mulle_sde dependency add --c --singlephase https://foo.com/library.git &&
+      run_mulle_sde dependency set library include library.h &&
+      run_mulle_sde dependency add --c --marks no-link,no-header --singlephase https://foo.com/executable.git &&
       run_mulle_sde fetch
    ) || fail "Failed during test setup"
 
@@ -130,28 +129,19 @@ main()
 
    log_verbose "----- #1 PASSED -----"
 
-   r_create_executable "${directory}" "bar"
-   projectdir="${RVAL}"
+   # check that autoconf executable is present and both produce the same
+   # output
 
-   # add four libs to foo
+   local value1
+   local value2
 
-   (
-      cd "${projectdir}" &&
-      run_mulle_sde environment --global set MULLE_FETCH_SEARCH_PATH "${directory}"
+   value1="`exekutor "${projectdir}/kitchen/Debug/foo" `" || fail "foo execution"
+   value2="`exekutor "${projectdir}/dependency/bin/executable.exe" `" || fail "executable.exe execution"
 
-      # serializing step, a and b will be "inherited"
-      run_mulle_sde dependency add --marks no-link,no-header https://foo.com/foo.git &&
-      run_mulle_sde dependency add --marks no-singlephase https://foo.com/c.git &&
-      run_mulle_sde dependency add --marks no-singlephase https://foo.com/d.git &&
-      run_mulle_sde fetch
-   ) || fail "Failed during test setup"
-
-   # now lets craft
-
-   (
-      cd "${projectdir}" &&
-      run_mulle_sde craft
-   ) || fail "Build failure"
+   if [ -z "${value1}" -o "${value1}" != "${value2}" ]
+   then
+      fail "wrong result"
+   fi
 
    log_verbose "----- #2 PASSED -----"
 
