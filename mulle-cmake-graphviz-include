@@ -92,10 +92,13 @@ list_cmake_includes()
    local includeinfo
    local optional
 
-   IFS=$'\n'
-   for includeinfo in `get_includes "${filename}"`
+   local includes
+
+   includes="`get_includes "${filename}"`"
+   set -o noglob ; IFS=$'\n'
+   for includeinfo in ${includes}
    do
-      IFS="${DEFAULT_IFS}"
+      set +o noglob ; IFS="${DEFAULT_IFS}"
 
       includefile="${includeinfo%;*}"
       optional="${includeinfo%*#}"
@@ -113,7 +116,7 @@ list_cmake_includes()
          _list_cmake_include "${includefile}" "${filename}" "${searchpath}"
       fi
    done
-   IFS="${DEFAULT_IFS}"
+   set +o noglob ; IFS="${DEFAULT_IFS}"
 }
 
 
