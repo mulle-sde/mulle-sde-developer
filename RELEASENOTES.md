@@ -1,3 +1,8 @@
+## 0.19.0
+
+* improved travis extension
+
+
 ## 0.18.0
 
 * updated to newest mulle-sde
