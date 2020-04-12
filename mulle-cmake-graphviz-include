@@ -124,7 +124,7 @@ main()
 {
    local filename="${1:-CMakeLists.txt}"
 
-   CMAKE_SEARCHPATH="${CMAKE_SEARCHPATH:-cmake:cmake/share:.}"
+   CMAKE_SEARCHPATH="${CMAKE_SEARCHPATH:-cmake:cmake/reflect:cmake/share:.}"
 
    if [ ! -f "${filename}" ]
    then

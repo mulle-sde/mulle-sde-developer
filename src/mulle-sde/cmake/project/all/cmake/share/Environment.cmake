@@ -5,6 +5,8 @@
 if( NOT __ENVIRONMENT__CMAKE__)
    set( __ENVIRONMENT__CMAKE__ ON)
 
+   ## USE mulle-sde -v craft -- -DMULLE_TRACE_INCLUDE=ON to trace cmake
+   ##     inclusion
    if( MULLE_TRACE_INCLUDE)
       message( STATUS "# Include \"${CMAKE_CURRENT_LIST_FILE}\"" )
    endif()
@@ -12,7 +14,7 @@ if( NOT __ENVIRONMENT__CMAKE__)
    #
    #
    #
-   set( MULLE_VIRTUAL_ROOT "$ENV{MULLE_VIRTUAL_ROOT}")
+   set( MULLE_VIRTUAL_ROOT KITCHEN_DIR)
    if( NOT MULLE_VIRTUAL_ROOT)
       set( MULLE_VIRTUAL_ROOT "${PROJECT_SOURCE_DIR}")
    endif()
@@ -22,13 +24,24 @@ if( NOT __ENVIRONMENT__CMAKE__)
    # default set below. But! If you are using --sdk --platform
    # distictions the paths will be different
    #
-   string( REPLACE ":" ";" MULLE_SDK_PATH "$ENV{MULLE_SDK_PATH}")
-
    if( NOT MULLE_SDK_PATH)
-      set( MULLE_SDK_PATH
-         "${MULLE_VIRTUAL_ROOT}/dependency"
-         "${MULLE_VIRTUAL_ROOT}/addiction"
-      )
+      string( REPLACE ":" ";" MULLE_SDK_PATH "$ENV{MULLE_SDK_PATH}")
+
+      set( TMP_DEPENDENCY_DIR "$ENV{DEPENDENCY_DIR}")
+      if( NOT TMP_DEPENDENCY_DIR)
+         set( TMP_DEPENDENCY_DIR "${MULLE_VIRTUAL_ROOT}/dependency")
+      endif()
+      set( TMP_ADDICTION_DIR "$ENV{ADDICTION_DIR}")
+      if( NOT TMP_ADDICTION_DIR)
+         set( TMP_ADDICTION_DIR "${MULLE_VIRTUAL_ROOT}/addiction")
+      endif()
+
+      if( NOT MULLE_SDK_PATH)
+         set( MULLE_SDK_PATH
+            "${TMP_DEPENDENCY_DIR}"
+            "${TMP_ADDICTION_DIR}"
+         )
+      endif()
    endif()
 
    set( TMP_INCLUDE_DIRS)
@@ -78,24 +91,26 @@ if( NOT __ENVIRONMENT__CMAKE__)
          #
          # add build type unconditionally if not Release
          #
-         if( NOT CMAKE_BUILD_TYPE STREQUAL "Release")
-            set( TMP_CMAKE_INCLUDE_PATH
-               ${TMP_CMAKE_INCLUDE_PATH}
-               "${TMP_PREFIX}/${CMAKE_BUILD_TYPE}/include"
-            )
-            set( TMP_INCLUDE_DIRS
-               ${TMP_INCLUDE_DIRS}
-               "${TMP_PREFIX}/${CMAKE_BUILD_TYPE}/include"
-            )
+         if( CMAKE_BUILD_TYPE)
+            if( NOT CMAKE_BUILD_TYPE STREQUAL "Release")
+               set( TMP_CMAKE_INCLUDE_PATH
+                  ${TMP_CMAKE_INCLUDE_PATH}
+                  "${TMP_PREFIX}/${CMAKE_BUILD_TYPE}/include"
+               )
+               set( TMP_INCLUDE_DIRS
+                  ${TMP_INCLUDE_DIRS}
+                  "${TMP_PREFIX}/${CMAKE_BUILD_TYPE}/include"
+               )
 
-            set( TMP_CMAKE_LIBRARY_PATH
-               ${TMP_CMAKE_LIBRARY_PATH}
-               "${TMP_PREFIX}/${CMAKE_BUILD_TYPE}/lib"
-            )
-            set( TMP_CMAKE_FRAMEWORK_PATH
-               ${TMP_CMAKE_FRAMEWORK_PATH}
-               "${TMP_PREFIX}/${CMAKE_BUILD_TYPE}/Frameworks"
-            )
+               set( TMP_CMAKE_LIBRARY_PATH
+                  ${TMP_CMAKE_LIBRARY_PATH}
+                  "${TMP_PREFIX}/${CMAKE_BUILD_TYPE}/lib"
+               )
+               set( TMP_CMAKE_FRAMEWORK_PATH
+                  ${TMP_CMAKE_FRAMEWORK_PATH}
+                  "${TMP_PREFIX}/${CMAKE_BUILD_TYPE}/Frameworks"
+               )
+            endif()
          endif()
 
          #
@@ -154,7 +169,6 @@ if( NOT __ENVIRONMENT__CMAKE__)
       ${CMAKE_FRAMEWORK_PATH}
    )
 
-
    message( STATUS "CMAKE_PREFIX_PATH=\"${CMAKE_PREFIX_PATH}\"" )
    message( STATUS "CMAKE_INCLUDE_PATH=\"${CMAKE_INCLUDE_PATH}\"" )
    message( STATUS "CMAKE_LIBRARY_PATH=\"${CMAKE_LIBRARY_PATH}\"" )
@@ -176,16 +190,16 @@ if( NOT __ENVIRONMENT__CMAKE__)
    # include files that get installed
    set( CMAKE_INCLUDES
       "cmake/DependenciesAndLibraries.cmake"
-      "cmake/_Dependencies.cmake"
-      "cmake/_Libraries.cmake"
+      "cmake/reflect/_Dependencies.cmake"
+      "cmake/reflect/_Libraries.cmake"
    )
 
-   # IDE visible cmake files
+   # IDE visible cmake files, Headers etc. are no longer there by default
    set( CMAKE_EDITABLE_FILES
       CMakeLists.txt
-      cmake/Headers.cmake
-      cmake/Sources.cmake
-      cmake/DependenciesAndLibraries.cmake
+#      cmake/Headers.cmake
+#      cmake/Sources.cmake
+#      cmake/DependenciesAndLibraries.cmake
    )
 
    #
