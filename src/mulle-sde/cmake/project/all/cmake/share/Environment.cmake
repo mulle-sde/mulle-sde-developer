@@ -14,7 +14,6 @@ if( NOT __ENVIRONMENT__CMAKE__)
    #
    #
    #
-   set( MULLE_VIRTUAL_ROOT KITCHEN_DIR)
    if( NOT MULLE_VIRTUAL_ROOT)
       set( MULLE_VIRTUAL_ROOT "${PROJECT_SOURCE_DIR}")
    endif()
@@ -41,6 +40,11 @@ if( NOT __ENVIRONMENT__CMAKE__)
             "${TMP_DEPENDENCY_DIR}"
             "${TMP_ADDICTION_DIR}"
          )
+      endif()
+   else()
+      # temporary fix until mulle-objc 0.18 release
+      if( $ENV{MULLE_MAKE_VERSION} VERSION_LESS 0.14.0)
+         string( REPLACE ":" ";" MULLE_SDK_PATH "${MULLE_SDK_PATH}")
       endif()
    endif()
 
@@ -186,21 +190,31 @@ if( NOT __ENVIRONMENT__CMAKE__)
    unset( TMP_CMAKE_FRAMEWORK_PATH)
 
    #
-   #
    # include files that get installed
-   set( CMAKE_INCLUDES
-      "cmake/DependenciesAndLibraries.cmake"
-      "cmake/reflect/_Dependencies.cmake"
-      "cmake/reflect/_Libraries.cmake"
-   )
+   #
+   if( EXISTS "cmake/DependenciesAndLibraries.cmake")
+      list( APPEND CMAKE_INCLUDES "cmake/DependenciesAndLibraries.cmake")
+   else()
+      list( APPEND CMAKE_INCLUDES "cmake/share/DependenciesAndLibraries.cmake")
+   endif()
+   if( EXISTS "cmake/_Dependencies.cmake")
+      list( APPEND CMAKE_INCLUDES "cmake/_Dependencies.cmake")
+   else()
+      list( APPEND CMAKE_INCLUDES "cmake/reflect/_Dependencies.cmake")
+   endif()
+   if( EXISTS "cmake/_Libraries.cmake")
+      list( APPEND CMAKE_INCLUDES "cmake/_Libraries.cmake")
+   else()
+      list( APPEND CMAKE_INCLUDES "cmake/reflect/_Libraries.cmake")
+   endif()
 
    # IDE visible cmake files, Headers etc. are no longer there by default
-   set( CMAKE_EDITABLE_FILES
-      CMakeLists.txt
-#      cmake/Headers.cmake
-#      cmake/Sources.cmake
-#      cmake/DependenciesAndLibraries.cmake
-   )
+   if( EXISTS "CMakeLists.txt")
+      list( APPEND CMAKE_EDITABLE_FILES "CMakeLists.txt")
+   endif()
+
+   FILE( GLOB TMP_CMAKE_FILES cmake/*.cmake)
+   list( APPEND CMAKE_EDITABLE_FILES ${TMP_CMAKE_FILES})
 
    #
    # Parallel build support. run all "participating" projects once for
