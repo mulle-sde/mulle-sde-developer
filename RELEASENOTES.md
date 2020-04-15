@@ -1,3 +1,9 @@
+## 0.20
+
+* fix resource install, when project name is not an identifier
+* fix Environment for older mulle-make versions
+* use newer style extension files from mulle-sde 0.42
+
 ## 0.19.0
 
 * improved travis extension
