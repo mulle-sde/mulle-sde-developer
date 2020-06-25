@@ -1,18 +1,23 @@
 {
   "files.exclude": {
-    "**/addiction": true,
-    "**/build": true,
-    "**/dependency": true,
-    "**/kitchen": true,
-    "**/stash": true,
-    "**/var": true
+    "**/[Aa]ddiction": true,
+    "**/[Bb]uild": true,
+    "**/[Dd]ependency": true,
+    "**/[Kk]itchen": true,
+    "**/[Ss]tash": true,
+    "**/[Vv]ar": true,
+    "**/*.code-workspace": true
    },
    "files.watcherExclude": {
-    "**/addiction": true,
-    "**/build": true,
-    "**/dependency": true,
-    "**/kitchen": true,
-    "**/stash": true,
-    "**/var": true
-   }
+    "**/[Aa]ddiction": true,
+    "**/[Bb]uild": true,
+    "**/[Dd]ependency": true,
+    "**/[Kk]itchen": true,
+    "**/[Ss]tash": true,
+    "**/[Vv]ar": true
+   },
+  "files.associations": {
+    "*.h": "c",
+    "*.inc": "c"
+  }
 }

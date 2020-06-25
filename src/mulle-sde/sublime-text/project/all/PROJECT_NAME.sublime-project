@@ -17,13 +17,14 @@
          [
             ".git",
             ".mulle/var",
-            ".mulle/share",
             ".unison*",
             "addiction",
             "build",
+            "Build",
             "kitchen",
             "dependency",
-            "stash"
+            "stash",
+            "var"
          ],
          "binary_patterns":
          [

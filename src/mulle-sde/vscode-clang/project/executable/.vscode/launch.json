@@ -8,6 +8,7 @@
             "args": [],
             "stopAtEntry": true,
             "cwd": "${workspaceFolder}",
+            "program": "${workspaceFolder}/kitchen/Debug/<|PROJECT_NAME|>",
             "environment": [],
             "additionalSOLibSearchPath": "${workspaceFolder}/dependency/Debug/lib:${workspaceFolder}/dependency/lib",
             "MIMode": "lldb",
