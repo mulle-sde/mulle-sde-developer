@@ -32,7 +32,10 @@
 [ "${TRACE}" = 'YES' ] && set -x && : "$0" "$@"
 
 
-emit_executable_motd()
+#
+# This script gets run by cmake via "Motd.cmake"
+#
+r_emit_executable_motd()
 {
    log_entry "emit_executable_motd" "$@"
 
@@ -41,23 +44,27 @@ emit_executable_motd()
 
    local filepath
 
-   filepath="`filepath_concat "${kitchendir}" "${name}" `"
-   printf "%b\n"  "${C_INFO}Run your executable:${C_RESET}"
-   printf "%b\n"  "${C_BOLD}   ${filepath#${MULLE_VIRTUAL_ROOT#/}}${C_RESET}"
+   r_filepath_concat "${kitchendir}" "${name}"
+   filepath="${RVAL}"
+   printf -v RVAL "%b\n%b" "${C_INFO}Run your executable:${C_RESET}" \
+                     "${C_BOLD}   ${filepath#${MULLE_VIRTUAL_ROOT}/}${C_RESET}"
 }
 
 
-emit_library_motd()
+r_emit_library_motd()
 {
    log_entry "emit_library_motd" "$@"
 
    # nothing yet
+   RVAL=""
    :
 }
 
 
 main()
 {
+   local OPTION_APPEND='NO'
+
    while [ $# -ne 0 ]
    do
       if options_technical_flags "$1"
@@ -65,6 +72,14 @@ main()
          shift
          continue
       fi
+
+      case "$1" in
+         --append)
+            OPTION_APPEND='YES'
+            shift
+            continue
+         ;;
+      esac
 
       break
    done
@@ -77,11 +92,13 @@ main()
 
    case "${buildtype}" in
       library)
-         text="`emit_library_motd "$2" "$3" `"
+         r_emit_executable_motd "$2" "$3"
+         text="${RVAL}"
       ;;
 
       executable)
-         text="`emit_executable_motd "$2" "$3" `"
+         r_emit_executable_motd "$2" "$3"
+         text="${RVAL}"
       ;;
 
       *)
@@ -91,8 +108,14 @@ main()
 
    if [ ! -z "${text}" ]
    then
-      log_fluff "Writing motd..."
-      redirect_exekutor "${kitchendir}/.motd" printf "%s\n" "${text}"
+      if [ "${OPTION_APPEND}" = 'YES' ]
+      then
+         log_fluff "Appending to motd..."
+         redirect_append_exekutor "${kitchendir}/.motd" printf "%s\n" "${text}"
+      else
+         log_fluff "Writing motd..."
+         redirect_exekutor "${kitchendir}/.motd" printf "%s\n" "${text}"
+      fi
    fi
 }
 

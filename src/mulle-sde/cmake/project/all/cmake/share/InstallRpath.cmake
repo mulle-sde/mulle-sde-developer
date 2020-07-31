@@ -31,4 +31,3 @@ if( NOT MULLE_NO_CMAKE_INSTALL_RPATH)
    endif()
 endif()
 
-message( STATUS "CMAKE_INSTALL_RPATH=\"${CMAKE_INSTALL_RPATH}\"" )
