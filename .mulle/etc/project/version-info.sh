@@ -16,7 +16,9 @@ src/mulle-sde/cmake/version
 src/mulle-sde/extension/version
 src/mulle-sde/extension-cmake/version
 src/mulle-sde/extension-developer/version
+src/mulle-sde/github-actions/version
 src/mulle-sde/sde/version
 src/mulle-sde/sublime-text/version
+src/mulle-sde/travis/version
 src/mulle-sde/vscode/version
 src/mulle-sde/vscode-clang/version"

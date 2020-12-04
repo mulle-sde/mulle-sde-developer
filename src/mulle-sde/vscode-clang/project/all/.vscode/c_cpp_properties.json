@@ -11,7 +11,8 @@
          "defines": [],
          "compilerPath": "/usr/bin/clang",
          "cStandard": "c11",
-         "intelliSenseMode": "clang-x64"
+         "intelliSenseMode": "clang-x64",
+         "compileCommands": "${workspaceFolder}/kitchen/Debug/compile_commands.json"
       },
       {
          "name": "Mac",
@@ -23,7 +24,8 @@
          "defines": [],
          "compilerPath": "/usr/bin/clang",
          "cStandard": "c11",
-         "intelliSenseMode": "clang-x64"
+         "intelliSenseMode": "clang-x64",
+         "compileCommands": "${workspaceFolder}/kitchen/Debug/compile_commands.json"
       },
       {
          "name": "Win32",
@@ -35,7 +37,8 @@
          "defines": [],
          "compilerPath": "\\mingw64\\bin\\clang.exe",
          "cStandard": "c11",
-         "intelliSenseMode": "clang-x64"
+         "intelliSenseMode": "clang-x64",
+         "compileCommands": "${workspaceFolder}/kitchen/Debug/compile_commands.json"
       }
    ]
 }

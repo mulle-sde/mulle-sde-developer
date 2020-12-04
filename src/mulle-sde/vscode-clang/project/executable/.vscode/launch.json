@@ -6,12 +6,21 @@
             "type": "cppdbg",
             "request": "launch",
             "args": [],
-            "stopAtEntry": true,
+            "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "program": "${workspaceFolder}/kitchen/Debug/<|PROJECT_NAME|>",
             "environment": [],
             "additionalSOLibSearchPath": "${workspaceFolder}/dependency/Debug/lib:${workspaceFolder}/dependency/lib",
-            "MIMode": "lldb",
+            "MIMode": "gdb",
+            "windows": {
+                "miDebuggerPath": "C:\\mingw64\\bin\\mulle-lldb-mi.exe"
+             },
+            "osx": {
+                "miDebuggerPath": "/usr/local/bin/mulle-lldb-mi"
+            },
+            "linux": {
+                "miDebuggerPath": "/usr/local/bin/mulle-gdb"
+             },
             "preLaunchTask": "Debug"
         }
     ]
