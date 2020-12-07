@@ -1,3 +1,13 @@
+## 0.21.0
+
+* rename version.h to `<project_identifier>-version.h` to make it easier to steal
+* added github actions extension
+* fixed motd, can now support multiple executables per project
+* removed **git** extension, since I never use it
+* fix regexp for vscode
+* libraries can now be augmented with `OTHER_LIBRARY_OBJECT_FILES`
+
+
 ## 0.20
 
 * fix resource install, when project name is not an identifier

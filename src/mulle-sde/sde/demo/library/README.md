@@ -46,3 +46,8 @@ mkdir build 2> /dev/null
    make install
 )
 ```
+
+### Steal
+
+Read [STEAL.md](//github.com/mulle-c11/dox/STEAL.md) on how to steal the
+source code and incorporate it in your own projects.

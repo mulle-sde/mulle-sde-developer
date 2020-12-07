@@ -13,3 +13,5 @@ _Headers.cmake
 _Sources.cmake
 *.sublime-workspace
 dot.git/
+research/
+mulle-sde-create-public-include
