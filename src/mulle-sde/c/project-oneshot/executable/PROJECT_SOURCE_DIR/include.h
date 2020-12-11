@@ -23,7 +23,7 @@
 
 /* You can add some more include statements here */
 
-#include "version.h"
+#include "<|PROJECT_NAME|>-version.h"
 
 #endif
 
