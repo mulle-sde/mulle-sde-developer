@@ -45,6 +45,18 @@ sudo apt-get update
 
 ### Script
 
+
+Prerequisites         | Comment
+----------------------|--------------------------
+`build-essential`     | The usual compiler tools like cc, ar, nm
+`curl`                | To fetch stuff, or substitute with wget
+`cmake`               | Shoot for cmake 3.1 or higher
+`sudo`                | Or run everything as root
+`uuid-runtime`        | `uuidgen` is needed by mulle-sde
+`bsdmainutils`        | Needed for `column`. A dependency that should go away...
+`less`                | Should be optional, but isn't right now
+
+
 mulle-sde provides an [installer-all](https://raw.githubusercontent.com/mulle-sde/mulle-sde/release/bin/installer-all) script to install the required commands and mulle-sde-developer itself into `/usr` or some other place.
 This is suitable for environments without supported package managers:
 
