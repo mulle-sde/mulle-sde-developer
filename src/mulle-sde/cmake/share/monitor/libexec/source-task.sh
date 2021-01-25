@@ -35,7 +35,12 @@ source_task_run()
 
    log_info "Reflecting ${C_MAGENTA}${C_BOLD}${PROJECT_NAME}${C_INFO} source"
 
-   exekutor mulle-match-to-cmake \
-               ${MULLE_TECHNICAL_FLAGS} \
-               "$@"
+   case "${MULLE_MATCH_TO_CMAKE_RUN}" in
+      NO|DISABLE*|OFF)
+      ;;
+
+      *)
+         exekutor mulle-match-to-cmake ${MULLE_TECHNICAL_FLAGS} "$@"  || return $?
+      ;;
+   esac
 }

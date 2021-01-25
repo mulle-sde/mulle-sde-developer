@@ -20,7 +20,6 @@ list( INSERT CMAKE_MODULE_PATH 0 "${PROJECT_SOURCE_DIR}/cmake")
 include( Environment)
 
 include( Files)
-include( Dependencies)
 
 if( "${MULLE_PROJECT_TYPE}" STREQUAL "Executable")
 
@@ -38,13 +37,14 @@ elseif( "${MULLE_PROJECT_TYPE}" STREQUAL "Framework")
 
    ### Framework
 
-   include( Dependencies)
-   include( Framework)
+   if( LINK_PHASE)
+      include( Dependencies)
+   endif()
 
+   include( Framework)
    set_target_properties( "${FRAMEWORK_NAME}" PROPERTIES
      FRAMEWORK_VERSION A
    )
-
    include( InstallFramework)
 
 elseif( "${MULLE_PROJECT_TYPE}" STREQUAL "Library")

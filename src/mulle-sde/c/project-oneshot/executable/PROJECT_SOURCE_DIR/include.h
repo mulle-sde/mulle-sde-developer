@@ -1,3 +1,7 @@
+/*
+ * template: project-oneshot/executable/PROJECT_SOURCE_DIR/include.h
+ * vendor/extension: mulle-sde/c
+ */
 #ifndef <|PROJECT_DOWNCASE_IDENTIFIER|>_include_h__
 #define <|PROJECT_DOWNCASE_IDENTIFIER|>_include_h__
 

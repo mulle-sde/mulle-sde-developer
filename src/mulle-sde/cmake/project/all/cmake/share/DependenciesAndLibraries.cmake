@@ -6,23 +6,14 @@ if( MULLE_TRACE_INCLUDE)
    message( STATUS "# Include \"${CMAKE_CURRENT_LIST_FILE}\"" )
 endif()
 
-#
-# The following includes include definitions generated
-# during `mulle-sde update`. Don't edit those files. They are
-# overwritten frequently.
-#
-# === MULLE-SDE START ===
-
 include( _Dependencies OPTIONAL)
 include( _Libraries OPTIONAL)
 
-# === MULLE-SDE END ===
-#
+option( INHERIT_INCLUDE_DIRS "Make headers of dependencies available as local headers" OFF)
 
-#
-# If you need more find_library() statements, that you dont want to manage
-# with the sourcetree, add them here.
-#
-# Add OS specific dependencies to OS_SPECIFIC_LIBRARIES
-# Add all other dependencies (rest) to DEPENDENCY_LIBRARIES
-#
+if( INHERIT_INCLUDE_DIRS)
+   message( STATUS "INHERITED_INCLUDE_DIRS=\"${INHERITED_INCLUDE_DIRS}\"" )
+
+   # these generate -I arguments, that add to the user search path
+   include_directories( ${INHERITED_INCLUDE_DIRS})
+endif()

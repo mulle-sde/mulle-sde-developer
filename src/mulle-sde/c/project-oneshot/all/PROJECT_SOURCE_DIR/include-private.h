@@ -1,3 +1,7 @@
+/*
+ * template: project-oneshot/all/PROJECT_SOURCE_DIR/include-private.h
+ * vendor/extension: mulle-sde/c
+ */
 #ifndef <|PROJECT_DOWNCASE_IDENTIFIER|>_include_private_h__
 #define <|PROJECT_DOWNCASE_IDENTIFIER|>_include_private_h__
 

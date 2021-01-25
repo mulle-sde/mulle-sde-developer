@@ -1,1 +1,2 @@
-_*-include-private.h
+# private generated headers, are not installed ever
+src/reflect/*-private.h

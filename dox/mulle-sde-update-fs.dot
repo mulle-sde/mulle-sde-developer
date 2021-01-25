@@ -32,6 +32,8 @@ digraph G {
 
     edge [ arrowhead="", style="dotted", label=" write"]
 
+    "mulle-match-to-c"     -> "_project-public.h"
+
     "mulle-match-to-cmake"     -> "_Headers.cmake"
     "mulle-match-to-cmake"     -> "_Sources.cmake"
     "mulle-sourcetree-to-cmake" -> "_Dependencies.cmake"
