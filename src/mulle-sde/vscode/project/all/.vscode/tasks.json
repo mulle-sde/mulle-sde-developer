@@ -37,6 +37,21 @@
             "group": "build"
         },
         {
+           "label": "Test",
+           "type": "shell",
+           "command": "mulle-sde",
+           "args": [
+              "test"
+           ],
+            "problemMatcher": {
+                "base": "$gcc",
+                "fileLocation": [
+                  "relative",
+                  "${workspaceFolder}/kitchen/Debug"
+                ]
+            }
+        },
+        {
            "label": "Reflect",
            "type": "shell",
            "command": "mulle-sde",

@@ -9,9 +9,9 @@ endif()
 include( _Dependencies OPTIONAL)
 include( _Libraries OPTIONAL)
 
-option( INHERIT_INCLUDE_DIRS "Make headers of dependencies available as local headers" OFF)
+option( INHERIT_DEPENDENCY_INCLUDES "Make headers of dependencies available as local headers" ON)
 
-if( INHERIT_INCLUDE_DIRS)
+if( INHERIT_DEPENDENCY_INCLUDES)
    message( STATUS "INHERITED_INCLUDE_DIRS=\"${INHERITED_INCLUDE_DIRS}\"" )
 
    # these generate -I arguments, that add to the user search path
