@@ -196,7 +196,6 @@ if( NOT __ENVIRONMENT__CMAKE__)
 
    message( STATUS "CMAKE_INCLUDE_PATH=\"${CMAKE_INCLUDE_PATH}\"" )
    message( STATUS "CMAKE_LIBRARY_PATH=\"${CMAKE_LIBRARY_PATH}\"" )
-   message( STATUS "CMAKE_FRAMEWORK_PATH=\"${CMAKE_FRAMEWORK_PATH}\"" )
    message( STATUS "INCLUDE_DIRS=\"${TMP_INCLUDE_DIRS}\"" )
 
    # given from outside
@@ -207,6 +206,16 @@ if( NOT __ENVIRONMENT__CMAKE__)
    include_directories( BEFORE SYSTEM
       ${TMP_INCLUDE_DIRS}
    )
+
+   # not sure why cmake doesn't do this itself, we only add the custom
+   # paths though
+   if( APPLE)
+      message( STATUS "CMAKE_FRAMEWORK_PATH=\"${CMAKE_FRAMEWORK_PATH}\"" )
+      foreach( TMP_FRAMEWORK_PATH ${TMP_CMAKE_FRAMEWORK_PATH})
+         add_definitions( -F "${TMP_FRAMEWORK_PATH}")
+      endforeach()   
+      unset( TMP_FRAMEWORK_PATH)
+   endif()
 
    unset( TMP_INCLUDE_DIRS)
    unset( TMP_CMAKE_INCLUDE_PATH)

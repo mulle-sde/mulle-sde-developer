@@ -63,7 +63,7 @@ elseif( "${MULLE_PROJECT_TYPE}" STREQUAL "Library")
 
 else()
 
-   message( ERROR "Unknown project type \"${MULLE_PROJECT_TYPE}")
+   message( ERROR "Unknown project type \"${MULLE_PROJECT_TYPE}\"")
 
 endif()
 
