@@ -14,7 +14,7 @@ include( PreFiles OPTIONAL)
 
 include( Headers OPTIONAL)
 include( Sources OPTIONAL)
-include( Resources OPTIONAL)  # not currently used 
+include( Resources OPTIONAL) 
 
 include_directories( ${INCLUDE_DIRS})
 
