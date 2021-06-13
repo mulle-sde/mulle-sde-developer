@@ -106,7 +106,7 @@ main()
 
    exekutor cp repos/executable/executable.c "${projectdir}/src/main.c"
 
-   # add two libs to foo
+   # add a library and an executable to foo
    local reposdir
 
    reposdir="${PWD}/repos"
@@ -117,11 +117,14 @@ main()
       run_mulle_sde dependency add --c --singlephase https://foo.com/library.git &&
       run_mulle_sde dependency set library include library.h &&
       run_mulle_sde dependency add --c --marks no-link,no-header --singlephase https://foo.com/executable.git &&
-      run_mulle_sde fetch
+      run_mulle_sde fetch &&
+      run_mulle_sde reflect
    ) || fail "Failed during test setup"
 
    # now lets craft
-
+   # because library is crafted completely before executable (singlphase),
+   # executable should be able to pickup the header and the library
+   #
    (
       cd "${projectdir}" &&
       run_mulle_sde craft

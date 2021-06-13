@@ -46,6 +46,17 @@ elseif( "${MULLE_PROJECT_TYPE}" STREQUAL "Framework")
      FRAMEWORK_VERSION A
    )
 
+   #
+   # You usually don't want to link static libraries into a Framework, except
+   # if you know they won't be shared with other frameworks. So use dynamic_lookup 
+   # to keep those symbols from static libraries "open" for later linking.
+   #
+   # Mark static libraries as no-link.
+   #
+   target_link_options( "${FRAMEWORK_NAME}" PRIVATE
+      -undefined dynamic_lookup
+   )
+   
    include( InstallFramework)
 
 elseif( "${MULLE_PROJECT_TYPE}" STREQUAL "Library")

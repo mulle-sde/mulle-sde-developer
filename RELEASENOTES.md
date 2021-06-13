@@ -1,3 +1,13 @@
+## 0.22.0
+
+* added Resource.cmake
+* improved support for Frameworks
+* separate source and header by type not only by category
+* add a lot of helpful comments in various installed files
+* fix settings for `MULLE_VIRTUAL_ROOT`, `DEPENDENCY_DIR` and `ADDICTION_DIR`
+* new option `INHERIT_INCLUDE_DIRS` makes `#import "NSObject.h"` even outside of MulleObjC possible
+
+
 ## 0.21.0
 
 * rename version.h to `<project_identifier>-version.h` to make it easier to steal
