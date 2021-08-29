@@ -95,10 +95,10 @@ list_cmake_includes()
    local includes
 
    includes="`get_includes "${filename}"`"
-   set -o noglob; IFS=$'\n'
+   shell_disable_glob; IFS=$'\n'
    for includeinfo in ${includes}
    do
-      set +o noglob; IFS="${DEFAULT_IFS}"
+      shell_enable_glob; IFS="${DEFAULT_IFS}"
 
       includefile="${includeinfo%;*}"
       optional="${includeinfo%*#}"
@@ -116,7 +116,7 @@ list_cmake_includes()
          _list_cmake_include "${includefile}" "${filename}" "${searchpath}"
       fi
    done
-   set +o noglob; IFS="${DEFAULT_IFS}"
+   shell_enable_glob; IFS="${DEFAULT_IFS}"
 }
 
 

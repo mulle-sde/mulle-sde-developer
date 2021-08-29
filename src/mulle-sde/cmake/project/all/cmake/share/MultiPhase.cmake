@@ -18,6 +18,11 @@ if( NOT __MULTI_PHASE__CMAKE__)
    # serially together with the LINK_PHASE. What is tricky is that the
    # sequential projects may need to run first.
    #
+   #
+   # MEMO: as cmake caches the ON flags, this will slowly progress
+   #       from ON OFF OFF to ON ON OFF to ON ON ON during a three
+   #       phase build
+   #
    option( HEADERS_PHASE  "Install headers only phase (1)" OFF)
    option( COMPILE_PHASE  "Compile sources only phase (2)" OFF)
    option( LINK_PHASE     "Link and install only phase (3)" OFF)
@@ -39,4 +44,8 @@ if( NOT __MULTI_PHASE__CMAKE__)
       set( COMPILE_PHASE ON)
       set( LINK_PHASE ON)
    endif()
+
+   message( STATUS "HEADERS_PHASE=${HEADERS_PHASE}")
+   message( STATUS "COMPILE_PHASE=${COMPILE_PHASE}")
+   message( STATUS "LINK_PHASE=${LINK_PHASE}")
 endif()

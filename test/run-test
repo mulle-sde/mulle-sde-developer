@@ -9,7 +9,7 @@ PROJECT_DIR="$( cd "${TEST_DIR}/.." ; pwd -P)"
 
 main()
 {
-   _options_mini_main "$@"
+   _options_mini_main "$@" && set -x
 
    MULLE_SDE_EXTENSION_PATH="${PROJECT_DIR}/src:${MULLE_SDE_EXTENSION_PATH}"
    export MULLE_SDE_EXTENSION_PATH

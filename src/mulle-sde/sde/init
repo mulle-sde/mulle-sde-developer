@@ -114,7 +114,7 @@ main()
       shift
    done
 
-   options_setup_trace "${MULLE_TRACE}"
+   options_setup_trace "${MULLE_TRACE}" && set -x
 
    setup_gitignore
    setup_gitattributes
@@ -155,5 +155,8 @@ _init()
 ########
 
 
+MULLE_EXECUTABLE="${MULLE_EXECUTABLE:-${BASH_SOURCE[0]:-${(%):-%x}}}"
+
 _init "$@" # needs params
+
 main "$@"

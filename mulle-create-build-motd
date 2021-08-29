@@ -84,7 +84,7 @@ main()
       break
    done
 
-   options_setup_trace "${MULLE_TRACE}"
+   options_setup_trace "${MULLE_TRACE}" && set -x
 
    local buildtype="$1"
    local kitchendir="$2"
@@ -131,5 +131,8 @@ _init()
 }
 
 
+MULLE_EXECUTABLE="${MULLE_EXECUTABLE:-${BASH_SOURCE[0]:-${(%):-%x}}}"
+
 _init "$@"
+
 main "$@"

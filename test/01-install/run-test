@@ -78,7 +78,7 @@ main()
 {
    MULLE_SDE_FLAGS="$@"
 
-   _options_mini_main "$@"
+   _options_mini_main "$@" && set -x
 
    #
    # memo: remember we only deal with relative paths w/o leading /!
@@ -88,8 +88,9 @@ main()
    local directory
    local projectdir
    local installdir
-   directory="`make_tmp_directory`" || exit 1
 
+   r_make_tmp_directory || exit 1
+   directory="${RVAL}"
 
    r_filepath_concat "${directory}" "install"
    installdir="${RVAL}"

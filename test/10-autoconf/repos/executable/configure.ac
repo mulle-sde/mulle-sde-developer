@@ -1,7 +1,0 @@
-AC_INIT( executable, 1.0)
-AC_CONFIG_FILES([Makefile])
-AM_INIT_AUTOMAKE
-
-AC_PROG_CC()
-
-AC_OUTPUT

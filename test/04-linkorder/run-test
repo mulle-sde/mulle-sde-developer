@@ -26,6 +26,21 @@ expect_file()
 }
 
 
+
+expect_output()
+{
+   local output="$1"
+   local expected="$2"
+
+   if [ "${output}" != "${expected}" ]
+   then
+      echo "Got \"${output}\". Expected: \"${expected}\"" >&2
+      stacktrace >&2
+      exit 1
+   fi
+}
+
+
 r_create_project()
 {
    local projecttype="$1"; shift
@@ -50,7 +65,7 @@ main()
 {
    MULLE_SDE_FLAGS="$@"
 
-   _options_mini_main "$@"
+   _options_mini_main "$@" && set -x
 
    #
    # memo: remember we only deal with relative paths w/o leading /!
@@ -58,47 +73,98 @@ main()
    # trailing '/'
    #
    local directory
-   local projectdir
    local installdir
 
-   directory="`make_tmp_directory`" || exit 1
+   r_make_tmp_directory || exit 1
+   directory="${RVAL}"
+
+   local a_dir
+   local b_dir
+   local c_dir
+   local d_dir
+   local e_dir
+   local f_dir
 
    r_filepath_concat "${directory}" "a"
-   mkdir "${RVAL}"
-   ( cd  "${RVAL}" && mulle-sourcetree -N add b && ln -s ../b )
+   a_dir="${RVAL}"
+   mkdir "${a_dir}" || internal_fail "mkdir"
 
    r_filepath_concat "${directory}" "b"
-   mkdir "${RVAL}"
-   ( cd  "${RVAL}" && mulle-sourcetree -N add c && ln -s ../c )
+   b_dir="${RVAL}"
+   mkdir "${b_dir}" || internal_fail "mkdir"
 
    r_filepath_concat "${directory}" "c"
-   mkdir "${RVAL}"
+   c_dir="${RVAL}"
+   mkdir "${c_dir}" || internal_fail "mkdir"
 
    r_filepath_concat "${directory}" "d"
-   mkdir "${RVAL}"
-   ( cd  "${RVAL}" && mulle-sourcetree -N add e && ln -s ../e)
+   d_dir="${RVAL}"
+   mkdir "${d_dir}" || internal_fail "mkdir"
 
    r_filepath_concat "${directory}" "e"
-   mkdir "${RVAL}"
+   e_dir="${RVAL}"
+   mkdir "${e_dir}" || internal_fail "mkdir"
 
    r_filepath_concat "${directory}" "f"
-   mkdir "${RVAL}"
-   ( cd  "${RVAL}" && mulle-sourcetree -N add c  && ln -s ../e )
+   f_dir="${RVAL}"
+   mkdir "${f_dir}" || internal_fail "mkdir"
+
+   #
+   # When we add 'b' without marks and no symlink it becomes a "none" node,
+   # which means it implicitly a "share". When we have the symlink
+   # mulle-sourcetree recognizes this as "local" and makes it "no-share"
+   #
+   ( cd  "${a_dir}" && ln -s ../b && mulle-sourcetree -s -N add b ) || internal_fail "a"
+   ( cd  "${b_dir}" && ln -s ../c && mulle-sourcetree -s -N add c ) || internal_fail "b"
+   ( cd  "${d_dir}" && ln -s ../e && mulle-sourcetree -s -N add e ) || internal_fail "e"
+   ( cd  "${f_dir}" && ln -s ../e && mulle-sourcetree -s -N add e ) || internal_fail "e"
+
+   local projectdir
 
    r_filepath_concat "${directory}" "project"
    projectdir="${RVAL}"
+   run_mulle_sde init --no-post-init -d "${projectdir}" none  || internal_fail "init"
+   # these are not set for "none" by default anymore, as it does not use "mulle"
+   run_mulle_sde -d "${projectdir}" environment set MULLE_FETCH_SEARCH_PATH '${MULLE_VIRTUAL_ROOT}/..'
+   run_mulle_sde -d "${projectdir}" environment set MULLE_SOURCETREE_SYMLINK 'YES'
 
-   run_mulle_sde init -d "${projectdir}" none
+   cd "${projectdir}" || internal_fail "cd"
 
-   cd "${projectdir}"
+   run_mulle_sde dependency add --nodetype git a || internal_fail "add a"
+   run_mulle_sde dependency add --nodetype git d || internal_fail "add d"
+   run_mulle_sde dependency add --nodetype git f || internal_fail "add f"
 
-   run_mulle_sde dependency add --nodetype git a
-   run_mulle_sde dependency add --nodetype git d
-   run_mulle_sde dependency add --nodetype git f
+   run_mulle_sde fetch --recurse || internal_fail "fetch"
 
-   run_mulle_sde fetch --recurse
-   run_mulle_sde craftorder
-   run_mulle_sde linkorder --output-format node
+   mulle-sourcetree list -r -l >&2
+
+   local expected
+   local result
+
+   # TODO:
+   #
+   # e gets build twice. Now is this a bug ? No because both nodes are
+   # "local". That they are symlinked is nothing mulle-sourcetree should know.
+   #
+   expected="a/b/c
+a/b
+a
+d/e
+d
+f/e
+f"
+   result="`run_mulle_sde craftorder \
+            | sed 's/\(.*\);.*/\1/'`"  || internal_fail "craftorder"
+   expect_output "${result}" "${expected}"
+
+   expected="a
+b
+c
+d
+f
+e"
+   result="`run_mulle_sde linkorder --output-format node`" || internal_fail "linkorder"
+   expect_output "${result}" "${expected}"
 
    log_info "----- ALL PASSED -----"
 
