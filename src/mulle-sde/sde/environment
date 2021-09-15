@@ -6,12 +6,12 @@ MULLE_SDE_REFLECT_CALLBACKS=""
 #
 # Used by `mulle-match find` to speed up the search.
 #
-MULLE_MATCH_FILENAMES="config"
+MULLE_MATCH_FILENAMES="config*"
 
 #
 # Used by `mulle-match find` to locate files
 #
-MULLE_MATCH_PATH=".mulle/etc/sourcetree/config"
+MULLE_MATCH_PATH=".mulle/etc/sourcetree"
 
 #
 # Used by `mulle-match find` to ignore boring subdirectories like .git

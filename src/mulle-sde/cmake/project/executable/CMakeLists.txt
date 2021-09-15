@@ -63,7 +63,7 @@ elseif( "${MULLE_PROJECT_TYPE}" STREQUAL "Library")
 
    ### Library
 
-   if( HEADERS_PHASE)
+   if( HEADER_PHASE)
       install( FILES ${INSTALL_PUBLIC_HEADERS}  DESTINATION "include/${PROJECT_NAME}")
       install( FILES ${INSTALL_PRIVATE_HEADERS} DESTINATION "include/${PROJECT_NAME}/private")
       install( FILES ${CMAKE_INCLUDES}          DESTINATION "include/${PROJECT_NAME}/cmake")
