@@ -2,3 +2,11 @@
 
 If you want to make changes, edit them into include.h or wherever convenient.
 
+You can turn off the production of individual headers, comments in the
+header will tell you how.  If you don't need any of the headers you can
+turn off their production (by **reflect**) with:
+
+```bash
+mulle-sde environment set MULLE_SOURCETREE_TO_C_RUN NO
+mulle-sde environment set MULLE_MATCH_TO_C_RUN NO
+```

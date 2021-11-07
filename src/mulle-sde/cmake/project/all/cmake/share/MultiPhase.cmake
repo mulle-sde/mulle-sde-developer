@@ -45,6 +45,13 @@ if( NOT __MULTI_PHASE__CMAKE__)
       set( LINK_PHASE ON)
    endif()
 
+   if( COMPILE_PHASE AND NOT HEADER_PHASE)
+      set( HEADER_PHASE ON)
+   endif()
+   if( LINK_PHASE AND NOT COMPILE_PHASE)
+      set( COMPILE_PHASE ON)
+   endif()
+
    # backwards compatibility
    if( HEADER_PHASE)
       set( HEADERS_PHASE ON)
