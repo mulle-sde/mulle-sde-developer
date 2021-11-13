@@ -25,6 +25,9 @@
 
 #include "_<|PROJECT_NAME|>-include.h"
 
+// can't hurt for an executable, can it ?
+add_definitions( -D<|PROJECT_UPCASE_IDENTIFIER|>_EXTERN_GLOBAL=extern)
+
 /* You can add some more include statements here */
 
 #include "<|PROJECT_NAME|>-version.h"

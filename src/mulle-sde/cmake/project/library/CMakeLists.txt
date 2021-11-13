@@ -1,6 +1,7 @@
 cmake_minimum_required( VERSION 3.1)
 
 project( <|PROJECT_NAME|> <|PROJECT_UPCASE_LANGUAGE|>)
+
 #
 # Turn a "Library" into an "Executable"
 # * touch src/main.m
@@ -9,6 +10,8 @@ project( <|PROJECT_NAME|> <|PROJECT_UPCASE_LANGUAGE|>)
 # * mulle-sde craft
 #
 set( MULLE_PROJECT_TYPE "Library")
+
+add_definitions( -D<|PROJECT_UPCASE_IDENTIFIER|>_EXTERN_GLOBAL=extern)
 
 ### mulle-sde environment
 

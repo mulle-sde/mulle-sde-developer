@@ -29,6 +29,8 @@
 
 #include "_<|PROJECT_NAME|>-include.h"
 
+add_definitions( -D<|PROJECT_UPCASE_IDENTIFIER|>_EXTERN_GLOBAL=extern)
+
 /* You can add some more include statements here */
 
 #endif

@@ -12,6 +12,8 @@ project( <|PROJECT_NAME|> <|PROJECT_UPCASE_LANGUAGE|>)
 #
 set( MULLE_PROJECT_TYPE "Executable")
 
+add_definitions( -D<|PROJECT_UPCASE_IDENTIFIER|>_EXTERN_GLOBAL=extern)
+
 ### mulle-sde environment
 
 # add cmake module paths to search path
