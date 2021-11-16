@@ -35,7 +35,8 @@ static inline unsigned int   <|PROJECT_IDENTIFIER|>_get_version_patch( void)
 }
 
 
-extern uint32_t   <|PROJECT_IDENTIFIER|>_get_version( void);
+<|PROJECT_UPCASE_IDENTIFIER|>_EXTERN_GLOBAL
+uint32_t   <|PROJECT_IDENTIFIER|>_get_version( void);
 
 
 /*
