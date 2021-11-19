@@ -120,14 +120,20 @@ main()
 }
 
 
+_fatal()
+{
+   echo "$0 fatal error: $*" >&2
+   exit 1
+}
+
 _init()
 {
    MULLE_BASHFUNCTIONS_LIBEXEC_DIR="`mulle-bashfunctions-env "libexec-dir" 2> /dev/null`"
    [ -z "${MULLE_BASHFUNCTIONS_LIBEXEC_DIR}" ] && \
-      echo "mulle-bashfunctions-env not installed" >&2 && \
-      exit 1
+            _fatal "mulle-bashfunctions-env not installed"
 
-   . "${MULLE_BASHFUNCTIONS_LIBEXEC_DIR}/mulle-bashfunctions.sh" "minimal" || exit 1
+   . "${MULLE_BASHFUNCTIONS_LIBEXEC_DIR}/mulle-bashfunctions-minimal.sh"  \
+   _fatal "failed to load mulle-bashfunctions-minimal.sh from ${MULLE_BASHFUNCTIONS_LIBEXEC_DIR}"
 }
 
 

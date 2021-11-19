@@ -1,4 +1,8 @@
-cmake_minimum_required( VERSION 3.1)
+#
+# You rarely need to edit this file. To add or remove files to your
+# project edit the "src" folders contents and run `mulle-sde reflect`
+#
+cmake_minimum_required( VERSION 3.13)
 
 project( <|PROJECT_NAME|> <|PROJECT_UPCASE_LANGUAGE|>)
 
@@ -42,10 +46,10 @@ elseif( "${MULLE_PROJECT_TYPE}" STREQUAL "Framework")
 
    #
    # You usually don't want to link static libraries into a Framework, except
-   # if you know they won't be shared with other frameworks. So use dynamic_lookup 
-   # to keep those symbols from static libraries "open" for later linking.
-   #
-   # Mark static libraries as no-link.
+   # if you know, they won't be shared with other frameworks. So use
+   # `dynamic_lookup` to keep symbols from static libraries "open" for later
+   # linking and mark static libraries as no-link
+   # with `mulle-sde dependenc mark <dependency> no-link`
    #
    target_link_options( "${FRAMEWORK_NAME}" PRIVATE
       -undefined dynamic_lookup

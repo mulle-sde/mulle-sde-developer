@@ -1,7 +1,3 @@
-/*
- * template: project-oneshot/executable/PROJECT_SOURCE_DIR/include.h
- * vendor/extension: mulle-sde/c
- */
 #ifndef <|PROJECT_DOWNCASE_IDENTIFIER|>_include_h__
 #define <|PROJECT_DOWNCASE_IDENTIFIER|>_include_h__
 
@@ -26,7 +22,9 @@
 #include "_<|PROJECT_NAME|>-include.h"
 
 // can't hurt for an executable, can it ?
-add_definitions( -D<|PROJECT_UPCASE_IDENTIFIER|>_EXTERN_GLOBAL=extern)
+#ifndef <|PROJECT_UPCASE_IDENTIFIER|>_EXTERN_GLOBAL
+# define <|PROJECT_UPCASE_IDENTIFIER|>_EXTERN_GLOBAL  MULLE_C_EXTERN_GLOBAL
+#endif
 
 /* You can add some more include statements here */
 

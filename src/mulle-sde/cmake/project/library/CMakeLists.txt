@@ -1,14 +1,16 @@
-cmake_minimum_required( VERSION 3.1)
+#
+# You rarely need to edit this file. To add or remove files to your
+# project edit the "src" folders contents and run `mulle-sde reflect`
+#
+#
+# A convenient way to add a new source fils is:
+#    mulle-sde add src/foo.<|PROJECT_EXTENSION|>
+#
+cmake_minimum_required( VERSION 3.13)
 
 project( <|PROJECT_NAME|> <|PROJECT_UPCASE_LANGUAGE|>)
 
-#
-# Turn a "Library" into an "Executable"
-# * touch src/main.m
-# Then set MULLE_PROJECT_TYPE to "Executable".
-# * mulle-sde reflect
-# * mulle-sde craft
-#
+
 set( MULLE_PROJECT_TYPE "Library")
 
 add_definitions( -D<|PROJECT_UPCASE_IDENTIFIER|>_EXTERN_GLOBAL=extern)
@@ -49,13 +51,6 @@ elseif( "${MULLE_PROJECT_TYPE}" STREQUAL "Framework")
      FRAMEWORK_VERSION A
    )
 
-   #
-   # You usually don't want to link static libraries into a Framework, except
-   # if you know they won't be shared with other frameworks. So use dynamic_lookup 
-   # to keep those symbols from static libraries "open" for later linking.
-   #
-   # Mark static libraries as no-link.
-   #
    target_link_options( "${FRAMEWORK_NAME}" PRIVATE
       -undefined dynamic_lookup
    )

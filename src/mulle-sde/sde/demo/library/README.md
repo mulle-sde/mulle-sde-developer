@@ -1,29 +1,21 @@
 # <|PROJECT_NAME|>
 
-#### 🙄 <|PROJECT_NAME|> does something
+#### 👾 <|PROJECT_NAME|> does something
 
 It works, sometimes.
 
 
-## Add
+## mulle-sde
 
-Use [mulle-sde](//github.com/mulle-sde) to add <|PROJECT_NAME|> to your project:
+This is a [mulle-sde](//github.com/mulle-sde) project. mulle-sde combines
+recursive package management with cross-platform builds via **cmake**:
 
-``` console
-mulle-sde dependency add --c --github <|GITHUB_USER|> <|PROJECT_NAME|>
-```
+Action  | Command                               | Description
+--------|---------------------------------------|---------------
+Build   | `mulle-sde craft [--release|--debug]` | Builds into local `kitchen` folder
+Add     | `mulle-sde dependency add --c --github <|GITHUB_USER|> <|PROJECT_NAME|>` | Add <|PROJECT_NAME|> to another mulle-sde project as a dependency
+Install | `mulle-sde install --prefix /usr/local https://github.com/<|GITHUB_USER|>/<|PROJECT_NAME|>.git` | Like `make install`
 
-## Install
-
-### mulle-sde
-
-Use [mulle-sde](//github.com/mulle-sde) to build and install <|PROJECT_NAME|>
-and all its dependencies:
-
-```
-mulle-sde install --prefix /usr/local \
-   https://github.com/<|GITHUB_USER|>/<|PROJECT_NAME|>/archive/latest.tar.gz
-```
 
 ### Manual Installation
 
@@ -46,8 +38,3 @@ mkdir build 2> /dev/null
    make install
 )
 ```
-
-### Steal
-
-Read [STEAL.md](//github.com/mulle-c11/dox/STEAL.md) on how to steal the
-source code and incorporate it in your own projects.

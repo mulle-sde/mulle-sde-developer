@@ -1,7 +1,3 @@
-/*
- * template: demo/library/PROJECT_SOURCE_DIR/PROJECT_NAME.h
- * vendor/extension: mulle-sde/makefile
- */
 #ifndef <|PROJECT_DOWNCASE_IDENTIFIER|>_h__
 #define <|PROJECT_DOWNCASE_IDENTIFIER|>_h__
 

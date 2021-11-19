@@ -1,15 +1,15 @@
-cmake_minimum_required( VERSION 3.1)
+#
+# You rarely need to edit this file. To add or remove files to your
+# project edit the "src" folders contents and run `mulle-sde reflect`.
+#
+# A convenient way to add a new source fils is:
+#    mulle-sde add src/foo.<|PROJECT_EXTENSION|>
+#
+cmake_minimum_required( VERSION 3.13)
 
 project( <|PROJECT_NAME|> <|PROJECT_UPCASE_LANGUAGE|>)
 
-#
-# Turn an "Executable" into a "Library"
-# * mulle-sde test init
-# * mv src/main.m test/10_test/test.m
-# Then set MULLE_PROJECT_TYPE to "Library".
-# * mulle-sde reflect
-# * mulle-sde test
-#
+
 set( MULLE_PROJECT_TYPE "Executable")
 
 add_definitions( -D<|PROJECT_UPCASE_IDENTIFIER|>_EXTERN_GLOBAL=extern)
@@ -36,6 +36,8 @@ if( "${MULLE_PROJECT_TYPE}" STREQUAL "Executable")
    # only for Executable
    include( Motd OPTIONAL)
 
+   # If you only ever want to build this as an executable, you can throw
+   # everything else until endif() away
 
 elseif( "${MULLE_PROJECT_TYPE}" STREQUAL "Framework")
 
@@ -48,13 +50,6 @@ elseif( "${MULLE_PROJECT_TYPE}" STREQUAL "Framework")
      FRAMEWORK_VERSION A
    )
 
-   #
-   # You usually don't want to link static libraries into a Framework, except
-   # if you know they won't be shared with other frameworks. So use dynamic_lookup 
-   # to keep those symbols from static libraries "open" for later linking.
-   #
-   # Mark static libraries as no-link.
-   #
    target_link_options( "${FRAMEWORK_NAME}" PRIVATE
       -undefined dynamic_lookup
    )
@@ -90,3 +85,20 @@ else()
 endif()
 
 include( FinalOutput OPTIONAL)
+
+
+# Advertisement:
+#
+# Turn an "Executable" into a "Library". This style of development is
+# convenient for rapid startup coding where the finished result will be
+# transformed into a library. You are also already writing the first
+# first test case! There is no code to throw away.
+#
+# * mulle-sde test init
+# * mv src/main.<|PROJECT_EXTENSION|> test/10-first/test.<|PROJECT_EXTENSION|>
+# * mulle-sde environment --scope project set PROJECT_TYPE library
+# * mulle-sde reflect
+# * mulle-sde test
+#
+# For this to work you need to separate the actual library code into source
+# files outside of main.<|PROJECT_EXTENSION|>.

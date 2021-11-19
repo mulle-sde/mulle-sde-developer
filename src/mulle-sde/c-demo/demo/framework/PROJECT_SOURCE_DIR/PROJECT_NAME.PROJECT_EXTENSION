@@ -1,7 +1,3 @@
-/*
- * template: demo/framework/PROJECT_SOURCE_DIR/PROJECT_NAME.PROJECT_EXTENSION
- * vendor/extension: mulle-sde/c-demo
- */
 #<|INCLUDE_COMMAND|> "<|INCLUDE_COMMAND|>-private.h"
 
 #<|INCLUDE_COMMAND|> "<|PROJECT_NAME|>.h"

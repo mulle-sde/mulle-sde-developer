@@ -130,14 +130,19 @@ main()
 }
 
 
+_fatal()
+{
+   echo "$0 fatal error: $*" >&2
+   exit 1
+}
+
 _init()
 {
    if [ -z "${MULLE_BASHFUNCTIONS_LIBEXEC_DIR}" ]
    then
       MULLE_BASHFUNCTIONS_LIBEXEC_DIR="`mulle-bashfunctions-env "libexec-dir" 2> /dev/null`"
       [ -z "${MULLE_BASHFUNCTIONS_LIBEXEC_DIR}" ] && \
-         echo "mulle-bashfunctions-env not installed" >&2 && \
-         exit 1
+         _fatal "mulle-bashfunctions-env not installed"
    fi
 
    . "${MULLE_BASHFUNCTIONS_LIBEXEC_DIR}/mulle-bashfunctions.sh"  || exit 1

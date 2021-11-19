@@ -4,8 +4,4 @@
  *
  * DO NOT EDIT. YOUR CHANGES WILL BE LOST!
  *
- *
- * template: project-oneshot/all/PROJECT_SOURCE_DIR/reflect/_PROJECT_NAME-include-public.h
- * vendor/extension: mulle-sde/c
- *
  */
