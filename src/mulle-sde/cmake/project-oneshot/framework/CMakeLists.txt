@@ -2,6 +2,10 @@
 # You rarely need to edit this file. To add or remove files to your
 # project edit the "src" folders contents and run `mulle-sde reflect`
 #
+#
+# A convenient way to add a new source fils is:
+#    mulle-sde add src/foo.<|PROJECT_EXTENSION|>
+#
 cmake_minimum_required( VERSION 3.13)
 
 project( <|PROJECT_NAME|> <|PROJECT_UPCASE_LANGUAGE|>)
