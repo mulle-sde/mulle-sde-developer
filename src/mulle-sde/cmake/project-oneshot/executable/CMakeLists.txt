@@ -1,8 +1,8 @@
 #
-# You rarely need to edit this file. To add or remove files to your
+# You rarely need to edit this file. To add or remove files in your
 # project edit the "src" folders contents and run `mulle-sde reflect`.
 #
-# A convenient way to add a new source fils is:
+# A convenient way to add a new source file is:
 #    mulle-sde add src/foo.<|PROJECT_EXTENSION|>
 #
 cmake_minimum_required( VERSION 3.13)
@@ -92,7 +92,7 @@ include( FinalOutput OPTIONAL)
 # Turn an "Executable" into a "Library". This style of development is
 # convenient for rapid startup coding where the finished result will be
 # transformed into a library. You are also already writing the first
-# first test case! There is no code to throw away.
+# test case! There is no code to throw away.
 #
 # * mulle-sde test init
 # * mv src/main.<|PROJECT_EXTENSION|> test/10-first/test.<|PROJECT_EXTENSION|>

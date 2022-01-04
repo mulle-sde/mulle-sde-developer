@@ -1,3 +1,15 @@
+## 0.23.0
+
+* big function rename to `<tool>`::`<file>`::`<function>` to make it easier to read hopefully
+* export all global symbols of DLL by default
+* added support for Makefile projects for pedagogical purposes mostly :)
+* renamed `HEADERS_PHASE` to `HEADER_PHASE,` but `HEADERS_PHASE` will still work
+* fix include searchpath order
+* the expansion of the searchpath for headers is not ON by default anymore
+* fixed typo in ``OPTIONAL_DEPENDENCY_FRAMEWORKS``
+* doesn't use ``FRAMEWORK_LIBRARY_LIST`` anymore but uses ``SHARED_LIBRARY_LIST``
+
+
 ## 0.22.0
 
 * Various small improvements

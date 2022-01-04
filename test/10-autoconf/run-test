@@ -1,6 +1,13 @@
-#! /usr/bin/env bash
+#! /bin/sh
 
 [ "${TRACE}" = 'YES' ] && set -x && : "$0" "$@"
+
+###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###
+MULLE_BASHFUNCTIONS_LIBEXEC_DIR="`mulle-bashfunctions libexec-dir`" || exit 1
+export MULLE_BASHFUNCTIONS_LIBEXEC_DIR
+. "${MULLE_BASHFUNCTIONS_LIBEXEC_DIR}/mulle-boot.sh" || exit 1
+. "${MULLE_BASHFUNCTIONS_LIBEXEC_DIR}/mulle-bashfunctions.sh" || exit 1
+###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###
 
 
 run_mulle_sde()
@@ -117,7 +124,7 @@ main()
       run_mulle_sde dependency add --c --singlephase https://foo.com/library.git &&
       run_mulle_sde dependency set library include library.h &&
       run_mulle_sde dependency add --c --marks no-link,no-header --singlephase https://foo.com/executable.git &&
-      run_mulle_sde fetch &&
+      run_mulle_sde fetch --symlink &&
       run_mulle_sde reflect
    ) || fail "Failed during test setup"
 
@@ -154,17 +161,10 @@ main()
 }
 
 
-
 init()
 {
-   MULLE_BASHFUNCTIONS_LIBEXEC_DIR="`mulle-bashfunctions-env libexec-dir`" || exit 1
-
-   . "${MULLE_BASHFUNCTIONS_LIBEXEC_DIR}/mulle-bashfunctions.sh" || exit 1
-
    MULLE_SDE_EXTENSION_PATH="${PWD}/../../src:${MULLE_SDE_EXTENSION_PATH}"
 }
 
-
 init "$@"
 main "$@"
-

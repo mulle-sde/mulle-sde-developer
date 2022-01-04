@@ -25,9 +25,10 @@
 
 #include "_<|PROJECT_NAME|>-include.h"
 
-#ifndef <|PROJECT_UPCASE_IDENTIFIER|>_EXTERN_GLOBAL
-# define <|PROJECT_UPCASE_IDENTIFIER|>_EXTERN_GLOBAL  MULLE_C_EXTERN_GLOBAL
-#endif
+// mulle-c11::feature...
+// #ifndef <|PROJECT_UPCASE_IDENTIFIER|>_EXTERN_GLOBAL
+// # define <|PROJECT_UPCASE_IDENTIFIER|>_EXTERN_GLOBAL  MULLE_C_EXTERN_GLOBAL
+// #endif
 
 /* You can add some more include statements here */
 

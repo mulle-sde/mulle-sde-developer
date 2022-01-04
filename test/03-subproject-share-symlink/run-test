@@ -1,6 +1,13 @@
-#! /usr/bin/env bash
+#! /bin/sh
 
-[ "${TRACE}" = 'YES' ] && set -x
+[ "${TRACE}" = 'YES' ] && set -x && : "$0" "$@"
+
+###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###
+MULLE_BASHFUNCTIONS_LIBEXEC_DIR="`mulle-bashfunctions libexec-dir`" || exit 1
+export MULLE_BASHFUNCTIONS_LIBEXEC_DIR
+. "${MULLE_BASHFUNCTIONS_LIBEXEC_DIR}/mulle-boot.sh" || exit 1
+. "${MULLE_BASHFUNCTIONS_LIBEXEC_DIR}/mulle-bashfunctions.sh" || exit 1
+###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###
 
 
 run_mulle_sde()
@@ -12,7 +19,11 @@ run_mulle_sde()
    exekutor mulle-sde ${MULLE_SDE_FLAGS} "$@"
 }
 
-
+REPONAME_A=a
+REPONAME_B=b
+REPONAME_C=d  # c triggers a bug (?) in cmake, weird. Change to d and it's gone
+              # C_LIBRARY is probably used by libc or so (but only recently
+              # as this test is old!
 _setup_test()
 {
    (
@@ -22,33 +33,33 @@ _setup_test()
       (
          exekutor cd repos &&
 
-         log_fluff "setup a & c" &&
-         run_mulle_sde init --no-post-init -m mulle-sde/c-developer -d a library &&
-         run_mulle_sde init --no-post-init -m mulle-sde/c-developer -d c library &&
+         log_fluff "setup ${REPONAME_A} & ${REPONAME_C}" &&
+         run_mulle_sde init --no-post-init -m mulle-sde/c-developer -d ${REPONAME_A} library &&
+         run_mulle_sde init --no-post-init -m mulle-sde/c-developer -d ${REPONAME_C} library &&
 
-         log_info "setup b with dependency c in a" &&
+         log_info "setup subproject ${REPONAME_B} in ${REPONAME_A} with dependency of ${REPONAME_C} " &&
          (
-            exekutor cd a &&
-            run_mulle_sde subproject init -d b library &&
-            run_mulle_sde subproject --subproject b dependency add --nodetype git c &&
-            log_fluff "run update in a" &&
+            exekutor cd ${REPONAME_A} &&
+            run_mulle_sde subproject init -d ${REPONAME_B} library &&
+            run_mulle_sde subproject --subproject ${REPONAME_B} dependency add --nodetype git ${REPONAME_C} &&
+            log_fluff "run update in ${REPONAME_A}" &&
             run_mulle_sde update
          ) &&
 
-         log_info "run update in c (leaf)" &&
+         log_info "run update in ${REPONAME_C} (leaf)" &&
          (
-            exekutor cd c &&
+            exekutor cd ${REPONAME_C} &&
             run_mulle_sde update
          )
       ) &&
 
-      log_info "add project with dependency a" &&
+      log_info "add project with dependency ${REPONAME_A}" &&
       (
          run_mulle_sde init --no-post-init -m mulle-sde/c-developer -d project executable &&
          cd project &&
 
          run_mulle_sde environment set MULLE_FETCH_SEARCH_PATH "${PWD}/../repos" &&
-         run_mulle_sde dependency add --nodetype git a
+         run_mulle_sde dependency add --nodetype git ${REPONAME_A}
       )
    )
 }
@@ -69,10 +80,13 @@ main()
    _setup_test "${directory}" || fail "Test setup failed"
 
    cd "${directory}/project"  || fail "cd failed"
+
    run_mulle_sde fetch || fail "Test fetch failed"
+   log_verbose "----- #1 PASSED -----"
+
    run_mulle_sde craft || fail "Test craft failed"
 
-   log_verbose "----- #1 PASSED -----"
+   log_verbose "----- #2 PASSED -----"
 
    log_info "----- ALL PASSED -----"
 
@@ -80,17 +94,10 @@ main()
 }
 
 
-
 init()
 {
-   MULLE_BASHFUNCTIONS_LIBEXEC_DIR="`mulle-bashfunctions-env libexec-dir`" || exit 1
-
-   . "${MULLE_BASHFUNCTIONS_LIBEXEC_DIR}/mulle-bashfunctions.sh" || exit 1
-
    MULLE_SDE_EXTENSION_PATH="${PWD}/../../src:${MULLE_SDE_EXTENSION_PATH}"
 }
 
-
 init "$@"
 main "$@"
-
