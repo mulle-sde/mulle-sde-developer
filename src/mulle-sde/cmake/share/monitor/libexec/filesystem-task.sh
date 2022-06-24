@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 #
-#   Copyright (c) 2020 Nat! - Mulle kybernetiK
+#   Copyright (c) 2018 Nat! - Mulle kybernetiK
 #   All rights reserved.
 #
 #   Redistribution and use in source and binary forms, with or without
@@ -29,48 +29,18 @@
 #   ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 #   POSSIBILITY OF SUCH DAMAGE.
 #
-
-source_task_run()
+filesystem_task_run()
 {
-   log_entry "mulle-sde/c-cmake::source_task_run" "$@"
+   log_entry "mulle-sde/c-cmake::filesystem_task_run" "$@"
 
    log_info "Reflecting ${C_MAGENTA}${C_BOLD}${PROJECT_NAME}${C_INFO} source"
 
-   local rval 
-
-   rval=0
    case "${MULLE_MATCH_TO_CMAKE_RUN}" in
       NO|DISABLE*|OFF)
       ;;
 
       *)
-         exekutor mulle-match-to-cmake ${MULLE_TECHNICAL_FLAGS} "$@"  
-         rval=$?
+         exekutor mulle-match-to-cmake ${MULLE_TECHNICAL_FLAGS} "$@"  || return $?
       ;;
    esac
-
-   if [ $rval -ne 0 ]
-   then
-      log_error "mulle-match-to-cmake ${MULLE_TECHNICAL_FLAGS} $* failed ($rval)"
-   fi
-
-   local rval2
-
-   rval2=0
-   case "${MULLE_MATCH_TO_C_RUN}" in
-      NO|DISABLE*|OFF)
-      ;;
-
-      *)
-         exekutor mulle-match-to-c ${MULLE_TECHNICAL_FLAGS} "$@"  || return $?
-         rval2=$?
-      ;;
-   esac
-
-   if [ $rval2 -ne 0 ]
-   then
-      log_error "mulle-match-to-c ${MULLE_TECHNICAL_FLAGS} $* failed ($rval2)"
-   fi
-
-   [ $rval -eq 0 -a $rval2 -eq 0 ]   
 }

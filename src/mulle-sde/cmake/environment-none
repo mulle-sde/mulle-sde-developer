@@ -1,10 +1,4 @@
 #
-# By default assume a project has source and a sourcetree in that order.
-#
-MULLE_SDE_REFLECT_CALLBACKS+="sourcetree"
-MULLE_SDE_REFLECT_CALLBACKS+="filesystem"
-
-#
 # These are directories and files used by `mulle-match find` to locate files
 #
 MULLE_MATCH_PATH+="CMakeLists.txt"
@@ -15,9 +9,3 @@ MULLE_MATCH_PATH+="cmake"
 #
 MULLE_MATCH_FILENAMES+="CMakeLists.txt"
 MULLE_MATCH_FILENAMES+="*.cmake"
-
-
-#
-# tell mulle-sde to keep files protected from read/write changes
-#
-MULLE_SDE_PROTECT_PATH+="cmake/share"

@@ -1,0 +1,5 @@
+#
+# These are used by `mulle-match find` to locate files
+#
+MULLE_MATCH_PATH+="${PROJECT_SOURCE_DIR}"
+

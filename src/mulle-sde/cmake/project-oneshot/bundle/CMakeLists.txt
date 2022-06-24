@@ -16,8 +16,6 @@ project( <|PROJECT_NAME|> <|PROJECT_UPCASE_LANGUAGE|>)
 #
 set( MULLE_PROJECT_TYPE "Bundle")
 
-add_definitions( -D<|PROJECT_UPCASE_IDENTIFIER|>_EXTERN_GLOBAL=extern)
-
 ### mulle-sde environment
 
 # add cmake module paths to search path
@@ -37,9 +35,6 @@ if( LINK_PHASE)
 endif()
 
 include( Bundle)
-set_target_properties( "${BUNDLE_NAME}" PROPERTIES
-  BUNDLE_VERSION A
-)
 include( InstallBundle)
 
 include( FinalOutput OPTIONAL)

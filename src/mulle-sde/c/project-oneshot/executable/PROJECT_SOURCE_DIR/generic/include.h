@@ -23,9 +23,11 @@
 
 // can't hurt for an executable, can it ?
 // mulle-c11::feature...
-//#ifndef <|PROJECT_UPCASE_IDENTIFIER|>_EXTERN_GLOBAL
-//# define <|PROJECT_UPCASE_IDENTIFIER|>_EXTERN_GLOBAL  MULLE_C_EXTERN_GLOBAL
-//#endif
+// #ifdef <|PROJECT_UPCASE_IDENTIFIER|>_BUILD
+// # define <|PROJECT_UPCASE_IDENTIFIER|>_EXTERN_GLOBAL  MULLE_C_GLOBAL
+// #else
+// # define <|PROJECT_UPCASE_IDENTIFIER|>_EXTERN_GLOBAL  MULLE_C_EXTERN_GLOBAL
+// #endif
 
 /* You can add some more include statements here */
 

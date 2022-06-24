@@ -29,18 +29,20 @@
 #   ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 #   POSSIBILITY OF SUCH DAMAGE.
 #
-source_task_run()
+[ "${TRACE}" = 'YES' ] && set -x && : "$0" "$@"
+
+
+#
+# if action is empty, assume it means we are inside mulle-sde monitor update
+#
+main()
 {
-   log_entry "mulle-sde/c-cmake::source_task_run" "$@"
+   local action="$1"     # unused
+   local filename="$2"
+   local category="$3"
 
-   log_info "Reflecting ${C_MAGENTA}${C_BOLD}${PROJECT_NAME}${C_INFO} source"
+   echo "filesystem"     # this selects the **task** to run
+}                        # see mulle-sde task list for whats available
 
-   case "${MULLE_MATCH_TO_CMAKE_RUN}" in
-      NO|DISABLE*|OFF)
-      ;;
+main "$@"
 
-      *)
-         exekutor mulle-match-to-cmake ${MULLE_TECHNICAL_FLAGS} "$@"  || return $?
-      ;;
-   esac
-}

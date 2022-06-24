@@ -12,7 +12,6 @@ project( <|PROJECT_NAME|> <|PROJECT_UPCASE_LANGUAGE|>)
 
 set( MULLE_PROJECT_TYPE "Executable")
 
-add_definitions( -D<|PROJECT_UPCASE_IDENTIFIER|>_EXTERN_GLOBAL=extern)
 
 ### mulle-sde environment
 
@@ -43,22 +42,6 @@ elseif( "${MULLE_PROJECT_TYPE}" STREQUAL "Framework")
 
    include( Dependencies)
    include( Framework)
-
-   set_target_properties( "${FRAMEWORK_NAME}" PROPERTIES
-     FRAMEWORK_VERSION A
-   )
-
-   #
-   # You usually don't want to link static libraries into a Framework, except
-   # if you know, they won't be shared with other frameworks. So use
-   # `dynamic_lookup` to keep symbols from static libraries "open" for later
-   # linking and mark static libraries as no-link
-   # with `mulle-sde dependenc mark <dependency> no-link`
-   #
-   target_link_options( "${FRAMEWORK_NAME}" PRIVATE
-      -undefined dynamic_lookup
-   )
-
    include( InstallFramework)
 
 elseif( "${MULLE_PROJECT_TYPE}" STREQUAL "Library")

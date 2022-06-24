@@ -15,3 +15,5 @@ _Sources.cmake
 dot.git/
 research/
 mulle-sde-create-public-include
+.gitignore
+.mulle-make-build-dir

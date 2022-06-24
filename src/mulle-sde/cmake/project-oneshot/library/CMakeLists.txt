@@ -13,8 +13,6 @@ project( <|PROJECT_NAME|> <|PROJECT_UPCASE_LANGUAGE|>)
 
 set( MULLE_PROJECT_TYPE "Library")
 
-add_definitions( -D<|PROJECT_UPCASE_IDENTIFIER|>_EXTERN_GLOBAL=extern)
-
 ### mulle-sde environment
 
 # add cmake module paths to search path
@@ -47,14 +45,6 @@ elseif( "${MULLE_PROJECT_TYPE}" STREQUAL "Framework")
    endif()
 
    include( Framework)
-   set_target_properties( "${FRAMEWORK_NAME}" PROPERTIES
-     FRAMEWORK_VERSION A
-   )
-
-   target_link_options( "${FRAMEWORK_NAME}" PRIVATE
-      -undefined dynamic_lookup
-   )
-      
    include( InstallFramework)
 
 elseif( "${MULLE_PROJECT_TYPE}" STREQUAL "Library")

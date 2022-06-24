@@ -26,7 +26,9 @@
 #include "_<|PROJECT_NAME|>-include.h"
 
 // mulle-c11::feature...
-// #ifndef <|PROJECT_UPCASE_IDENTIFIER|>_EXTERN_GLOBAL
+// #ifdef <|PROJECT_UPCASE_IDENTIFIER|>_BUILD
+// # define <|PROJECT_UPCASE_IDENTIFIER|>_EXTERN_GLOBAL  MULLE_C_GLOBAL
+// #else
 // # define <|PROJECT_UPCASE_IDENTIFIER|>_EXTERN_GLOBAL  MULLE_C_EXTERN_GLOBAL
 // #endif
 

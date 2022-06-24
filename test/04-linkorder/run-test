@@ -94,54 +94,54 @@ main()
 
    r_filepath_concat "${directory}" "a"
    a_dir="${RVAL}"
-   mkdir "${a_dir}" || internal_fail "mkdir"
+   mkdir "${a_dir}" || _internal_fail "mkdir"
 
    r_filepath_concat "${directory}" "b"
    b_dir="${RVAL}"
-   mkdir "${b_dir}" || internal_fail "mkdir"
+   mkdir "${b_dir}" || _internal_fail "mkdir"
 
    r_filepath_concat "${directory}" "c"
    c_dir="${RVAL}"
-   mkdir "${c_dir}" || internal_fail "mkdir"
+   mkdir "${c_dir}" || _internal_fail "mkdir"
 
    r_filepath_concat "${directory}" "d"
    d_dir="${RVAL}"
-   mkdir "${d_dir}" || internal_fail "mkdir"
+   mkdir "${d_dir}" || _internal_fail "mkdir"
 
    r_filepath_concat "${directory}" "e"
    e_dir="${RVAL}"
-   mkdir "${e_dir}" || internal_fail "mkdir"
+   mkdir "${e_dir}" || _internal_fail "mkdir"
 
    r_filepath_concat "${directory}" "f"
    f_dir="${RVAL}"
-   mkdir "${f_dir}" || internal_fail "mkdir"
+   mkdir "${f_dir}" || _internal_fail "mkdir"
 
    #
    # When we add 'b' without marks and no symlink it becomes a "none" node,
    # which means it implicitly a "share". When we have the symlink
    # mulle-sourcetree recognizes this as "local" and makes it "no-share"
    #
-   ( cd  "${a_dir}" && ln -s ../b && mulle-sourcetree -s -N add b ) || internal_fail "a"
-   ( cd  "${b_dir}" && ln -s ../c && mulle-sourcetree -s -N add c ) || internal_fail "b"
-   ( cd  "${d_dir}" && ln -s ../e && mulle-sourcetree -s -N add e ) || internal_fail "e"
-   ( cd  "${f_dir}" && ln -s ../e && mulle-sourcetree -s -N add e ) || internal_fail "e"
+   ( cd  "${a_dir}" && ln -s ../b && mulle-sourcetree -s -N add b ) || _internal_fail "a"
+   ( cd  "${b_dir}" && ln -s ../c && mulle-sourcetree -s -N add c ) || _internal_fail "b"
+   ( cd  "${d_dir}" && ln -s ../e && mulle-sourcetree -s -N add e ) || _internal_fail "e"
+   ( cd  "${f_dir}" && ln -s ../e && mulle-sourcetree -s -N add e ) || _internal_fail "e"
 
    local projectdir
 
    r_filepath_concat "${directory}" "project"
    projectdir="${RVAL}"
-   run_mulle_sde init --no-post-init -d "${projectdir}" none  || internal_fail "init"
+   run_mulle_sde init --no-post-init -d "${projectdir}" none  || _internal_fail "init"
    # these are not set for "none" by default anymore, as it does not use "mulle"
    run_mulle_sde -d "${projectdir}" environment set MULLE_FETCH_SEARCH_PATH '${MULLE_VIRTUAL_ROOT}/..'
    run_mulle_sde -d "${projectdir}" environment set MULLE_SOURCETREE_SYMLINK 'YES'
 
-   cd "${projectdir}" || internal_fail "cd"
+   cd "${projectdir}" || _internal_fail "cd"
 
-   run_mulle_sde dependency add --nodetype git a || internal_fail "add a"
-   run_mulle_sde dependency add --nodetype git d || internal_fail "add d"
-   run_mulle_sde dependency add --nodetype git f || internal_fail "add f"
+   run_mulle_sde dependency add --nodetype git a || _internal_fail "add a"
+   run_mulle_sde dependency add --nodetype git d || _internal_fail "add d"
+   run_mulle_sde dependency add --nodetype git f || _internal_fail "add f"
 
-   run_mulle_sde fetch --recurse || internal_fail "fetch"
+   run_mulle_sde fetch --recurse || _internal_fail "fetch"
 
    mulle-sourcetree list -r -l >&2
 
@@ -161,7 +161,7 @@ d
 f/e
 f"
    result="`run_mulle_sde craftorder \
-            | sed 's/\(.*\);.*/\1/'`"  || internal_fail "craftorder"
+            | sed 's/\(.*\);.*/\1/'`"  || _internal_fail "craftorder"
    expect_output "${result}" "${expected}"
 
    expected="a
@@ -170,7 +170,7 @@ c
 d
 f
 e"
-   result="`run_mulle_sde linkorder --output-format node`" || internal_fail "linkorder"
+   result="`run_mulle_sde linkorder --output-format node`" || _internal_fail "linkorder"
    expect_output "${result}" "${expected}"
 
    log_info "----- ALL PASSED -----"

@@ -1,3 +1,10 @@
+## 0.24.0
+
+* added IDEA support
+* monitor task source renamed to filesystem
+* support src/generic
+
+
 ## 0.23.0
 
 * big function rename to `<tool>`::`<file>`::`<function>` to make it easier to read hopefully

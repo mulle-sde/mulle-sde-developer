@@ -85,13 +85,13 @@ EOF
       mulle-sde -s log | egrep -q foo-cc
       if [ $? -ne 0 ]
       then
-         internal_fail "foo-cc was not used"
+         _internal_fail "foo-cc was not used"
       fi
 
       mulle-sde -s log b | egrep -q foo-cc
       if [ $? -eq 0 ]
       then
-         internal_fail "foo-cc was mistakenly used"
+         _internal_fail "foo-cc was mistakenly used"
       fi
    )
 
