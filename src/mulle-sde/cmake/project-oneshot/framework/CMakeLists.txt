@@ -24,12 +24,24 @@ include( Environment)
 
 include( Files)
 
+include( IDESupport OPTIONAL)
+
+
 if( "${MULLE_PROJECT_TYPE}" STREQUAL "Executable")
 
    ### Executable
 
    include( Dependencies)
    include( Executable)
+
+   # use EXECUTABLE_COMPILE_TARGET for compiler options
+   target_compile_definitions( "${EXECUTABLE_COMPILE_TARGET}" PUBLIC)
+   target_compile_options( "${EXECUTABLE_COMPILE_TARGET}" PUBLIC)
+   # use EXECUTABLE_LINK_TARGET for linker options
+   if( LINK_PHASE)
+      target_link_options( "${EXECUTABLE_LINK_TARGET}" PUBLIC)
+   endif()
+
    include( InstallExecutable)
 
    # only for Executable
@@ -64,6 +76,15 @@ elseif( "${MULLE_PROJECT_TYPE}" STREQUAL "Library")
    endif()
 
    include( Library)
+
+   # use LIBRARY_COMPILE_TARGET for compiler options
+   target_compile_definitions( "${LIBRARY_COMPILE_TARGET}" PUBLIC)
+   target_compile_options( "${LIBRARY_COMPILE_TARGET}" PUBLIC)
+   # use LIBRARY_LINK_TARGET for linker options
+   if( LINK_PHASE)
+      target_link_options( "${LIBRARY_LINK_TARGET}" PUBLIC)
+   endif()
+
    include( InstallLibrary)
 
 else()

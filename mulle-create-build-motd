@@ -94,7 +94,7 @@ r_emit_executable_motd()
    r_filepath_concat "${kitchendir}" "${name}"
    filepath="${RVAL}"
    printf -v RVAL "%b\n%b" "${C_INFO}Run your executable:${C_RESET}" \
-                     "${C_BOLD}   ${filepath#${MULLE_VIRTUAL_ROOT}/}${C_RESET}"
+                     "${C_BOLD}   ${filepath#"${MULLE_VIRTUAL_ROOT}/"}${C_RESET}"
 }
 
 

@@ -20,7 +20,10 @@ endif()
 #
 # CMAKE_INSTALL_RPATH must be defined before add_executable or add_library
 #
-if( NOT MULLE_NO_CMAKE_INSTALL_RPATH)
+if( MULLE_NO_CMAKE_INSTALL_RPATH)
+   # for cosmopolitan and musl static builds RPATH can be a hindrance
+   set( CMAKE_SKIP_BUILD_RPATH ON)
+else()
    if( APPLE)
       set( CMAKE_INSTALL_RPATH
          "@loader_path/../lib/"

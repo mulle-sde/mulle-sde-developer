@@ -8,6 +8,11 @@
     <excludeRoots>
       <file path="$PROJECT_DIR$/.mulle" />
       <file path="$PROJECT_DIR$/.vscode" />
+      <file path="$PROJECT_DIR$/addiction/bin" />
+      <file path="$PROJECT_DIR$/addiction/etc" />
+      <file path="$PROJECT_DIR$/addiction/lib" />
+      <file path="$PROJECT_DIR$/addiction/libexec" />
+      <file path="$PROJECT_DIR$/addiction/share" />
       <file path="$PROJECT_DIR$/dependency/bin" />
       <file path="$PROJECT_DIR$/dependency/etc" />
       <file path="$PROJECT_DIR$/dependency/lib" />
@@ -17,8 +22,15 @@
       <file path="$PROJECT_DIR$/research" />
       <file path="$PROJECT_DIR$/stash" />
       <file path="$PROJECT_DIR$/test/.mulle" />
+      <file path="$PROJECT_DIR$/test/addiction" />
       <file path="$PROJECT_DIR$/test/dependency" />
+      <file path="$PROJECT_DIR$/test/stash" />
       <file path="$PROJECT_DIR$/test/kitchen" />
+      <file path="$PROJECT_DIR$/demo/.mulle" />
+      <file path="$PROJECT_DIR$/demo/addiction" />
+      <file path="$PROJECT_DIR$/demo/dependency" />
+      <file path="$PROJECT_DIR$/demo/stash" />
+      <file path="$PROJECT_DIR$/demo/kitchen" />
     </excludeRoots>
   </component>
 </project>
