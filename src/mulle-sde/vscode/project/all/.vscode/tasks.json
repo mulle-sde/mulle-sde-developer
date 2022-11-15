@@ -2,6 +2,25 @@
     "version": "2.0.0",
     "tasks": [
         {
+            "label": "Craft",
+            "type": "shell",
+            "command": "mulle-sde",
+            "args": [
+                "craft"
+            ],
+            "problemMatcher": {
+                "base": "$gcc",
+                "fileLocation": [
+                  "relative",
+                  "${workspaceFolder}/kitchen/Debug"
+                ]
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
             "label": "Debug",
             "type": "shell",
             "command": "mulle-sde",
@@ -37,21 +56,6 @@
             "group": "build"
         },
         {
-           "label": "Test",
-           "type": "shell",
-           "command": "mulle-sde",
-           "args": [
-              "test"
-           ],
-            "problemMatcher": {
-                "base": "$gcc",
-                "fileLocation": [
-                  "relative",
-                  "${workspaceFolder}/kitchen/Debug"
-                ]
-            }
-        },
-        {
            "label": "Reflect",
            "type": "shell",
            "command": "mulle-sde",
@@ -70,12 +74,33 @@
            "problemMatcher": []
         },
         {
-           "label": "Clean All",
+           "label": "Clean Tidy",
            "type": "shell",
            "command": "mulle-sde",
            "args": [
               "clean",
-              "all"
+              "tidy"
+           ],
+           "problemMatcher": []
+        },
+        {
+           "label": "Clean Download Caches",
+           "type": "shell",
+           "command": "mulle-sde",
+           "args": [
+              "clean",
+              "tidy",
+              "archive",
+              "mirror"
+           ],
+           "problemMatcher": []
+        },
+        {
+           "label": "Upgrade",
+           "type": "shell",
+           "command": "mulle-sde",
+           "args": [
+              "upgrade"
            ],
            "problemMatcher": []
         }
