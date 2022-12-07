@@ -3,8 +3,8 @@
 [ "${TRACE}" = 'YES' ] && set -x && : "$0" "$@"
 
 #
-# For extra extensions and the like we keep VENDOR_NAME around in the
-# persisten environment, so upgrading works
+# For extra extensions and the like keep VENDOR_NAME around in the
+# persistent environment, so upgrading works
 #
 PHYSPWD="`pwd -P`"
 VENDOR_NAME="`MULLE_VIRTUAL_ROOT="${PHYSPWD}" \

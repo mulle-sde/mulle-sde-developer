@@ -12,16 +12,11 @@ export MULLE_BASHFUNCTIONS_LIBEXEC_DIR
 
 run_mulle_sde()
 {
-   log_fluff "####################################" >&2
-   log_fluff ${MULLE_SDE} ${MULLE_SDE_FLAGS} "$@"
-   log_fluff "####################################" >&2
+   log_fluff "####################################"
+   log_fluff mulle-sde ${MULLE_SDE_FLAGS} "$@"
+   log_fluff "####################################"
 
-   (
-      MULLE_EXECUTABLE="${MULLE_SDE}"
-      MULLE_SDE_LIBEXEC_DIR="`${MULLE_SDE} libexec-dir`"
-
-      . "${MULLE_SDE}" --no-auto-shell ${MULLE_SDE_FLAGS} "$@"
-   )
+   exekutor mulle-sde ${MULLE_SDE_FLAGS} "$@"
 }
 
 
@@ -57,12 +52,12 @@ main()
    #
    # this tests that the definition for CC is used by a but not by b
    #
-   mulle-sde init --no-post-init -d "${directory}/b" -m mulle-sde/c-developer library || exit 1
+   run_mulle_sde init --no-post-init -d "${directory}/b" -m mulle-sde/c-developer library || exit 1
 
-   mulle-sde init --no-post-init -d "${directory}/a" -m mulle-sde/c-developer executable || exit 1
+   run_mulle_sde init --no-post-init -d "${directory}/a" -m mulle-sde/c-developer executable || exit 1
    (
       cd "${directory}/a" &&
-      mulle-sde dependency add b &&
+      run_mulle_sde dependency add b &&
       mkdir bin &&
       cat <<EOF > bin/foo-cc || exit 1
 #! /bin/sh -x
@@ -74,26 +69,26 @@ exec "cc" "\$@"
 EOF
 
       chmod 755 bin/foo-cc &&
-      mulle-sde environment set PATH "\${PWD}/bin:\${PATH}" &&
-      mulle-sde definition set CC foo-cc &&
-      mulle-sde craft
+      run_mulle_sde environment set PATH "\${PWD}/bin:\${PATH}" &&
+      run_mulle_sde definition set CC foo-cc &&
+      run_mulle_sde craft
    ) || exit 1
 
    set -o pipefail
    (
       cd "${directory}/a" &&
-      mulle-sde -s log | egrep -q foo-cc
+      run_mulle_sde -vvv -ld -ls log | egrep -q foo-cc
       if [ $? -ne 0 ]
       then
          _internal_fail "foo-cc was not used"
       fi
 
-      mulle-sde -s log b | egrep -q foo-cc
+      run_mulle_sde log b | egrep -q foo-cc
       if [ $? -eq 0 ]
       then
          _internal_fail "foo-cc was mistakenly used"
       fi
-   )
+   ) || exit 1
 
    log_verbose "----- #1 PASSED -----"
 

@@ -38,7 +38,7 @@ sourcetree_task_run()
       ;;
 
       *)
-         log_info "Reflecting ${C_MAGENTA}${C_BOLD}${PROJECT_NAME}${C_INFO} sourcetree ${C_RESET_BOLD}${MULLE_SOURCETREE_CONFIG_NAME:-config}"
+         log_info "Reflecting ${C_MAGENTA}${C_BOLD}${PROJECT_NAME:-.}${C_INFO} sourcetree ${C_RESET_BOLD}${MULLE_SOURCETREE_CONFIG_NAME:-config}"
          exekutor mulle-sourcetree-to-cmake "$@"  || return $?
       ;;
    esac

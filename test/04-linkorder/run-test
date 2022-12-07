@@ -33,7 +33,6 @@ expect_file()
 }
 
 
-
 expect_output()
 {
    local output="$1"
@@ -143,7 +142,7 @@ main()
 
    run_mulle_sde fetch --recurse || _internal_fail "fetch"
 
-   mulle-sourcetree list -r -l >&2
+   # mulle-sourcetree list -r -l >&2
 
    local expected
    local result

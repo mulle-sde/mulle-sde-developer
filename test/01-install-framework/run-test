@@ -56,23 +56,6 @@ install_projecttype()
 }
 
 
-check_library_files()
-{
-   local installdir="$1"
-
-   expect_file "${installdir}/include/library/library.h"
-   expect_file "${installdir}/lib/liblibrary.a"
-}
-
-
-check_executable_files()
-{
-   local installdir="$1"
-
-   expect_file "${installdir}/bin/executable"
-}
-
-
 check_framework_files()
 {
    local installdir="$1"
@@ -103,22 +86,12 @@ main()
    r_filepath_concat "${directory}" "install"
    installdir="${RVAL}"
 
-   install_projecttype "${directory}" "${installdir}" "library"
-   check_library_files "${installdir}"
-
-   log_verbose "----- #1 PASSED -----"
-
-   install_projecttype "${directory}" "${installdir}" "executable"
-   check_executable_files "${installdir}"
-
-   log_verbose "----- #2 PASSED -----"
-
    case "${MULLE_UNAME}" in
       darwin)
          install_projecttype "${directory}" "${installdir}" "framework"
          check_framework_files "${installdir}"
 
-         log_verbose "----- #3 PASSED -----"
+         log_verbose "----- #1 PASSED -----"
       ;;
    esac
 

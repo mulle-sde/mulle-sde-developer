@@ -33,7 +33,7 @@ filesystem_task_run()
 {
    log_entry "mulle-sde/c-cmake::filesystem_task_run" "$@"
 
-   log_info "Reflecting ${C_MAGENTA}${C_BOLD}${PROJECT_NAME}${C_INFO} source"
+   log_info "Reflecting ${C_MAGENTA}${C_BOLD}${PROJECT_NAME:-.}${C_INFO} filesystem"
 
    case "${MULLE_MATCH_TO_CMAKE_RUN}" in
       NO|DISABLE*|OFF)

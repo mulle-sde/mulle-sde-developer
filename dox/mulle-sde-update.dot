@@ -5,22 +5,22 @@ digraph G {
     edge[ arrowhead="none", color="gray", label="run"]
 
     { rank = same;  "mulle-sourcetree-to-cmake", "mulle-match-to-cmake" };
-    { rank = same;  "source-callback", "sourcetree-callback" };
+    { rank = same;  "filesystem-callback", "sourcetree-callback" };
     { rank = last;  "mulle-sde reflect" };
 
-    "source-callback"        [ label="{ callback: source| task: mulle-match-to-cmake}"];
+    "filesystem-callback"        [ label="{ callback: source| task: mulle-match-to-cmake}"];
     "sourcetree-callback"    [ label="{ callback: sourcetree| task: mulle-sourcetree-to-cmake}"];
 
     "mulle-match-to-cmake" [ color="magenta", fontcolor="magenta" ]
     "mulle-sourcetree-to-cmake" [ color="magenta", fontcolor="magenta" ]
 
-    "source-callback"      ->  "mulle-match-to-cmake"
+    "filesystem-callback"      ->  "mulle-match-to-cmake"
     "sourcetree-callback"  ->  "mulle-sourcetree-to-cmake"
 
     "mulle-sde reflect"  [ shape="none", fontname="monospace", fontcolor="blue"]
 
     edge[ arrowhead="", style="dotted", color="black" ]
 
-    "mulle-sde reflect"  -> "source-callback"
+    "mulle-sde reflect"  -> "filesystem-callback"
     "mulle-sde reflect"  -> "sourcetree-callback"
 }

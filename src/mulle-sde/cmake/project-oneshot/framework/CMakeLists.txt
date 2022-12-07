@@ -10,7 +10,7 @@ cmake_minimum_required( VERSION 3.13)
 
 project( <|PROJECT_NAME|> <|PROJECT_UPCASE_LANGUAGE|>)
 
-set( MULLE_PROJECT_TYPE "Executable")
+set( MULLE_PROJECT_TYPE "Framework")
 
 
 ### mulle-sde environment

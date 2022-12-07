@@ -12,15 +12,15 @@ These files will not overwrite existing files. They will be rewritten on update.
 # demo folder
 
 The `demo` folder is made up the same as the project folder, but the files are
-considered "fluff"/hello-world files, that a user may not want to have. These
-files will be installed only once during init.
+considered "fluffy" hello-world type files, that a user may not want to have.
+These files will be installed only once during init.
 
 # delete folder
 
 The `delete` folder is used to delete folders called "share" in the project.
 This is useful to clean and repopulate extension managed files during an
 extension upgrade, that are not installed into `.mulle/share/sde`.
-The user must be aware, that files in this folder are ephemeral.
+The user should be aware, that files in "share" folders are ephemeral.
 
 Example: `cmake/share`.
 

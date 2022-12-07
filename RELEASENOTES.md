@@ -1,3 +1,8 @@
+## 0.25.0
+
+* install some callbacks for the benefit of mulle-monitor
+
+
 ## 0.24.0
 
 * added IDEA support

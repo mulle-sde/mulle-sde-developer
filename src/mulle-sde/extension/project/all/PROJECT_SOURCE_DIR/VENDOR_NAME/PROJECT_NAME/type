@@ -1,7 +1,8 @@
 # Required: uncomment the applicable extension type
 #
 # buildtool
-# common
+# extra
 # meta
+# oneshot
 # runtime
-extra
+<|PROJECT_TYPE|>
