@@ -47,5 +47,7 @@ jobs:
         mulle-sde -DMULLE_SDE_EXTENSION_BASE_PATH="${PWD}/src" init -d exe -m mulle-sde/c-developer executable &&
         cd exe &&
         mulle-sde craft --release &&
-        "./kitchen/Release/exe"
+        [ -x "./kitchen/Release/exe" -o "./kitchen/exe" ] &&
+        ( [ ! -x "./kitchen/Release/exe" ] || "./kitchen/Release/exe" ) &&
+        ( [ ! -x "./kitchen/exe" ] || "./kitchen/exe" )
 
