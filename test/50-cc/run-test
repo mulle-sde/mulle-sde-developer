@@ -77,13 +77,13 @@ EOF
    set -o pipefail
    (
       cd "${directory}/a" &&
-      run_mulle_sde -vvv -ld -ls log | egrep -q foo-cc
+      run_mulle_sde -s log | egrep -q foo-cc
       if [ $? -ne 0 ]
       then
          _internal_fail "foo-cc was not used"
       fi
 
-      run_mulle_sde log b | egrep -q foo-cc
+      run_mulle_sde -s log b | egrep -q foo-cc
       if [ $? -eq 0 ]
       then
          _internal_fail "foo-cc was mistakenly used"
