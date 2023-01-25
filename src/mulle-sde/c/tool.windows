@@ -1,8 +1,8 @@
 #
 #
-lib.exe
-cl.exe
-link.exe
+lib.exe;optional
+cl.exe;optional
+link.exe;optional
 ifc.exe;optional
 ml.exe;optional
 bscmake.exe;optional

@@ -5,16 +5,16 @@
 ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###
 MULLE_BASHFUNCTIONS_LIBEXEC_DIR="`mulle-bashfunctions libexec-dir`" || exit 1
 export MULLE_BASHFUNCTIONS_LIBEXEC_DIR
-. "${MULLE_BASHFUNCTIONS_LIBEXEC_DIR}/mulle-boot.sh" || exit 1
+. "${MULLE_BASHFUNCTIONS_LIBEXEC_DIR}/mulle-boot.sh"          || exit 1
 . "${MULLE_BASHFUNCTIONS_LIBEXEC_DIR}/mulle-bashfunctions.sh" || exit 1
 ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###
 
 
 run_mulle_sde()
 {
-   log_fluff "####################################"
-   log_fluff mulle-sde ${MULLE_SDE_FLAGS} "$@"
-   log_fluff "####################################"
+   log_verbose "####################################"
+   log_verbose mulle-sde ${MULLE_SDE_FLAGS} "$@"
+   log_verbose "####################################"
 
    exekutor mulle-sde ${MULLE_SDE_FLAGS} "$@"
 }
@@ -76,24 +76,30 @@ EOF
 
    set -o pipefail
    (
+      errors=0
+
       cd "${directory}/a" &&
-      run_mulle_sde -s log | egrep -q foo-cc
+      run_mulle_sde -s log | grep -E -q foo-cc
       if [ $? -ne 0 ]
       then
-         _internal_fail "foo-cc was not used"
+         log_error "foo-cc was not used"
+         errors=$((errors + 1))
       fi
 
-      run_mulle_sde -s log b | egrep -q foo-cc
+      run_mulle_sde -s log b | grep -E -q foo-cc
       if [ $? -eq 0 ]
       then
-         _internal_fail "foo-cc was mistakenly used"
+         log_error "foo-cc was mistakenly used"
+         errors=$((errors + 1))
       fi
+
+      [ ${errors} -ne 0 ] && _internal_fail "failed"
    ) || exit 1
 
    log_verbose "----- #1 PASSED -----"
 
    log_info "----- ALL PASSED -----"
-
+   cd ..
    rmdir_safer "${directory}"
 }
 

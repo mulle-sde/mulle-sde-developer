@@ -1,4 +1,4 @@
-FROM ubuntu:trusty
+FROM ubuntu:latest
 
 # make it fresh
 # add en UTF-8 as a locale
@@ -11,8 +11,5 @@ RUN DEBIAN_FRONTEND=noninteractive \
    && wget -O - https://www.mulle-kybernetik.com/dists/debian-admin-pub.asc | apt-key add - \
    && echo "deb [arch=all] http://www.mulle-kybernetik.com `lsb_release -c -s` main" | tee "/etc/apt/sources.list.d/mulle-kybernetik.com-main.list" > /dev/null \
 \
-   && echo "deb http://ppa.launchpad.net/george-edison55/cmake-3.x/ubuntu `lsb_release -c -s` main" | sudo tee "/etc/apt/sources.list.d/george-edison55-cmake-3_x-trusty.list" > /dev/null \
-\
-   && sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 084ECFC5828AB726 \
    && apt-get update \
    && apt-get -y install mulle-sde-developer

@@ -112,9 +112,9 @@ before_install_main()
 
    if [ -f ".travis.d/PACKAGES.linux" ]
    then
-      PACKAGES="`egrep -v '^#' ".travis.d/PACKAGES.linux" `"
+      PACKAGES="`grep -E -v '^#' ".travis.d/PACKAGES.linux" `"
    else
-      PACKAGES="`egrep -v '^#' ".travis.d/PACKAGES" `"
+      PACKAGES="`grep -E -v '^#' ".travis.d/PACKAGES" `"
    fi
 
    (
