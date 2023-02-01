@@ -1,2 +1,3 @@
 # must be optional, otherwise you can't compile without sublime...
-subl;optional
+subl
+subl.exe

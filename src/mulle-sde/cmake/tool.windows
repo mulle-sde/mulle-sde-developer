@@ -1,8 +1,8 @@
-mulle-match-to-cmake;optional
-mulle-sourcetree-to-cmake;optional
-mulle-match-to-c;optional
-mulle-sourcetree-to-c;optional
+mulle-match-to-cmake
+mulle-sourcetree-to-cmake
+mulle-match-to-c
+mulle-sourcetree-to-c
 cmake;remove
 cmake.exe
-ninja.exe;optional
-nmake.exe;optional
+ninja.exe
+nmake.exe

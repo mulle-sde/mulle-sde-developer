@@ -1,7 +1,7 @@
-mulle-match-to-cmake;optional
-mulle-match-to-c;optional
-mulle-sourcetree-to-cmake;optional
-mulle-sourcetree-to-c;optional
+mulle-match-to-cmake
+mulle-match-to-c
+mulle-sourcetree-to-cmake
+mulle-sourcetree-to-c
 cmake
-ninja;optional
-make;optional
+ninja
+make

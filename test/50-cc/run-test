@@ -49,6 +49,46 @@ main()
    r_make_tmp_directory
    directory="${RVAL:-/tmp/build}"
 
+   local foo_cc
+   local cc
+   local text
+
+   case "${MULLE_UNAME}" in
+      'mingw')
+         foo_cc=foo-cc.bat
+         cc=cl.exe
+         text="`cat <<EOF
+${cc} %*
+EOF`"
+      ;;
+
+      'msys')
+         foo_cc=foo-cc.bat
+         cc=gcc.exe
+         text="`cat <<EOF
+${cc} %*
+EOF`"
+      ;;
+
+      *)
+         foo_cc=foo-cc
+         cc=gcc            # finagle this
+         if ! command -v "${cc}" > /dev/null
+         then
+            cc=cc
+         fi
+
+         text="`cat <<EOF
+#! /bin/sh -x
+#
+# can't use [C][C] here as cmake greps for it and then hangs
+#
+exec ${cc} "\$@"
+EOF`"
+      ;;
+   esac
+
+
    #
    # this tests that the definition for CC is used by a but not by b
    #
@@ -59,18 +99,12 @@ main()
       cd "${directory}/a" &&
       run_mulle_sde dependency add b &&
       mkdir bin &&
-      cat <<EOF > bin/foo-cc || exit 1
-#! /bin/sh -x
 
-#
-# can't use [C][C] here as cmake greps for it and then hangs
-#
-exec "cc" "\$@"
-EOF
-
-      chmod 755 bin/foo-cc &&
+      echo "${text}" > bin/${foo_cc} || exit 1
+      chmod 755 bin/${foo_cc} &&
       run_mulle_sde environment set PATH "\${PWD}/bin:\${PATH}" &&
-      run_mulle_sde definition set CC foo-cc &&
+      run_mulle_sde definition set CC ${foo_cc}
+
       run_mulle_sde craft
    ) || exit 1
 
@@ -79,17 +113,17 @@ EOF
       errors=0
 
       cd "${directory}/a" &&
-      run_mulle_sde -s log | grep -E -q foo-cc
+      run_mulle_sde -s log | grep -E -q ${foo_cc}
       if [ $? -ne 0 ]
       then
-         log_error "foo-cc was not used"
+         log_error "${foo_cc} was not used"
          errors=$((errors + 1))
       fi
 
-      run_mulle_sde -s log b | grep -E -q foo-cc
+      run_mulle_sde -s log b | grep -E -q ${foo_cc}
       if [ $? -eq 0 ]
       then
-         log_error "foo-cc was mistakenly used"
+         log_error "${foo_cc} was mistakenly used"
          errors=$((errors + 1))
       fi
 
@@ -99,7 +133,8 @@ EOF
    log_verbose "----- #1 PASSED -----"
 
    log_info "----- ALL PASSED -----"
-   cd ..
+
+   cd /
    rmdir_safer "${directory}"
 }
 

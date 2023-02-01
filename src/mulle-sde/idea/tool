@@ -1,2 +1,2 @@
 # must be optional, otherwise you can't compile without CLion...
-clion;optional
+clion
