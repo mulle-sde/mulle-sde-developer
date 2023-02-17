@@ -1,0 +1,14 @@
+## Extensions
+
+| Extension                     | Type  | Description
+|-------------------------------|-------|-----------------------------------
+| mulle-sde/c-developer         | meta  | Create plain C projects
+| mulle-sde/extension-developer | meta  | Create mulle-sde extesnsions
+| mulle-sde/sde                 | extra | Base extension functionality
+| mulle-sde/sublime-text        | extra | A sublime project file for editing
+| mulle-sde/codacy              | extra | Codacy files
+| mulle-sde/github-actions      | extra | Create a github action for mulle-sde
+| mulle-sde/idea                | extra | CLion support
+| mulle-sde/vscode              | extra | Visual Studio Code support
+| mulle-sde/vscode-clang        | extra | Visual Studio Code with Clang support
+

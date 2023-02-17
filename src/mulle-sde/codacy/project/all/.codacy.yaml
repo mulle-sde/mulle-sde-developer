@@ -1,0 +1,10 @@
+---
+exclude_paths:
+  - ".idea/**"
+  - ".mulle/**"
+  - "dox/**"
+  - "test/**"
+  - "test/**"
+  - "README.md"
+  - "RELEASENOTES.md"
+  - "BUILD.md"

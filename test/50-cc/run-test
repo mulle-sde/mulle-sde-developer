@@ -83,7 +83,7 @@ EOF`"
 #
 # can't use [C][C] here as cmake greps for it and then hangs
 #
-exec ${cc} "\$@"
+exec ${cc} "\\\$@"
 EOF`"
       ;;
    esac
@@ -100,7 +100,7 @@ EOF`"
       run_mulle_sde dependency add b &&
       mkdir bin &&
 
-      echo "${text}" > bin/${foo_cc} || exit 1
+      printf "%s\n" "${text}" > bin/${foo_cc} || exit 1
       chmod 755 bin/${foo_cc} &&
       run_mulle_sde environment set PATH "\${PWD}/bin:\${PATH}" &&
       run_mulle_sde definition set CC ${foo_cc}

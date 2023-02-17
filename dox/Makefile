@@ -1,10 +1,10 @@
 
 PIX=\
-mulle-sde-update.png \
-mulle-sde-update-fs.png \
+mulle-sde-update.svg \
+mulle-sde-update-fs.svg \
 
-%.png: %.dot
-	dot -Tpng -o $*.png $<
+%.svg: %.dot
+	dot -Tsvg -o $*.svg $<
 
 
 all: $(PIX)

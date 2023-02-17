@@ -1,4 +1,10 @@
 #
 # Used to be hardcoded in mulle-sde plugin, now part of the environment.
 #
-PATH="${DEPENDENCY_DIR:-${MULLE_VIRTUAL_ROOT}/dependency}/Debug/bin:${DEPENDENCY_DIR:-${MULLE_VIRTUAL_ROOT}/dependency}/Release/bin:${DEPENDENCY_DIR:-${MULLE_VIRTUAL_ROOT}/dependency}/bin:${PATH}"
+# pick first as default (if any)
+#
+_MULLE_SDK_DIR="${DEPENDENCY_DIR:-${MULLE_VIRTUAL_ROOT}/dependency}/${MULLE_CRAFT_SDKS%%:*}"
+
+MULLE_SDK_DIR="${_MULLE_SDK_DIR%%/}"
+
+PATH="${MULLE_SDK_DIR}/Debug/bin:${MULLE_SDK_DIR}/Release/bin:${MULLE_SDK_DIR}/bin:${PATH}"

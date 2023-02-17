@@ -1,0 +1,30 @@
+## Usage
+
+### Check that the (meta) extensions are found:
+
+``` bash
+mulle-sde extension show
+```
+
+### Create a C executable project
+
+``` bash
+mkdir foo
+cd foo
+mulle-sde init -m mulle-sde/c-developer executable
+```
+
+### Create a C library project
+
+``` bash
+mulle-sde init -m mulle-sde/c-developer -d foolib library
+```
+
+
+### Create a mulle-sde extension project
+
+``` bash
+mulle-sde init -m mulle-sde/extension-developer -d my-sde-extension extension
+```
+
+

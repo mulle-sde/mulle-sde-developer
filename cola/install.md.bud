@@ -1,66 +1,3 @@
-# 🎓 mulle-sde installer + various extensions for mulle-sde
-
-... for Android, BSDs, Linux, macOS, SunOS, Windows (MinGW, WSL)
-
-This is a base collection of [mulle-sde](//github.com/mulle-sde/mulle-sde)
-*extensions*. It is also the convenient way to install mulle-sde.
-
-| Release Version                                       | Release Notes
-|-------------------------------------------------------|--------------
-| ![Mulle kybernetiK tag](https://img.shields.io/github/tag/mulle-sde/mulle-sde-developer.svg?branch=release) | [RELEASENOTES](RELEASENOTES.md) |
-
-## Extensions
-
-| Extension                     | Type  | Description
-|-------------------------------|-------|-----------------------------------
-| mulle-sde/c-developer         | meta  | Create plain C projects
-| mulle-sde/extension-developer | meta  | Create mulle-sde extesnsions
-| mulle-sde/sde                 | extra | Base extension functionality
-| mulle-sde/sublime-text        | extra | A sublime project file for editing
-| mulle-sde/codacy              | extra | Codacy files
-| mulle-sde/github-actions      | extra | Create a github action for mulle-sde
-| mulle-sde/idea                | extra | CLion support
-| mulle-sde/vscode              | extra | Visual Studio Code support
-| mulle-sde/vscode-clang        | extra | Visual Studio Code with Clang support
-
-
-
-
-## Usage
-
-### Check that the (meta) extensions are found:
-
-``` bash
-mulle-sde extension show
-```
-
-### Create a C executable project
-
-``` bash
-mkdir foo
-cd foo
-mulle-sde init -m mulle-sde/c-developer executable
-```
-
-### Create a C library project
-
-``` bash
-mulle-sde init -m mulle-sde/c-developer -d foolib library
-```
-
-
-### Create a mulle-sde extension project
-
-``` bash
-mulle-sde init -m mulle-sde/extension-developer -d my-sde-extension extension
-```
-
-
-
-
-
-
-
 ## Install
 
 ### Packages
@@ -171,7 +108,3 @@ This will build and run an ephemeral mulle-sde container:
 docker build -t mulle-sde 'https://raw.githubusercontent.com/mulle-sde/mulle-sde-developer/release/Dockerfile'
 docker run -i -t --rm mulle-sde
 ```
-
-## Author
-
-[Nat!](https://mulle-kybernetik.com/weblog) for Mulle kybernetiK

@@ -17,3 +17,6 @@ research/
 mulle-sde-create-public-include
 .gitignore
 .mulle-make-build-dir
+cola/wilted/
+mulle-markdown-preview-*.html
+build-*/

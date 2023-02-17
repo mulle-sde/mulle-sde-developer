@@ -41,7 +41,8 @@ _setup_test()
          (
             exekutor cd ${REPONAME_A} &&
             run_mulle_sde subproject init -d ${REPONAME_B} library &&
-            run_mulle_sde subproject --subproject ${REPONAME_B} dependency add --nodetype git ${REPONAME_C} &&
+            run_mulle_sde subproject --subproject ${REPONAME_B} dependency add \
+                                     --nodetype git ${REPONAME_C} &&
             log_fluff "run update in ${REPONAME_A}" &&
             run_mulle_sde update
          ) &&

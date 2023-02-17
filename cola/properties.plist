@@ -1,0 +1,12 @@
+{
+   project =
+   {
+      description="🎓 mulle-sde installer + various extensions for mulle-sde";
+      domain="github";
+      name="mulle-sde-developer";
+      username="mulle-sde";
+      reponame="mulle-sde-developer";
+      homepage="https://github.com/mulle-sde/mulle-sde-developer";
+      license="BSD-3-Clause"
+   };
+}
