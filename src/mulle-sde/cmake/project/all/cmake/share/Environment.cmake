@@ -52,6 +52,10 @@ if( NOT __ENVIRONMENT__CMAKE__)
    if( MULLE_SDK_PATH)
       list( GET MULLE_SDK_PATH 0 DEPENDENCY_DIR)
       list( GET MULLE_SDK_PATH 1 ADDICTION_DIR)
+   else()
+      if( NOT MULLE_SDK_SUBDIR)
+         set( MULLE_SDK_SUBDIR "${CMAKE_BUILD_TYPE}")
+      endif()
    endif()
 
    if( NOT DEPENDENCY_DIR)
@@ -103,11 +107,6 @@ if( NOT __ENVIRONMENT__CMAKE__)
 
       unset( ADDICTION_DIR)
       set( MULLE_SDK_PATH "${DEPENDENCY_DIR}")
-   endif()
-
-   # if not running with mulle-craft use "configuration" like this
-   if( NOT MULLE_SDK_SUBDIR)
-      set( MULLE_SDK_SUBDIR "${CMAKE_BUILD_TYPE}")
    endif()
 
    # where the output is installed by other depedencies

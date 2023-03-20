@@ -10,6 +10,9 @@ cmake_minimum_required( VERSION 3.13)
 
 project( <|PROJECT_NAME|> <|PROJECT_UPCASE_LANGUAGE|>)
 
+# if use embedded project with symlinks and you want to distribute their
+# headers you probably need to turn this on
+SET( RESOLVE_INSTALLABLE_HEADER_SYMLINKS OFF CACHE BOOL "Copy headers as files")
 
 set( MULLE_PROJECT_TYPE "Library")
 
@@ -65,7 +68,7 @@ elseif( "${MULLE_PROJECT_TYPE}" STREQUAL "Library")
 
    if( HEADER_PHASE)
       install( FILES ${INSTALL_PUBLIC_HEADERS}  DESTINATION "include/${PROJECT_NAME}")
-      install( FILES ${INSTALL_PRIVATE_HEADERS} DESTINATION "include/${PROJECT_NAME}/private")
+      install( FILES ${INSTALL_PRIVATE_HEADERS} DESTINATION "include/${PROJECT_NAME}")
       install( FILES ${CMAKE_INCLUDES}          DESTINATION "include/${PROJECT_NAME}/cmake")
 
       # short cut out

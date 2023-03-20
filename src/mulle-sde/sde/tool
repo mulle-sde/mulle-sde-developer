@@ -13,6 +13,15 @@ mulle-create-build-motd
 #   Have no zip ? Not a deal breaker
 #   But we can also live without tar and gzip, if you use just git..
 #
+clib
+clib-configure
+clib-install
+clib-uninstall
+clib-upgrade
+clib-build
+clib-init
+clib-search
+clib-update
 curl
 git
 gzip
