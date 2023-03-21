@@ -29,10 +29,8 @@ if( EXECUTABLE_NAME AND LINK_PHASE)
             PATHS "${MULLE_VIRTUAL_ROOT}/.mulle/var/$ENV{MULLE_HOSTNAME}/$ENV{MULLE_USERNAME}/env/bin"
          )
       endif()
+      message( STATUS "CREATE_MOTD_EXE is ${CREATE_MOTD_EXE}")
    endif()
-
-
-   message( STATUS "CREATE_MOTD_EXE is ${CREATE_MOTD_EXE}")
 
    #
    # there is no real order, in which these motds are generated

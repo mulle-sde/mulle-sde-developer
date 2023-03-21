@@ -231,7 +231,6 @@ if( NOT __ENVIRONMENT__CMAKE__)
    # given from outside
    message( STATUS "CMAKE_PREFIX_PATH=\"${CMAKE_PREFIX_PATH}\"" )
    message( STATUS "CMAKE_INSTALL_PREFIX=\"${CMAKE_INSTALL_PREFIX}\"" )
-   message( STATUS "INCLUDE_DIRS=\"${TMP_INCLUDE_DIRS}\"" )
    # message( STATUS "TMP_INCLUDE_DIRS=\"${TMP_INCLUDE_DIRS}\"" )
 
    # not sure why cmake doesn't do this itself, we only add the custom
