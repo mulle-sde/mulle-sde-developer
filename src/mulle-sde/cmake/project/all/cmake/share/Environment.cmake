@@ -49,13 +49,19 @@ if( NOT __ENVIRONMENT__CMAKE__)
       string( REPLACE ":" ";" MULLE_SDK_PATH "$ENV{MULLE_SDK_PATH}")
    endif()
 
+   # if no MULLE_SDK_PATH is given, assume its not a mulle-sde build
+   # in that case it's probably just cmake, so it would probably be bad to
+   # not pick up dependencies installed into the system, by default
    if( MULLE_SDK_PATH)
       list( GET MULLE_SDK_PATH 0 DEPENDENCY_DIR)
       list( GET MULLE_SDK_PATH 1 ADDICTION_DIR)
+
+      option( DEPENDENCY_IGNORE_SYSTEM_LIBARIES "Ignore system library paths in search for dependencies" ON)
    else()
       if( NOT MULLE_SDK_SUBDIR)
          set( MULLE_SDK_SUBDIR "${CMAKE_BUILD_TYPE}")
       endif()
+      option( DEPENDENCY_IGNORE_SYSTEM_LIBARIES "Ignore system library paths in search for dependencies" OFF)
    endif()
 
    if( NOT DEPENDENCY_DIR)
@@ -109,7 +115,7 @@ if( NOT __ENVIRONMENT__CMAKE__)
       set( MULLE_SDK_PATH "${DEPENDENCY_DIR}")
    endif()
 
-   # where the output is installed by other depedencies
+   # where the output is installed by other dependencies
    set( MULLE_SDK_DEPENDENCY_DIR "${DEPENDENCY_DIR}/${MULLE_SDK_SUBDIR}")
 
    set( TMP_INCLUDE_DIRS)

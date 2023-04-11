@@ -67,4 +67,24 @@ if( NOT __DEPENDENCIES___CMAKE__)
       set( STARTUP_ALL_LOAD_DEPENDENCY_FRAMEWORKS   ${STARTUP_ALL_LOAD_DEPENDENCY_FRAMEWORKS}  CACHE INTERNAL "cache these")
    endif()
 
+#
+# MEMO: Do not cache anything here. It will affect projects that include
+#       this file as part of the inheritance scheme
+#
+option( INHERIT_DEPENDENCY_INCLUDES "Make headers of dependencies available as local headers" OFF)
+
+if( INHERIT_DEPENDENCY_INCLUDES)
+   # message( STATUS "INHERITED_INCLUDE_DIRS=\"${INHERITED_INCLUDE_DIRS}\"" )
+
+   # these generate -I arguments, that add to the user search path
+   include_directories( ${INHERITED_INCLUDE_DIRS})
+endif()
+
+
+option( INHERIT_DEPENDENCY_DEFINITIONS "Inherit compiler flags from dependencies" ON)
+
+if( INHERIT_DEPENDENCY_INCLUDES)
+   add_compile_definitions( ${INHERITED_DEFINITIONS})
+endif()
+
 endif()
