@@ -1,3 +1,17 @@
+## 0.26.0
+
+* support CLIB
+* rename ``CMAKE_INCLUDES\'` to `\'INSTALL_CMAKE_INCLUDES\'` to keep away from cmake namespace
+* private headers are no longer installed into include/name/private but into include/name for the benefit of clib
+* to support clib more easily, private headers are no longer installed in a private/ subdirectory but on the same level as the other headers
+* support for clib in tool list
+* you can now resolve headers that are symlinks before installing them with ``RESOLVE_INSTALLABLE_HEADER_SYMLINKS`` set to ON (that's all or nothing though)
+* added an extension for codacy
+* big changes in Environment.cmake to deal with `MULLE_SDK_PATH,` it should be all around better now
+* tools are now by default optional, which simplifies things a lot
+* support more obscure OSes
+
+
 ## 0.25.0
 
 * install some callbacks for the benefit of mulle-monitor
