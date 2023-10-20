@@ -72,6 +72,20 @@
          "env": { "NO_COLOR": "YES" }
       },
       {
+         "name": "Test",
+         "cmd": [ "mulle-sde", "test" ],
+         "working_dir": "${project_path}",
+         "file_regex": "^(..[^:]*)(?::|\\()([0-9]+)(?::|\\))(?:([0-9]+):)?\\s*(.*)",
+         "env": { "NO_COLOR": "YES" }
+      },      
+      {
+         "name": "Test rerun",
+         "cmd": [ "mulle-sde", "test", "rerun" ],
+         "working_dir": "${project_path}",
+         "file_regex": "^(..[^:]*)(?::|\\()([0-9]+)(?::|\\))(?:([0-9]+):)?\\s*(.*)",
+         "env": { "NO_COLOR": "YES" }
+      },      
+      {
          "name": "Clean",
          "cmd": [ "mulle-sde", "clean" ],
          "working_dir": "${project_path}",

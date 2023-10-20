@@ -8,11 +8,11 @@ It can be useful, sometimes...
 ## mulle-sde
 
 This is a [mulle-sde](//github.com/mulle-sde) project. mulle-sde combines
-recursive package management with cross-platform builds via **cmake**:
+package management with cross-platform builds via **cmake**:
 
-| Action  | Command                               | Description                        |
-|---------|---------------------------------------|------------------------------------|
-| Build   | `mulle-sde craft [--release/--debug]` | Builds into local `kitchen` folder |
+| Action  | Command                               | Description                         |
+|---------|---------------------------------------|-------------------------------------|
+| Build   | `mulle-sde craft [--release/--debug]` | Build into a local `kitchen` folder |
 | Install | `mulle-sde install --prefix /usr/local https://github.com/<|GITHUB_USER|>/<|PROJECT_NAME|>.git` | Like `make install`         |
 
 
