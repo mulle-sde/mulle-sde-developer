@@ -1,3 +1,9 @@
+## 0.27.0
+
+* fix version to be unsigned long size for small platforms benefit
+* changed indentifier composition. now mulle-c will be `MULLE__C` instead of `MULLE_C,` which avoids some/most indentifier conflices encountered so far
+
+
 ## 0.26.0
 
 * support CLIB

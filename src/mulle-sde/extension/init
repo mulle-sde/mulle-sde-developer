@@ -2,24 +2,30 @@
 
 [ "${TRACE}" = 'YES' ] && set -x && : "$0" "$@"
 
+
+## MEMO: I think this isn't applicable anymore. Just keeping it around
+#        for a while, until I know its true (2024-1-11)
 #
 # For extra extensions and the like keep VENDOR_NAME around in the
 # persistent environment, so upgrading works
 #
-PHYSPWD="`pwd -P`"
-VENDOR_NAME="`MULLE_VIRTUAL_ROOT="${PHYSPWD}" \
-   mulle-env -s environment get VENDOR_NAME`"
+# PHYSPWD="`pwd -P`"
+# VENDOR_NAME="`MULLE_VIRTUAL_ROOT="${PHYSPWD}" \
+#    mulle-env -s environment get VENDOR_NAME`"
+#
+# if [ -z "${VENDOR_NAME}" ]
+# then
+#    cat <<EOF >&2
+# You must specify -DVENDOR_NAME=<your vendor> for an extension.
+#
+# Example:
+#    mulle-sde init -m mulle-sde/extension-developer \\
+#                   -DVENDOR_NAME="mulle-nat" \\
+#                   extension
+#
+# EOF
+#    exit 1
+# fi
+#
 
-if [ -z "${VENDOR_NAME}" ]
-then
-   cat <<EOF >&2
-You must specify -DVENDOR_NAME=<your vendor> for an extension.
-
-Example:
-   mulle-sde init -m mulle-sde/extension-developer \\
-                  -DVENDOR_NAME="mulle-nat" \\
-                  extension
-
-EOF
-   exit 1
-fi
+exit 0

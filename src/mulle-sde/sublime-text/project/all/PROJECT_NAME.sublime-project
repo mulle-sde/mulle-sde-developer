@@ -1,6 +1,9 @@
 {
-   "sublimegdb_workingdir": "${folder:kitchen/Debug/<|PROJECT_NAME|>}",
-   "sublimegdb_commandline": "mulle-gdb --interpreter=mi kitchen/Debug/<|PROJECT_NAME|>",
+   "settings":
+   {
+      "sublimegdb_workingdir": "${folder:kitchen/Debug/<|PROJECT_NAME|>}",
+      "sublimegdb_commandline": "mulle-gdb --interpreter=mi kitchen/Debug/<|PROJECT_NAME|>",
+   },
    "folders":
    [
       {

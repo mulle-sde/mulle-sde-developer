@@ -10,7 +10,7 @@
  *
  *  version:  major, minor, patch
  */
-#define <|PROJECT_UPCASE_IDENTIFIER|>_VERSION  ((0 << 20) | (7 << 8) | 56)
+#define <|PROJECT_UPCASE_IDENTIFIER|>_VERSION  ((0UL << 20) | (7 << 8) | 56)
 
 
 static inline unsigned int   <|PROJECT_IDENTIFIER|>_get_version_major( void)

@@ -7,7 +7,7 @@ This is a base collection of [mulle-sde](//github.com/mulle-sde/mulle-sde)
 
 | Release Version                                       | Release Notes
 |-------------------------------------------------------|--------------
-| ![Mulle kybernetiK tag](https://img.shields.io/github/tag/mulle-sde/mulle-sde-developer.svg?branch=release) | [RELEASENOTES](RELEASENOTES.md) |
+| ![Mulle kybernetiK tag](https://img.shields.io/github/tag/mulle-sde/mulle-sde-developer.svg?branch=release)  | [RELEASENOTES](RELEASENOTES.md) |
 
 ## Extensions
 
@@ -22,6 +22,7 @@ This is a base collection of [mulle-sde](//github.com/mulle-sde/mulle-sde)
 | mulle-sde/idea                | extra | CLion support
 | mulle-sde/vscode              | extra | Visual Studio Code support
 | mulle-sde/vscode-clang        | extra | Visual Studio Code with Clang support
+
 
 
 
@@ -54,6 +55,7 @@ mulle-sde init -m mulle-sde/c-developer -d foolib library
 ``` bash
 mulle-sde init -m mulle-sde/extension-developer -d my-sde-extension extension
 ```
+
 
 
 
@@ -175,3 +177,5 @@ docker run -i -t --rm mulle-sde
 ## Author
 
 [Nat!](https://mulle-kybernetik.com/weblog) for Mulle kybernetiK
+
+
