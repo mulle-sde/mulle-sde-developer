@@ -111,3 +111,5 @@ include( FinalOutput OPTIONAL)
 #
 # For this to work you need to separate the actual library code into source
 # files outside of main.<|PROJECT_EXTENSION|>.
+#
+# Or checkout `mulle-project-new-demos` for an alternative approach
