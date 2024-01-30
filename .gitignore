@@ -20,3 +20,4 @@ mulle-sde-create-public-include
 cola/wilted/
 mulle-markdown-preview-*.html
 build-*/
+.mulle/etc/project/publisher-info.sh

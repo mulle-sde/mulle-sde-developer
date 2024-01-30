@@ -1,3 +1,7 @@
+### 0.27.1
+
+* fix Environment.cmake for windows/bash
+
 ## 0.27.0
 
 * fix version to be unsigned long size for small platforms benefit
