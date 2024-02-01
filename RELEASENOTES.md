@@ -1,5 +1,6 @@
 ### 0.27.1
 
+* fix motd dependency loop newer cmakes don't like
 * fix Environment.cmake for windows/bash
 
 ## 0.27.0
