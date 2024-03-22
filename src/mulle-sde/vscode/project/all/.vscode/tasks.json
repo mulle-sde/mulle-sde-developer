@@ -11,8 +11,8 @@
             "problemMatcher": {
                 "base": "$gcc",
                 "fileLocation": [
-                  "relative",
-                  "${workspaceFolder}/kitchen/Debug"
+                  "absolute",
+                  "${env:KITCHEN_DIR}/Debug"
                 ]
             },
             "group": {
@@ -30,8 +30,8 @@
             "problemMatcher": {
                 "base": "$gcc",
                 "fileLocation": [
-                  "relative",
-                  "${workspaceFolder}/kitchen/Debug"
+                  "absolute",
+                  "${env:KITCHEN_DIR}/Debug"
                 ]
             },
             "group": {
@@ -46,8 +46,8 @@
             "problemMatcher": {
                 "base": "$gcc",
                 "fileLocation": [
-                  "relative",
-                  "${workspaceFolder}/kitchen/Release"
+                  "absolute",
+                  "${env:KITCHEN_DIR}/Release"
                 ]
             },
             "args": [

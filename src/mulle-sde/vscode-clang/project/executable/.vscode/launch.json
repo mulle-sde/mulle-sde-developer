@@ -8,9 +8,9 @@
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
-            "program": "${workspaceFolder}/kitchen/Debug/<|PROJECT_NAME|>",
+            "program": "${env:KITCHEN_DIR}/Debug/<|PROJECT_NAME|>",
             "environment": [],
-            "additionalSOLibSearchPath": "${workspaceFolder}/dependency/Debug/lib:${workspaceFolder}/dependency/lib",
+            "additionalSOLibSearchPath": "${env:DEPENDENCY_DIR}/Debug/lib:${env:DEPENDENCY_DIR}/lib",
             "MIMode": "gdb",
             "windows": {
                 "miDebuggerPath": "C:\\mingw64\\bin\\mulle-lldb-mi.exe"
