@@ -1,3 +1,31 @@
+## 0.28.0
+
+feat: modernize CMake integration and improve IDE support
+
+* Add CMake package configuration support
+  - Add InstallCMakeInclude.cmake for header installation
+  - Add InstallCMakePackage.cmake for package config generation
+  - Add template files for package config and version headers
+  - Support `find_package` compatibility in subdirectories
+
+* Improve project structure consistency
+  - Switch to `CMAKE_CURRENT_SOURCE_DIR` for better subdir support
+  - Add VERSION to project() declarations
+  - Standardize paths for installed cmake files
+  - Fix header installation paths and target properties
+
+* Enhance build system robustness
+  - Change `FATAL_ERROR` to `SEND_ERROR` for missing source files
+  - Fix motd dependency loop for newer CMake versions
+  - Improve environment setup for Windows/bash compatibility
+  - Add CodeQL analysis workflow
+
+* Other improvements
+  - Update CI workflow to use master branch
+  - Fix identifier composition for better name conflict avoidance
+  - Improve construction of include and library paths
+
+
 ### 0.27.1
 
 * fix motd dependency loop newer cmakes don't like

@@ -8,7 +8,7 @@
 #
 cmake_minimum_required( VERSION 3.13)
 
-project( <|PROJECT_NAME|> <|PROJECT_UPCASE_LANGUAGE|>)
+project( <|PROJECT_NAME|> VERSION 0.0.1 LANGUAGES <|PROJECT_UPCASE_LANGUAGE|>)
 
 #
 # This is not a cmake application bundle (use Application, if it exists)
@@ -19,9 +19,9 @@ set( MULLE_PROJECT_TYPE "Bundle")
 ### mulle-sde environment
 
 # add cmake module paths to search path
-list( INSERT CMAKE_MODULE_PATH 0 "${PROJECT_SOURCE_DIR}/cmake/share")
-list( INSERT CMAKE_MODULE_PATH 0 "${PROJECT_SOURCE_DIR}/cmake/reflect")
-list( INSERT CMAKE_MODULE_PATH 0 "${PROJECT_SOURCE_DIR}/cmake")
+list( INSERT CMAKE_MODULE_PATH 0 "${CMAKE_CURRENT_SOURCE_DIR}/cmake/share")
+list( INSERT CMAKE_MODULE_PATH 0 "${CMAKE_CURRENT_SOURCE_DIR}/cmake/reflect")
+list( INSERT CMAKE_MODULE_PATH 0 "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
 include( Environment)
 
@@ -36,5 +36,16 @@ endif()
 
 include( Bundle)
 include( InstallBundle)
+
+#
+# Enable this, if you want your project to be compatible with cmake's
+# add_subdirectory and find_package. InstallCMakeInclude has the drawback
+# of creating a duplicate include/ hierarchy in your project though
+# For a bundle, does it make sense ? Maybe InstallCMakeInclude
+#
+# if( LINK_PHASE)
+#    include( InstallCMakeInclude)
+#    include( InstallCMakePackage)
+# endif()
 
 include( FinalOutput OPTIONAL)

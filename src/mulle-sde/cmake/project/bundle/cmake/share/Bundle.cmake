@@ -44,7 +44,7 @@ endif()
 include( PreBundle OPTIONAL)
 
 if( NOT BUNDLE_FILES)
-   message( FATAL_ERROR "There are no sources to compile for framework ${BUNDLE_NAME}. Did mulle-sde reflect run yet ?")
+   message( SEND_ERROR "There are no sources to compile for framework ${BUNDLE_NAME}. Did mulle-sde reflect run yet ?")
 endif()
 
 add_library( "${BUNDLE_NAME}" SHARED

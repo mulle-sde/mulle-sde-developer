@@ -2,6 +2,9 @@ mulle-match-to-cmake
 mulle-match-to-c
 mulle-sourcetree-to-cmake
 mulle-sourcetree-to-c
-cmake
+# this is now a script because I believe its brew who fcks cmake it up
+# https://gitlab.kitware.com/cmake/cmake/-/issues/26453#note_1594689
+# post cmake 3.31, this can become a symlink again
+cmake;script
 ninja
 make
