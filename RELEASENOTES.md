@@ -1,3 +1,7 @@
+### 0.28.1
+
+* fix for cmake 3.20 to avoid warnings on macOS
+
 ## 0.28.0
 
 feat: modernize CMake integration and improve IDE support
