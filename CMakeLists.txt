@@ -1,8 +1,8 @@
 cmake_minimum_required( VERSION 3.15)
 
-project( mulle-sde-cmake VERSION 0.28.1 LANGUAGES NONE)
+project( mulle-sde-cmake VERSION 0.28.2 LANGUAGES NONE)
 
-set( PROJECT_VERSION 0.28.1)
+set( PROJECT_VERSION 0.28.2)
 
 
 set( EXTENSIONS

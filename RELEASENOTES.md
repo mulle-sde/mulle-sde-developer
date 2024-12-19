@@ -1,3 +1,8 @@
+### 0.28.2
+
+* added test for meson, configure, autoconf, cmake, make
+* fix another warning on macos with regard to RPATH
+
 ### 0.28.1
 
 * fix for cmake 3.20 to avoid warnings on macOS

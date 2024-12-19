@@ -1,0 +1,150 @@
+#! /bin/sh
+
+[ "${TRACE}" = 'YES' ] && set -x && : "$0" "$@"
+
+###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###
+MULLE_BASHFUNCTIONS_LIBEXEC_DIR="`mulle-bashfunctions libexec-dir`" || exit 1
+export MULLE_BASHFUNCTIONS_LIBEXEC_DIR
+. "${MULLE_BASHFUNCTIONS_LIBEXEC_DIR}/mulle-boot.sh" || exit 1
+. "${MULLE_BASHFUNCTIONS_LIBEXEC_DIR}/mulle-bashfunctions.sh" || exit 1
+###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###
+
+
+run_mulle_sde()
+{
+   log_fluff "####################################"
+   log_fluff mulle-sde ${MULLE_SDE_FLAGS} "$@"
+   log_fluff "####################################"
+
+   exekutor mulle-sde ${MULLE_SDE_FLAGS} "$@"
+}
+
+
+expect_file()
+{
+   log_entry "expect_file" "$@"
+
+   local expected="$1"
+
+   if [ ! -f "${expected}" ]
+   then
+      fail "File \"${expected}\" was expected to exist"
+   fi
+}
+
+
+expect_output()
+{
+   local output="$1"
+   local expected="$2"
+
+   if [ "${output}" != "${expected}" ]
+   then
+      echo "Got \"${output}\". Expected: \"${expected}\"" >&2
+      stacktrace >&2
+      exit 1
+   fi
+}
+
+
+r_create_project()
+{
+   local projecttype="$1"; shift
+
+   local directory="$1"
+   local name="$2"
+
+   r_filepath_concat "${directory}" "${name}"
+   mkdir_if_missing "${RVAL}"
+   rexekutor "${RVAL}"
+   mulle-sourcetree
+}
+
+
+r_create_library()
+{
+   ( r_create_project library "$@" )
+}
+
+
+main()
+{
+   MULLE_SDE_FLAGS="$@"
+
+   _options_mini_main "$@" && set -x
+
+   #
+   # memo: remember we only deal with relative paths w/o leading /!
+   # for simplicity it's also assumed that no relative path contain a
+   # trailing '/'
+   #
+   local directory
+   local installdir
+
+   r_make_tmp_directory || exit 1
+   directory="${RVAL}"
+
+   local projectdir
+
+   r_filepath_concat "${directory}" "project"
+   projectdir="${RVAL}"
+
+   run_mulle_sde init --no-post-init -d "${projectdir}" -m mulle-sde/c-developer executable  || _internal_fail "init"
+
+   cd "${projectdir}" || _internal_fail "cd"
+
+   run_mulle_sde dependency add --address a --github mulle-sde/autoconf-library-a  || _internal_fail "add a"
+   run_mulle_sde dependency add --address b --github mulle-sde/configure-library-b || _internal_fail "add b"
+   run_mulle_sde dependency add --address d --github mulle-sde/cmake-library-d     || _internal_fail "add d"
+   run_mulle_sde dependency add --address e --github mulle-sde/make-library-e      || _internal_fail "add e"
+   run_mulle_sde dependency add --address f --github mulle-sde/meson-library-f     || _internal_fail "add c"
+
+   run_mulle_sde fetch   || _internal_fail "fetch"
+
+   cat <<EOF > src/main.c
+#include "include-private.h"
+
+#include <stdio.h>
+
+
+int  main( void)
+{
+   printf( "%s/%s/c/%s/%s/%s\n", a(), b(), d(), e(), f());
+   return( 0);
+}
+EOF
+
+   run_mulle_sde craft               || _internal_fail "craft"
+
+   local executable
+
+   executable="`mulle-sde product`"  || _internal_fail "product"
+   result="`"${executable}"`"        ||  _internal_fail "executable"
+
+   # mulle-sourcetree list -r -l >&2
+
+   local expected
+
+   # TODO:
+   #
+   # e gets build twice. Now is this a bug ? No because both nodes are
+   # "local". That they are symlinked is nothing mulle-sourcetree should know.
+   #
+   expected="a/b/c/d/e/f"
+
+   expect_output "${result}" "${expected}"
+
+   log_info "----- ALL PASSED -----"
+
+   cd /
+   exekutor rmdir_safer "${directory}"
+}
+
+
+init()
+{
+   MULLE_SDE_EXTENSION_PATH="${PWD}/../../src:${MULLE_SDE_EXTENSION_PATH}"
+}
+
+init "$@"
+main "$@"
