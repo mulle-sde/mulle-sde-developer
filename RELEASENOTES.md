@@ -1,3 +1,8 @@
+## 0.29.0
+
+* support debian style libraries with target triples
+
+
 ### 0.28.2
 
 * added test for meson, configure, autoconf, cmake, make
