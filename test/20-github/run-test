@@ -93,11 +93,60 @@ main()
 
    cd "${projectdir}" || _internal_fail "cd"
 
-   run_mulle_sde dependency add --address a --github mulle-sde/autoconf-library-a  || _internal_fail "add a"
-   run_mulle_sde dependency add --address b --github mulle-sde/configure-library-b || _internal_fail "add b"
+   local format
+   local functions
+   local expected
+
+   # on MacOS autoconf seems to do a complete reconf which needs dozens of dependencies, yikes
+   if commmand -v autoconf > /dev/null 2>&1
+   then
+      run_mulle_sde dependency add --address a --github mulle-sde/autoconf-library-a  || _internal_fail "add a"
+      format="%s"
+      functions="a()"
+      expected="a"
+   fi
+
+   case "${MULLE_UNAME}" in
+      # platforms without configure here... :)
+      *)
+         run_mulle_sde dependency add --address b --github mulle-sde/configure-library-b || _internal_fail "add b"
+
+         r_concat "${format}" "%s" ","
+         format="${RVAL}"
+
+         r_concat "${functions}" "b()" ","
+         functions="${RVAL}"
+
+         r_concat "${expected}" "b" ","
+         expected="${RVAL}"
+      ;;
+   esac
+
    run_mulle_sde dependency add --address d --github mulle-sde/cmake-library-d     || _internal_fail "add d"
    run_mulle_sde dependency add --address e --github mulle-sde/make-library-e      || _internal_fail "add e"
-   run_mulle_sde dependency add --address f --github mulle-sde/meson-library-f     || _internal_fail "add c"
+
+   r_concat "${format}" "%s/%s" "/"
+   format="${RVAL}"
+
+   r_concat "${functions}" "d(), e()" ","
+   functions="${RVAL}"
+
+   r_concat "${expected}" "d/e" "/"
+   expected="${RVAL}"
+
+   if commmand -v meson > /dev/null 2>&1
+   then
+      run_mulle_sde dependency add --address f --github mulle-sde/meson-library-f     || _internal_fail "add c"
+
+      r_concat "${format}" "%s" ","
+      format="${RVAL}"
+
+      r_concat "${functions}" "f()" ","
+      functions="${RVAL}"
+
+      r_concat "${expected}" "f" ","
+      expected="${RVAL}"
+   fi
 
    run_mulle_sde fetch   || _internal_fail "fetch"
 
@@ -109,7 +158,7 @@ main()
 
 int  main( void)
 {
-   printf( "%s/%s/c/%s/%s/%s\n", a(), b(), d(), e(), f());
+   printf( "${format}", ${functions});
    return( 0);
 }
 EOF
@@ -123,15 +172,12 @@ EOF
 
    # mulle-sourcetree list -r -l >&2
 
-   local expected
 
    # TODO:
    #
    # e gets build twice. Now is this a bug ? No because both nodes are
    # "local". That they are symlinked is nothing mulle-sourcetree should know.
    #
-   expected="a/b/c/d/e/f"
-
    expect_output "${result}" "${expected}"
 
    log_info "----- ALL PASSED -----"
