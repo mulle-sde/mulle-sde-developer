@@ -6,6 +6,8 @@ column
 #
 mulle-cmake-graphviz-include
 mulle-create-build-motd
+# needed for timeout runs
+mulle-timeout
 
 #
 # Optional tools
