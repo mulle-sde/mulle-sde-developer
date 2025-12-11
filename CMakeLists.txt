@@ -31,6 +31,19 @@ PERMISSIONS OWNER_EXECUTE OWNER_WRITE OWNER_READ
 DESTINATION "bin")
 
 
+set( BASH_COMPLETION
+   bash-completion.sh
+)
+
+
+INSTALL( FILES ${BASH_COMPLETION}
+PERMISSIONS OWNER_WRITE OWNER_READ
+            GROUP_READ
+            WORLD_READ
+DESTINATION "share/bash-completion/completions"
+RENAME "mulle-sde-developer")
+
+
 ######
 #
 # must be after CPACK_PACKAGE_VERSION
