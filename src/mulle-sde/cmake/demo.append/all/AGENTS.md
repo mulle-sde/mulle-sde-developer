@@ -1,34 +1,9 @@
 
 ## CMake Guidelines
 
-This section outlines the structure and conventions for CMake in this
-project. Following these guidelines ensures a stable and predictable build.
+Changes to the build system must be done with `mulle-sde`. Only edit CMake
+files as a  _very_ last resort and under user guidance.
 
-### 1. File and Directory Roles
-
-#### `CMakeLists.txt` (Project Root)
-
-* **Purpose:** Main entry point for the CMake build process.
-* **Guidelines:** Edit for high-level project settings. Use `mulle-sde` to manage
-  source files (e.g., `mulle-sde add src/foo.m`).
-
-#### `cmake/reflect/`
-
-* **Purpose:** Auto-generated files by `mulle-sde reflect` to map the sourcetree
-  into CMake-readable lists.
-* **Guidelines:** **Do not edit**. Changes will be overwritten by `mulle-sde reflect`.
-
-#### `cmake/share/`
-
-* **Purpose:** Contains standard shared CMake modules.
-* **Guidelines:** **Do not edit**. Changes will be overwritten by `mulle-sde upgrade`.
-
-#### `cmake/`
-
-* **Purpose:** Project-specific customizations for the build system.
-* **Guidelines:** Copy and edit files from `cmake/share/` to override default modules.
-
-### 2. Summary of Editing Rules
 
 | Path             | Editable? | Notes                                                        |
 | ---------------- | --------- | ------------------------------------------------------------ |

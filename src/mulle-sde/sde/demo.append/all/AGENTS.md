@@ -21,6 +21,16 @@ mulle-sde howto help
 mulle-sde api help
 ```
 
+REMEMBER:
+
+- Use mulle-sde howto to find guides for development tasks
+- Use mulle-sde api list to see API documentation for dependencies
+- Try mulle-sde api find symbol <classname> to see relevant headers
+
+These tools give you access to dependency documentation - use them instead of
+guessing!
+
+
 ### Step 3: REQUIRED - List available commands and howtos
 
 ```bash
@@ -30,6 +40,13 @@ mulle-sde howto list
 
 **REMEMBER**: `mulle-sde howto` is THE tool for getting work done in this
 project. Use it FIRST before attempting any task manually.
+
+
+## AI TROUBLESHOOTING - COMMAND DISCOVERY
+
+🚨 **WHEN ANY MULLE_SDE COMMAND FAILS, ALWAYS CHECK COMMAND AND SUBCOMMAND help first**:
+
+`mulle-sde <command> help` and `mulle-sde <command> [subcommand] help`
 
 
 ## MANDATORY BEFORE WRITING ANY CODE
@@ -43,3 +60,4 @@ mulle-sde howto show --keyword styleguide --keyword "${value}"
 ```
 
 This gets the style information for the project. It is NOT optional.
+
