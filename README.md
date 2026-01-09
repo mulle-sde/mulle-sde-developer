@@ -7,7 +7,7 @@ This is a base collection of [mulle-sde](//github.com/mulle-sde/mulle-sde)
 
 | Release Version                                       | Release Notes
 |-------------------------------------------------------|--------------
-| ![Mulle kybernetiK tag](https://img.shields.io/github/tag/mulle-sde/mulle-sde-developer.svg?branch=release)  | [RELEASENOTES](RELEASENOTES.md) |
+| ![Mulle kybernetiK tag](https://img.shields.io/github/tag/mulle-sde/mulle-sde-developer.svg)  | [RELEASENOTES](RELEASENOTES.md) |
 
 ## Extensions
 
@@ -135,7 +135,7 @@ install similiar packages:
 >
 
 mulle-sde provides an
-[installer-all](https://raw.githubusercontent.com/mulle-sde/mulle-sde/release/bin/installer-all)
+[installer-all](https://raw.githubusercontent.com/mulle-sde/mulle-sde/master/bin/installer-all)
 script to install the required commands and mulle-sde-developer itself into
 `/usr/local` by default or some other place.
 
@@ -143,7 +143,7 @@ script to install the required commands and mulle-sde-developer itself into
 #### Install into /usr with sudo
 
 ``` bash
-curl -L -O 'https://raw.githubusercontent.com/mulle-sde/mulle-sde/release/bin/installer-all' && \
+curl -L -O 'https://raw.githubusercontent.com/mulle-sde/mulle-sde/master/bin/installer-all' && \
 chmod 755 installer-all && \
 sudo SDE_PROJECTS="mulle-sde-developer;latest" ./installer-all /usr
 ```
@@ -154,7 +154,7 @@ scripts won't start.
 #### Install into ${HOME} (without sudo)
 
 ``` bash
-curl -L -O 'https://raw.githubusercontent.com/mulle-sde/mulle-sde/release/bin/installer-all' && \
+curl -L -O 'https://raw.githubusercontent.com/mulle-sde/mulle-sde/master/bin/installer-all' && \
 chmod 755 installer-all && \
 SDE_PROJECTS="mulle-sde-developer;latest" ./installer-all ~ no
 ```
