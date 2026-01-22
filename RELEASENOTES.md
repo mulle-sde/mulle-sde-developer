@@ -1,3 +1,7 @@
+### 0.29.2
+
+* improve howtos
+
 ### 0.29.1
 
 * tries to fix some new-fangled RPATH problem with executables on OS X and cmake 4

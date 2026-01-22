@@ -1,9 +1,9 @@
 cmake_minimum_required( VERSION 3.13...99.99)
 
-project( mulle-sde-cmake VERSION 0.29.1 LANGUAGES NONE)
+project( mulle-sde-cmake VERSION 0.29.2 LANGUAGES NONE)
 
 # important for mulle-project-version to have this separate
-set( PROJECT_VERSION 0.29.1)
+set( PROJECT_VERSION 0.29.2)
 
 
 set( EXTENSIONS

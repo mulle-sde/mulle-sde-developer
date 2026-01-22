@@ -1,6 +1,6 @@
 ## Coding Style Guide
 
-<!-- Keywords: edit, c, styleguide -->
+<!-- Keywords: edit, objc, objective-c, styleguide -->
 
 This document outlines the coding conventions. All contributions must adhere to
 these rules to maintain code consistency and readability.
@@ -89,20 +89,4 @@ these rules to maintain code consistency and readability.
 -   Use braces for all blocks, except for single-line statements, when it has
     no continuation and its visual association with the control structure is
     unambiguous.
-
-## 4. Objective-C Specific
-
-### 4.1. General coding style
-
--   Do not use `-retain` or `copy` or `-release` or `autorelease` (exception: inside `-init` and `-dealloc` and "accessor" methods)
--   Do not use `+alloc` `-init` use `+instance` or an appropriate factory method like `-[NSMutableArray array]`
-
-### 4.2. Property Access
--   Do not use dot-syntax for property access.
--   Prefer non-mutable state in properties, prefer `(copy)` over `(retain)` when possible
--   Do not use strong use retain or copy instead
--   Do not use weak, use assign instead
--   Convert all property reads and writes to explicit message sends.
-    -   **Read:** `[self property]` instead of `self.property`.
-    -   **Write:** `[self setProperty:value]` instead of `self.property = value`.
 

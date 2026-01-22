@@ -42,11 +42,13 @@ mulle-sde howto list
 project. Use it FIRST before attempting any task manually.
 
 
-## AI TROUBLESHOOTING - COMMAND DISCOVERY
+## MANDATORY MULLE_SDE ERROR HANDLING
 
-🚨 **WHEN ANY MULLE_SDE COMMAND FAILS, ALWAYS CHECK COMMAND AND SUBCOMMAND help first**:
+🚨 **WHEN ANY MULLE_SDE COMMAND FAILS WITH A VIBECODING TIP**:
 
-`mulle-sde <command> help` and `mulle-sde <command> [subcommand] help`
+Always execute this command, which will be either a **howto** or **help**
+suggestion unless you already executed it once. This is non-negotiable.
+If you can't do this STOP.
 
 
 ## MANDATORY BEFORE WRITING ANY CODE
