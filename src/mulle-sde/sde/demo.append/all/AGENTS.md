@@ -7,53 +7,50 @@
 DO NOT skip these steps. DO NOT treat them as optional. DO NOT proceed with any
 task until you have completed ALL of these commands in order:
 
-### Step 1: REQUIRED - Enable vibecoding and read help
+### Step 1: REQUIRED - Enable vibecoding and study the returned information
 
 ```bash
-mulle-sde vibecoding on
-mulle-sde help
+mulle-sde vibecoding on          # detach training wheels for freewheeling AIs
+mulle-sde commands               # what's available
+mulle-bashfunctions flags        # how to trace mulle-sde operations
+mulle-sde api list               # available API information
+mulle-sde howto list             # available tooling information
+mulle-sde howto cat dependency
+mulle-sde howto cat testing
 ```
 
-### Step 2: REQUIRED - Read howto and api help
+The provided information is CRITICAL to your success. Study the available
+howtos list and use them, when the case arises.
 
-```bash
-mulle-sde howto help
-mulle-sde api help
+
+
+## TRANSGRESSIONS PUNISHABLE BY DEATH
+
+DO NOT `git revert` AND DO NOT clobber files with git `checkout`  or run
+any other destructive git command. You will be shot and another better AI
+will take your place.
+
+## OTHER PUNISHABLE TRANSGRESSIONS
+
+DO NOT attempt to fix build system problems with *anything* else then standard
+mulle-sde commands. If you feel stuck, ask the user for help.
+
+DO NOT circumvent vibecoding. If you think you need to do this, you are
+already in a death spiral of confusion. Escalate to the user for help.
+
+DO NOT try to hack environment variables like this:
+
+``` bash
+VARIABLE=foo mulle-sde command ...
 ```
-
-REMEMBER:
-
-- Use mulle-sde howto to find guides for development tasks
-- Use mulle-sde api list to see API documentation for dependencies
-- Try mulle-sde api find symbol <classname> to see relevant headers
-
-These tools give you access to dependency documentation - use them instead of
-guessing!
+it just doesn't work. Its another death spiral of confusion indicator.
+Instead escalate to the user for help.
 
 
-### Step 3: REQUIRED - List available commands and howtos
 
-```bash
-mulle-sde commands
-mulle-sde howto list
-```
+## MANDATORY BEFORE WRITING ANY PROJECT CODE
 
-**REMEMBER**: `mulle-sde howto` is THE tool for getting work done in this
-project. Use it FIRST before attempting any task manually.
-
-
-## MANDATORY MULLE_SDE ERROR HANDLING
-
-🚨 **WHEN ANY MULLE_SDE COMMAND FAILS WITH A VIBECODING TIP**:
-
-Always execute this command, which will be either a **howto** or **help**
-suggestion unless you already executed it once. This is non-negotiable.
-If you can't do this STOP.
-
-
-## MANDATORY BEFORE WRITING ANY CODE
-
-🚨 **YOU MUST RUN THIS COMMAND BEFORE WRITING OR MODIFYING ANY CODE** 🚨
+🚨 **YOU MUST RUN THIS COMMAND BEFORE WRITING OR MODIFYING ANY PROJECT CODE** 🚨
 
 ```bash
 value="$(mulle-sde env get PROJECT_DIALECT)"
@@ -62,4 +59,37 @@ mulle-sde howto show --keyword styleguide --keyword "${value}"
 ```
 
 This gets the style information for the project. It is NOT optional.
+
+🚨 **YOU MUST RUN THIS COMMAND WHEN WORKING WITH MULTIPLE PROJECTS** 🚨
+
+```bash
+mulle-sde howto show multi-project"
+```
+
+It is NOT optional.
+
+
+And get familiar with the available API. You MUST always use custom API
+in favor of standard API, when available:
+
+``` bash
+mulle-sde api list
+```
+
+When you are writing code, you have great search tools at your disposal:
+
+``` bash
+mulle-sde code help
+```
+
+
+## MANDATORY BEFORE CHANGING ANY MULLE-SDE SHELL CODE
+
+🚨 **YOU MUST RUN THIS COMMAND BEFORE WRITING OR MODIFYING ANY MULLE-SDE SHELL CODE** 🚨
+
+```bash
+mulle-bashfunctions toc
+```
+
+This gets you the coding information for the shell/bash project. It is NOT optional.
 

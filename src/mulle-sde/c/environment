@@ -2,6 +2,7 @@
 # These are used by `mulle-match find` to locate files
 #
 MULLE_MATCH_PATH+="${PROJECT_SOURCE_DIR}"
+MULLE_MATCH_PATH+="${PROJECT_ASSET_DIR}"
 
 #
 # These are used by `mulle-match find` to speed up the search.
@@ -9,3 +10,12 @@ MULLE_MATCH_PATH+="${PROJECT_SOURCE_DIR}"
 MULLE_MATCH_FILENAMES+="*.h"
 MULLE_MATCH_FILENAMES+="*.inc"
 MULLE_MATCH_FILENAMES+="*.c"
+MULLE_MATCH_FILENAMES+="*.md"
+
+MULLE_MATCH_FILENAMES+="*.svg"
+MULLE_MATCH_FILENAMES+="*.png"
+MULLE_MATCH_FILENAMES+="*.jpg"
+
+MULLE_MATCH_FILENAMES+="*.mp3"
+MULLE_MATCH_FILENAMES+="*.wav"
+MULLE_MATCH_FILENAMES+="*.ogg"

@@ -1,0 +1,121 @@
+#! /bin/sh
+
+[ "${TRACE}" = 'YES' ] && set -x && : "$0" "$@"
+
+###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###
+MULLE_BASHFUNCTIONS_LIBEXEC_DIR="`mulle-bashfunctions libexec-dir`" || exit 1
+export MULLE_BASHFUNCTIONS_LIBEXEC_DIR
+. "${MULLE_BASHFUNCTIONS_LIBEXEC_DIR}/mulle-boot.sh" || exit 1
+. "${MULLE_BASHFUNCTIONS_LIBEXEC_DIR}/mulle-bashfunctions.sh" || exit 1
+###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###
+
+
+run_mulle_sde()
+{
+   log_fluff "####################################"
+   log_fluff mulle-sde ${MULLE_SDE_FLAGS} "$@"
+   log_fluff "####################################"
+
+   exekutor mulle-sde ${MULLE_SDE_FLAGS} "$@"
+}
+
+
+expect_file()
+{
+   log_entry "expect_file" "$@"
+
+   local expected="$1"
+
+   if [ ! -f "${expected}" ]
+   then
+      fail "File \"${expected}\" was expected to exist"
+   fi
+}
+
+
+init_electron_project()
+{
+   local directory="$1"
+   local projectdir="$2"
+
+   run_mulle_sde init -d "${projectdir}" \
+                      --no-post-init \
+                      -m "mulle-sde/electron-developer" \
+                      executable || exit 1
+   (
+      cd "${projectdir}" && run_mulle_sde update
+   ) || exit 1
+}
+
+
+check_electron_files()
+{
+   local projectdir="$1"
+
+   expect_file "${projectdir}/package.json"
+   expect_file "${projectdir}/main.js"
+   expect_file "${projectdir}/preload.js"
+   expect_file "${projectdir}/renderer.js"
+   expect_file "${projectdir}/index.html"
+   expect_file "${projectdir}/styles.css"
+   expect_file "${projectdir}/cli.js"
+   expect_file "${projectdir}/.gitignore"
+   expect_file "${projectdir}/README.md"
+   expect_file "${projectdir}/.github/workflows/build.yml"
+   expect_file "${projectdir}/.github/workflows/release.yml"
+}
+
+
+test_npm_install()
+{
+   local projectdir="$1"
+
+   log_info "Running npm install..."
+   (
+      cd "${projectdir}" && npm install --silent
+   ) || fail "npm install failed"
+
+   expect_file "${projectdir}/node_modules/electron/package.json"
+   expect_file "${projectdir}/node_modules/electron-builder/package.json"
+}
+
+
+main()
+{
+   MULLE_SDE_FLAGS="$@"
+
+   _options_mini_main "$@" && set -x
+
+   local directory
+   local projectdir
+
+   r_make_tmp_directory || exit 1
+   directory="${RVAL}"
+
+   r_filepath_concat "${directory}" "test-electron-app"
+   projectdir="${RVAL}"
+
+   log_info "Creating Electron project..."
+   init_electron_project "${directory}" "${projectdir}"
+   
+   log_info "Checking generated files..."
+   check_electron_files "${projectdir}"
+
+   log_info "Testing npm install..."
+   test_npm_install "${projectdir}"
+
+   log_verbose "----- #1 PASSED -----"
+
+   log_info "----- ALL PASSED -----"
+   
+   rmdir_safer "${directory}"
+}
+
+
+init()
+{
+   MULLE_SDE_EXTENSION_PATH="${PWD}/../../src:${MULLE_SDE_EXTENSION_PATH}"
+}
+
+init "$@"
+main "$@"

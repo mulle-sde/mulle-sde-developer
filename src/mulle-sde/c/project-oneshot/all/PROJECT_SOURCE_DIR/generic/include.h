@@ -25,13 +25,34 @@
 
 #include "_<|PROJECT_NAME|>-include.h"
 
-// mulle-c11::feature...
-// #ifdef <|PROJECT_UPCASE_IDENTIFIER|>_BUILD
-// # define <|PROJECT_UPCASE_IDENTIFIER|>_EXTERN_GLOBAL  MULLE_C_GLOBAL
-// #else
-// # define <|PROJECT_UPCASE_IDENTIFIER|>_EXTERN_GLOBAL  MULLE_C_EXTERN_GLOBAL
-// #endif
-
+// this is for WIN32: specify global non-inlined functions and variables
+// like this (can not be declared inside functions!)
+//
+// .h:
+// #include "include.h"
+// <|PROJECT_UPCASE_IDENTIFIER|>_GLOBAL char *   aGlobalString;
+// <|PROJECT_UPCASE_IDENTIFIER|>_GLOBAL void     aGlobalFunction( void);
+//
+// .c:
+// #include "include-private.h"
+// <|PROJECT_UPCASE_IDENTIFIER|>_GLOBAL_VAR
+// char *  aGlobalString = "VfL Bochum 1848";
+// <|PROJECT_UPCASE_IDENTIFIER|>_GLOBAL
+// void   aGlobalFunction( void) {}
+//
+#ifndef <|PROJECT_UPCASE_IDENTIFIER|>_GLOBAL
+# ifdef <|PROJECT_UPCASE_IDENTIFIER|>_BUILD
+#  define <|PROJECT_UPCASE_IDENTIFIER|>_GLOBAL       MULLE_C_GLOBAL
+#  define <|PROJECT_UPCASE_IDENTIFIER|>_GLOBAL_VAR   MULLE_C_GLOBAL
+# else
+#  if defined( <|PROJECT_UPCASE_IDENTIFIER|>_INCLUDE_DYNAMIC) || (defined( MULLE_INCLUDE_DYNAMIC) && ! defined( <|PROJECT_UPCASE_IDENTIFIER|>_INCLUDE_STATIC))
+#   define <|PROJECT_UPCASE_IDENTIFIER|>_GLOBAL      MULLE_C_GLOBAL
+#  else
+#   define <|PROJECT_UPCASE_IDENTIFIER|>_GLOBAL      extern
+#  endif
+# endif
+# define <|PROJECT_UPCASE_IDENTIFIER|>_GLOBAL_VAR    MULLE_C_GLOBAL
+#endif
 /* You can add some more include statements here */
 
 #endif

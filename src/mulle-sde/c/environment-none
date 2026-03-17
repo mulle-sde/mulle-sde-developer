@@ -3,3 +3,6 @@
 #
 MULLE_MATCH_PATH+="${PROJECT_SOURCE_DIR}"
 
+# :- asset upgrades better
+MULLE_MATCH_PATH+="${PROJECT_ASSET_DIR}"
+

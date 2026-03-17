@@ -1,0 +1,72 @@
+{
+  "name": "<|PROJECT_DOWNCASE_IDENTIFIER|>",
+  "version": "0.0.1",
+  "description": "<|PROJECT_NAME|> Electron application",
+  "main": "main.js",
+  "bin": {
+    "<|PROJECT_DOWNCASE_IDENTIFIER|>": "cli.js"
+  },
+  "scripts": {
+    "start": "electron . --no-sandbox",
+    "dev": "electron . --no-sandbox --inspect",
+    "build": "electron-builder",
+    "build-linux": "electron-builder --linux",
+    "build-mac": "electron-builder --mac",
+    "build-win": "electron-builder --win",
+    "build-all": "electron-builder --linux --mac --win"
+  },
+  "keywords": [
+    "electron"
+  ],
+  "author": "<|AUTHOR|>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/<|ORGANIZATION|>/<|PROJECT_DOWNCASE_IDENTIFIER|>"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "electron": "^40.4.1",
+    "electron-builder": "^26.7.0"
+  },
+  "build": {
+    "appId": "com.<|ORGANIZATION|>.<|PROJECT_DOWNCASE_IDENTIFIER|>",
+    "productName": "<|PROJECT_NAME|>",
+    "publish": [
+      {
+        "provider": "github",
+        "releaseType": "release",
+        "vPrefixedTagName": false
+      }
+    ],
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "cli.js",
+      "main.js",
+      "preload.js",
+      "renderer.js",
+      "index.html",
+      "styles.css",
+      "icon.svg",
+      "icon.png",
+      "icon-512.png"
+    ],
+    "linux": {
+      "target": [{"target": "AppImage", "arch": ["x64"]}],
+      "category": "Development",
+      "icon": "icon-512.png",
+      "executableName": "<|PROJECT_DOWNCASE_IDENTIFIER|>"
+    },
+    "mac": {
+      "target": [{"target": "dmg", "arch": ["x64", "arm64"]}],
+      "category": "public.app-category.developer-tools",
+      "icon": "icon-512.png"
+    },
+    "win": {
+      "target": [{"target": "nsis", "arch": ["x64"]}],
+      "icon": "icon-512.png"
+    }
+  }
+}

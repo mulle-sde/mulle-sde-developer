@@ -108,10 +108,17 @@ main()
    (
       cd "${PARENT_DIR}"
       PHYSPWD="`pwd -P`"
+
+      MULLE_VIRTUAL_ROOT="${PHYSPWD}"
+      export MULLE_VIRTUAL_ROOT
+
+      MULLE_VIRTUAL_ROOT_ID="$(shasum -a 256 <<< "${MULLE_VIRTUAL_ROOT}")"
+      MULLE_VIRTUAL_ROOT_ID="${MULLE_VIRTUAL_ROOT_ID:1:12}"
+      export MULLE_VIRTUAL_ROOT_ID
+
       if [ "${OPTION_REMOVE}" = "YES" ]
       then
          # remove plugin from parent searches
-         MULLE_VIRTUAL_ROOT="${PHYSPWD}" \
             mulle-env ${MULLE_TECHNICAL_FLAGS}  \
                   environment \
                         --scope global \
@@ -119,7 +126,6 @@ main()
                         --remove MULLE_MATCH_IGNORE_PATH \
                         "${relative}"
       else
-         MULLE_VIRTUAL_ROOT="${PHYSPWD}" \
             mulle-env ${MULLE_TECHNICAL_FLAGS}  \
                   environment \
                         --scope global \
