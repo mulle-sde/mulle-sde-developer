@@ -1,12 +1,15 @@
 ---
 name: mulleui-gen
 description: |
-  Generate or update mulle-objc code in a mulle-sde project that uses MulleUI. Use when asked to create a widget, view, layer, demo, test, or app using MulleUI.
+  Generate or update mulle-objc code in a mulle-sde project that uses MulleUI.
+  Use when asked to create a widget, view, layer, demo, test, or app using
+  MulleUI.
 ---
 
 # MulleUI Generator — Orchestrator
 
-Generate mulle-objc widgets, views, layers, tests, demos, and apps in any mulle-sde project.
+Generate mulle-objc widgets, views, layers, tests, demos, and apps in any
+mulle-sde project.
 
 ## Sub-files
 
@@ -56,13 +59,13 @@ Dispatch each task to the subagent matching its work type:
 
 ## Dispatching Tasks
 
-**You MUST use the Task tool to dispatch to subagents.** Do NOT write the task block as text — invoke the Task tool with the subagent name and the task block as the message. The subagent runs in its own isolated session.
+**Dispatch each task by running the appropriate subagent.** Do NOT write the
+task block as text — invoke the subagent with its name and the task block as
+the message. The subagent runs in its own isolated session.
 
 Example — dispatching to the mulle-widget subagent:
 
-Use the Task tool with:
-- agent: `mulle-widget`
-- message: the full task block from PLAN.md
+Run subagent `mulle-widget` with the full task block from PLAN.md as the message.
 
 ```
 ## N. {Task Name}
@@ -74,7 +77,9 @@ Use the Task tool with:
 - **Verify:** mulle-sde craft passes; mulle-sde test run passes
 ```
 
-The subagent loads its own skill and executes the task autonomously. It writes the actual code. **You (the orchestrator) MUST NOT write implementation code yourself.**
+The subagent loads its own skill and executes the task autonomously. It writes
+the actual code. **You (the orchestrator) MUST NOT write implementation code
+yourself.**
 
 ## Scaffold
 
@@ -85,14 +90,28 @@ mulle-sde add src/ClassName.m   # creates .h + .m with @interface boilerplate
 mulle-sde reflect               # update build files
 ```
 
-For new projects: `mulle-sde init` first, then `mulle-sde dependency add` for needed MulleUI libraries.
+For new projects: `mulle-sde init` first, then `mulle-sde dependency add` for
+needed MulleUI libraries.
+
+For executables you will need MulleUIOS, this selects the windowing and
+graphics library for the platform.
+
+If you want the full Objective-C Foundation for apps and complex widgets
+add the `MulleUIWidgetFoundation`. If you base your app on MulleObjC choose
+`MulleUIWidget for simple user interfaces.
+
+Games which do not need widgets can just use MulleUIOS.
+
+You may want supplementary libraries like MulleGraphicsImage or MulleAudio or
+MulleVideo as well.
 
 ## Recovery
 
-- **Compile failure after task** — read `.test.ccerr` or craft output, replan or re-dispatch
+- **Compile failure after task** — read `.tmp.ccerr` or craft output, replan or re-dispatch
 - **Test failure** — re-dispatch to `@mulle-test` with failure details
 - **Wrong architecture** — rewrite STRUCTURE.md, re-scaffold, replan
 
 ## Memory
 
-Write `MEMORY.md` with discoveries: workarounds found, APIs that behaved unexpectedly, patterns that worked well. Read it at resume time.
+Write `MEMORY.md` with discoveries: workarounds found, APIs that behaved
+unexpectedly, patterns that worked well. Read it at resume time.

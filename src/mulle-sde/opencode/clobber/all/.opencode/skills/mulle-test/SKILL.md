@@ -97,14 +97,14 @@ UIMouseButtonEvent *event = [[[UIMouseButtonEvent alloc]
 mulle-sde test run test/{ClassName}/01_init.m
 ```
 
-On first run with no `.stdout` file, the test will fail but produce `.test.stdout`. Review it:
+On first run with no `.stdout` file, the test will fail but produce `.tmp.stdout`. Review it:
 ```bash
-cat test/{ClassName}/01_init.test.stdout
+cat test/{ClassName}/01_init.tmp.stdout
 ```
 
 If the output is correct, promote it to the golden file:
 ```bash
-cp test/{ClassName}/01_init.test.stdout test/{ClassName}/01_init.stdout
+cp test/{ClassName}/01_init.tmp.stdout test/{ClassName}/01_init.stdout
 ```
 
 Run again to confirm pass:

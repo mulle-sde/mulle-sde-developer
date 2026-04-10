@@ -22,13 +22,15 @@ Specific known-wrong patterns:
 - `CGContextRef` → wrong type, use `CGContext *`
 - `CGContextSetRGBFillColor` → wrong, use `CGContextFillColor( context, cgcolor)`
 - `[self bounds]` inside `drawInContext:` → should be `[self canvas]`
-- `NSString *` → should be `char *` (named `*UTF8String`)
-- `NSArray` → should be `struct mulle_array`
-- `CGPaint *` for colors → should be `CGColor`
+- `NSString *` → should be `char *` (named `*UTF8String`) if Foundation is not available
+- `NSArray` → should be `struct mulle_array` if Foundation is not available
 - `self.property` dot syntax → should be `[self property]`
 - `^` blocks → not allowed
 - `__bridge` → not allowed
 - `bool` → should be `BOOL`
+- using relative #include paths like `../header.h`
+- using non-umbrella headers (except private headers) like `<MulleCG/header.h>` instead of `<MulleCG/MulleCG.h>`
+- having multiple "{include|import}.h" or "{include|import}-private.h" in the same project
 
 ### Architecture
 - Does a widget have a separate layer class? (`MulleFooLayer : CGGraphicsLayer`)

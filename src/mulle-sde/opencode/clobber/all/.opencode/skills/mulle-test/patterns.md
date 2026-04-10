@@ -71,9 +71,9 @@ mulle_fprintf( stdout, "state after mouseDown: %s\n",
 ## Golden file workflow
 
 1. Write test, run: `mulle-sde test run test/UIFoo/01_init.m`
-2. First run fails (no `.stdout`), produces `.test.stdout`
-3. Review: `cat test/UIFoo/01_init.test.stdout`
-4. If correct: `cp test/UIFoo/01_init.test.stdout test/UIFoo/01_init.stdout`
+2. First run fails (no `.stdout`), produces `.tmp.stdout`
+3. Review: `cat test/UIFoo/01_init.tmp.stdout`
+4. If correct: `cp test/UIFoo/01_init.tmp.stdout test/UIFoo/01_init.stdout`
 5. Run again to confirm: `mulle-sde test run test/UIFoo/`
 
 ## Test naming convention
@@ -88,5 +88,5 @@ test/{ClassName}/04_edge_cases.m
 ## Checking compiler errors
 
 ```bash
-cat test/{ClassName}/01_init.test.ccerr
+cat test/{ClassName}/01_init.tmp.ccerr
 ```

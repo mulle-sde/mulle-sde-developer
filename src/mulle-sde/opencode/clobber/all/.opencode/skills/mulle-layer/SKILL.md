@@ -62,7 +62,7 @@ Write `MulleFooLayer.m`:
 mulle-sde craft
 ```
 
-Fix all compiler errors before proceeding. Check `.test.ccerr` if available.
+Fix all compiler errors before proceeding. Check `.tmp.ccerr` if available.
 
 If tests exist for this layer:
 ```bash

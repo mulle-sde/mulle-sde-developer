@@ -47,7 +47,6 @@ it just doesn't work. Its another death spiral of confusion indicator.
 Instead escalate to the user for help.
 
 
-
 ## MANDATORY BEFORE WRITING ANY PROJECT CODE
 
 🚨 **YOU MUST RUN THIS COMMAND BEFORE WRITING OR MODIFYING ANY PROJECT CODE** 🚨
@@ -60,6 +59,18 @@ mulle-sde howto show --keyword styleguide --keyword "${value}"
 
 This gets the style information for the project. It is NOT optional.
 
+## MANDATORY BEFORE BUILDING ANY CODE
+
+🚨 **YOU MUST HAVE RUN THIS COMMAND BEFORE EXECUTIN MULLE-SDE CRAFT OR TEST COMMANDS** 🚨
+
+``` bash
+mulle-sde log help
+```
+
+Use the builtin log facility. Do not rerun `mulle-sde craft` just to grep a
+different diagnostic. Use `grep -B n -A m` on `mulle-sde log` output to grep
+for patterns with surrounding context.
+
 🚨 **YOU MUST RUN THIS COMMAND WHEN WORKING WITH MULTIPLE PROJECTS** 🚨
 
 ```bash
@@ -67,7 +78,6 @@ mulle-sde howto show multi-project"
 ```
 
 It is NOT optional.
-
 
 And get familiar with the available API. You MUST always use custom API
 in favor of standard API, when available:
@@ -81,7 +91,6 @@ When you are writing code, you have great search tools at your disposal:
 ``` bash
 mulle-sde code help
 ```
-
 
 ## MANDATORY BEFORE CHANGING ANY MULLE-SDE SHELL CODE
 

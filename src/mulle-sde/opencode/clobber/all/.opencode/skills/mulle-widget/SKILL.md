@@ -5,7 +5,8 @@ description: Write a UIControl subclass with its rendering layer and event wirin
 
 # Widget Executor
 
-Implement a complete interactive widget: layer + view + event handling. All sub-files in `.opencode/skills/mulle-widget/`.
+Implement a complete interactive widget: layer + view + event handling. 
+All sub-files in `.opencode/skills/mulle-widget/`.
 
 | File | When to read |
 |------|-------------|
@@ -41,7 +42,13 @@ Plan:
 
 ## Phase 3: Implement
 
+Ensure we have the proper dependency:
+
 ```bash
+mulle-sde dependency add github:MulleUI/MulleUIWidget
+```
+
+``` bash
 mulle-sde add src/Mulle{Name}Layer.m
 mulle-sde add src/UI{Name}.m
 mulle-sde reflect

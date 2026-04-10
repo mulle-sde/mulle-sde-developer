@@ -135,6 +135,7 @@ main()
    run_mulle_sde -d "${projectdir}" environment set MULLE_SOURCETREE_SYMLINK 'YES'
 
    cd "${projectdir}" || _internal_fail "cd"
+   run_mulle_sde sweatcoding on || _internal_fail "sweatcoding"
 
    run_mulle_sde dependency add --nodetype git a || _internal_fail "add a"
    run_mulle_sde dependency add --nodetype git d || _internal_fail "add d"
@@ -169,7 +170,7 @@ c
 d
 f
 e"
-   result="`run_mulle_sde linkorder --output-format node`" || _internal_fail "linkorder"
+   result="`run_mulle_sde link-args --output-format node`" || _internal_fail "link-args"
    expect_output "${result}" "${expected}"
 
    log_info "----- ALL PASSED -----"

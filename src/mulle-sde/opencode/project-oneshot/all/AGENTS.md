@@ -19,6 +19,7 @@ This is a mulle-sde project. Use `mulle-sde` commands for everything — build, 
 mulle-sde view          # project overview
 mulle-sde list          # source files
 mulle-sde code map      # symbol map
+mulle-sde lsp           # emit a lsp.json for supported languages
 ```
 
 ## Build

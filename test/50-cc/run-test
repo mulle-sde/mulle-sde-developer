@@ -127,7 +127,10 @@ EOF`"
          errors=$((errors + 1))
       fi
 
-      [ ${errors} -ne 0 ] && _internal_fail "failed"
+      if [ ${errors} -ne 0 ]
+      then
+         _internal_fail "failed"
+      fi
    ) || exit 1
 
    log_verbose "----- #1 PASSED -----"
@@ -147,4 +150,3 @@ init()
 
 init "$@"
 main "$@"
-
