@@ -42,6 +42,7 @@ jobs:
       run: |
         mulle-sde -DMULLE_SDE_EXTENSION_BASE_PATH="${PWD}/src" init -d lib -m mulle-sde/c-developer library &&
         cd lib &&
+        mulle-sde vibecoding off &&
         mulle-sde hostname &&
         mulle-sde environment &&
         mulle-sde craft
@@ -51,6 +52,7 @@ jobs:
         mulle-sde -DMULLE_SDE_EXTENSION_BASE_PATH="${PWD}/src" extension show &&
         mulle-sde -DMULLE_SDE_EXTENSION_BASE_PATH="${PWD}/src" init -d exe -m mulle-sde/c-developer executable &&
         cd exe &&
+        mulle-sde vibecoding off &&
         mulle-sde craft --release &&
         [ -x "./kitchen/Release/exe" -o "./kitchen/exe" ] &&
         ( [ ! -x "./kitchen/Release/exe" ] || "./kitchen/Release/exe" ) &&
