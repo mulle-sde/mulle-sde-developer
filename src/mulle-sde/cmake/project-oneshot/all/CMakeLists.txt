@@ -13,9 +13,18 @@ project( <|PROJECT_NAME|> VERSION 0.0.1 LANGUAGES <|PROJECT_UPCASE_LANGUAGE|>)
 
 ### mulle-sde environment
 
+set( MULLE_SDE_REFLECT_DIR "reflect")
+
+if( NOT MULLE_SOURCETREE_CONFIG_NAME)
+   set( MULLE_SOURCETREE_CONFIG_NAME "$ENV{MULLE_SOURCETREE_CONFIG_NAME}")
+endif()
+if( MULLE_SOURCETREE_CONFIG_NAME)
+   set( MULLE_SDE_REFLECT_DIR "reflect.${MULLE_SOURCETREE_CONFIG_NAME}")
+endif()
+
 # add cmake module paths to search path
 list( INSERT CMAKE_MODULE_PATH 0 "${CMAKE_CURRENT_SOURCE_DIR}/cmake/share")
-list( INSERT CMAKE_MODULE_PATH 0 "${CMAKE_CURRENT_SOURCE_DIR}/cmake/reflect")
+list( INSERT CMAKE_MODULE_PATH 0 "${CMAKE_CURRENT_SOURCE_DIR}/cmake/${MULLE_SDE_REFLECT_DIR}")
 list( INSERT CMAKE_MODULE_PATH 0 "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
 include( Environment)
@@ -64,5 +73,3 @@ include( PostFiles OPTIONAL)
 #include( PreInstall OPTIONAL)
 #
 #include( PostInstall OPTIONAL)
-
-
