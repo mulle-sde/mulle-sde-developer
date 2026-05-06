@@ -6,12 +6,14 @@ Break the user's request into a PLAN.md task list, selecting the right skill for
 
 | Request type | Typical task sequence |
 |---|---|
-| New interactive widget | layer → widget → test → demo |
+| New interactive widget | layer → widget → test → demo -> debug |
 | New display-only view | view → test → demo |
 | New foundation class | foundation → test |
+| Animated widget/layer | layer → animation → test → demo |
+| Animation only | animation → test |
 | New demo only | demo |
 | New tests only | test |
-| Standalone app | foundation (models) → layer (if custom drawing) → widget/view → demo (app entry point) |
+| Standalone app | foundation (models) → layer (if custom drawing) → animation (if animated) → widget/view → demo (app entry point) -> debug (simulate events) |
 
 ## Step 2: Identify dependencies
 
@@ -29,7 +31,7 @@ review: on
 
 ## 1. {Task Name}
 - **Status:** pending
-- **Skill:** mulle-layer | mulle-widget | mulle-view | mulle-test | mulle-demo | mulle-foundation
+- **Skill:** mulle-layer | mulle-widget | mulle-view | mulle-animation | mulle-event | mulle-test | mulle-demo | mulle-foundation | mulle-debug | mulle-event
 - **Targets:** src/Foo.h, src/Foo.m
 - **Goal:** one sentence
 - **Requirements:** bullet list of specifics
@@ -61,6 +63,10 @@ demo/src/main-uifoo.m  (if demo requested)
 
 ## Sizing tasks
 
-Keep tasks small enough that one subagent can complete them in one context window. If a widget is complex (many states, complex drawing, multiple event types), split layer and widget into separate tasks. If simple, combine them into one widget task.
+Keep tasks small enough that one subagent can complete them in one context
+window. If a widget is complex (many states, complex drawing, multiple event
+types), split layer and widget into separate tasks. If simple, combine them
+into one widget task.
 
-Don't split tests from their class unless the class already exists and tests are being added later.
+Don't split tests from their class unless the class already exists and
+tests are being added later.

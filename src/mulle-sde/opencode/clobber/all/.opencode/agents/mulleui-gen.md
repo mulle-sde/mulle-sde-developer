@@ -13,6 +13,8 @@ permission:
     "mulle-test": deny
     "mulle-demo": deny
     "mulle-foundation": deny
+    "mulle-animation": deny
+    "mulle-event": deny
     "mulle-reviewer": deny
   task:
     "mulle-layer": allow
@@ -21,6 +23,8 @@ permission:
     "mulle-test": allow
     "mulle-demo": allow
     "mulle-foundation": allow
+    "mulle-animation": allow
+    "mulle-event": allow
     "mulle-reviewer": allow
     "*": deny
 ---

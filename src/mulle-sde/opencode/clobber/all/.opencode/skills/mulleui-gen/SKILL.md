@@ -53,6 +53,8 @@ Dispatch each task to the subagent matching its work type:
 | CALayer/CGGraphicsLayer subclass | `@mulle-layer` | task involves custom drawing layer |
 | UIControl + layer + wiring | `@mulle-widget` | task involves interactive control |
 | Display-only UIView | `@mulle-view` | task involves non-interactive view |
+| Event handling code | `@mulle-event` | task involves UIResponder, UIControl, hit testing, event callbacks |
+| Animation code | `@mulle-animation` | task involves CATransaction, CABasicAnimation, CAPathAnimation |
 | Tests | `@mulle-test` | task involves writing/updating tests |
 | Demo program | `@mulle-demo` | task involves demo/main-*.m |
 | Non-UI class | `@mulle-foundation` | task involves model/utility/data class |

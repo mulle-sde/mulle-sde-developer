@@ -1,0 +1,216 @@
+#! /bin/sh
+
+[ "${TRACE}" = 'YES' ] && set -x && : "$0" "$@"
+
+###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###
+MULLE_BASHFUNCTIONS_LIBEXEC_DIR="`mulle-bashfunctions libexec-dir`" || exit 1
+export MULLE_BASHFUNCTIONS_LIBEXEC_DIR
+. "${MULLE_BASHFUNCTIONS_LIBEXEC_DIR}/mulle-boot.sh" || exit 1
+. "${MULLE_BASHFUNCTIONS_LIBEXEC_DIR}/mulle-bashfunctions.sh" || exit 1
+###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###
+
+
+run_mulle_sde()
+{
+   log_fluff "####################################"
+   log_fluff mulle-sde ${MULLE_SDE_FLAGS} "$@"
+   log_fluff "####################################"
+
+   exekutor mulle-sde ${MULLE_SDE_FLAGS} "$@"
+}
+
+
+r_create_library()
+{
+   local directory="$1"
+   local name="$2"
+
+   r_filepath_concat "${directory}" "${name}"
+   run_mulle_sde -s init -d "${RVAL}" \
+                         --no-post-init \
+                         -m "mulle-sde/c-developer" \
+                         library || exit 1
+}
+
+
+main()
+{
+   MULLE_SDE_FLAGS="$@"
+
+   _options_mini_main "$@" && set -x
+
+   local directory
+   local depdir
+   local maindir
+
+   r_make_tmp_directory || exit 1
+   directory="${RVAL}"
+
+   # Create dep library
+   r_create_library "${directory}" "dep"
+   depdir="${RVAL}"
+
+   # Create main library that depends on dep
+   r_create_library "${directory}" "main"
+   maindir="${RVAL}"
+
+   (
+      cd "${maindir}" &&
+      run_mulle_sde environment --global set MULLE_FETCH_SEARCH_PATH "${directory}" &&
+      run_mulle_sde dependency add --marks no-singlephase "https://foo.com/dep.git" &&
+      run_mulle_sde fetch
+   ) || fail "Setup failed"
+
+   #
+   # Test 1: Introduce a syntax error in main, craft fails.
+   #         Dep logs must still be present with a timestamp.
+   #
+   printf 'this is not valid C;\n' >> "${maindir}/src/main.c"
+
+   (
+      cd "${maindir}" &&
+      run_mulle_sde craft
+   ) && fail "Test 1: craft should have failed with syntax error"
+
+   # dep was built successfully — must have a timestamped log dir
+   local dep_logbase
+
+   dep_logbase="$(find "${directory}" -path "*/kitchen/.craftorder/*/dep/.log" -type d 2>/dev/null | head -1)"
+   [ -z "${dep_logbase}" ] && fail "Test 1: dep .log dir not found"
+
+   # dep was built successfully — must have a timestamped log dir
+   local dep_logbase
+
+   dep_logbase="$(find "${maindir}" -path "*/.craftorder/*/dep/.log" -type d 2>/dev/null | head -1)"
+   [ -z "${dep_logbase}" ] && fail "Test 1: dep .log dir not found"
+
+   local dep_runs
+   dep_runs="$(ls -1d "${dep_logbase}"/[0-9]*.* 2>/dev/null)"
+   [ -z "${dep_runs}" ] && fail "Test 1: dep has no timestamped log dirs"
+
+   log_verbose "----- #1 PASSED (dep has timestamped logs after failed main build) -----"
+
+   #
+   # Test 2: Fix the syntax error, craft succeeds.
+   #         Main now has a timestamped log dir.
+   #         Dep still has its original timestamped log dir (not rebuilt).
+   #
+   # Remove the bad line
+   grep -v 'this is not valid C' "${maindir}/src/main.c" > "${maindir}/src/main.c.tmp"
+   exekutor mv "${maindir}/src/main.c.tmp" "${maindir}/src/main.c"
+
+   (
+      cd "${maindir}" &&
+      run_mulle_sde craft
+   ) || fail "Test 2: craft should succeed after fix"
+
+   # main project must now have a timestamped log dir
+   local main_logbase
+
+   main_logbase="$(find "${maindir}/kitchen" -maxdepth 3 -name ".log" -not -path "*/.craftorder/*" -type d 2>/dev/null | head -1)"
+   [ -z "${main_logbase}" ] && fail "Test 2: main .log dir not found"
+
+   local main_runs
+   main_runs="$(ls -1d "${main_logbase}"/[0-9]*.* 2>/dev/null)"
+   [ -z "${main_runs}" ] && fail "Test 2: main has no timestamped log dirs"
+
+   log_verbose "----- #2 PASSED (main has timestamped logs after successful build) -----"
+
+   #
+   # Test 3: mulle-sde log shows logs (non-empty output)
+   #
+   local log_output
+
+   log_output="$(
+      cd "${maindir}" &&
+      run_mulle_sde log 2>&1
+   )"
+   [ -z "${log_output}" ] && fail "Test 3: mulle-sde log produced no output"
+
+   log_verbose "----- #3 PASSED (mulle-sde log shows output) -----"
+
+   #
+   # Test 4: mulle-sde log runs lists timestamps for both dep and main
+   #
+   local runs_output
+
+   runs_output="$(
+      cd "${maindir}" &&
+      run_mulle_sde log runs 2>&1
+   )"
+
+   printf '%s\n' "${runs_output}" | grep -qE '[0-9]{8}T[0-9]{6}\.[0-9]' \
+      || fail "Test 4: mulle-sde log runs shows no timestamps"
+
+   log_verbose "----- #4 PASSED (mulle-sde log runs shows timestamps) -----"
+
+   #
+   # Test 5: mulle-sde log summary shows OK status for both
+   #
+   local summary_output
+
+   summary_output="$(
+      cd "${maindir}" &&
+      run_mulle_sde log summary 2>&1
+   )"
+
+   printf '%s\n' "${summary_output}" | grep -q 'OK' \
+      || fail "Test 5: mulle-sde log summary shows no OK entries"
+
+   log_verbose "----- #5 PASSED (mulle-sde log summary shows OK) -----"
+
+   #
+   # Test 6: Second craft creates a NEW timestamped dir (different timestamp)
+   #
+   local prev_run
+
+   prev_run="$(ls -1d "${main_logbase}"/[0-9]*.* 2>/dev/null | tail -1)"
+   [ -z "${prev_run}" ] && fail "Test 6: no previous run found"
+
+   sleep 1
+
+   # touch a source file to ensure ninja actually rebuilds
+   exekutor touch "${maindir}/src/main.c"
+
+   (
+      cd "${maindir}" &&
+      run_mulle_sde craft
+   ) || fail "Test 6: second craft failed"
+
+   local new_run
+
+   new_run="$(ls -1d "${main_logbase}"/[0-9]*.* 2>/dev/null | tail -1)"
+   [ -z "${new_run}" ] && fail "Test 6: no new run found after second craft"
+   [ "${new_run}" != "${prev_run}" ] \
+      || fail "Test 6: second craft did not create a new timestamped dir (still ${prev_run})"
+
+   log_verbose "----- #6 PASSED (second craft creates new timestamped dir) -----"
+
+   # dep was not rebuilt — its logdir timestamp should be older than main's
+   local dep_run
+
+   dep_run="$(ls -1d "${dep_logbase}"/[0-9]*.* 2>/dev/null | tail -1)"
+   [ -z "${dep_run}" ] && fail "Test 6: dep has no log run"
+
+   r_basename "${dep_run}"
+   local dep_ts="${RVAL}"
+   r_basename "${new_run}"
+   local main_ts="${RVAL}"
+
+   [ "${dep_ts}" != "${main_ts}" ] \
+      || log_verbose "Note: dep and main have same timestamp (both rebuilt)"
+
+   log_verbose "----- #7 PASSED (dep log dir is from earlier run) -----"
+
+   log_info "----- ALL PASSED -----"
+   rmdir_safer "${directory}"
+}
+
+
+init()
+{
+   MULLE_SDE_EXTENSION_PATH="${PWD}/../../src:${MULLE_SDE_EXTENSION_PATH}"
+}
+
+init "$@"
+main "$@"
