@@ -1,0 +1,20 @@
+{
+  "name": "planner",
+  "description": "Break down tasks into concern packets using runtime mulle-sde howto bundles and api docs.",
+  "prompt": "file://planner.md",
+  "tools": [
+    "*"
+  ],
+  "toolAliases": {},
+  "allowedTools": [
+    "@builtin"
+  ],
+  "resources": [
+    "file://.kiro/steering/**/*.md",
+    "skill://.kiro/skills/**/SKILL.md"
+  ],
+  "hooks": {},
+  "toolsSettings": {},
+  "useLegacyMcpJson": false,
+  "model": "claude-sonnet-4.6"
+}

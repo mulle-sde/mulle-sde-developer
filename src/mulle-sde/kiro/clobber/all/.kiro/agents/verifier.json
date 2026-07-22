@@ -1,0 +1,20 @@
+{
+  "name": "verifier",
+  "description": "Compile, test, and verify behavior using runtime mulle-sde howto bundles and api docs.",
+  "prompt": "file://verifier.md",
+  "tools": [
+    "*"
+  ],
+  "toolAliases": {},
+  "allowedTools": [
+    "@builtin"
+  ],
+  "resources": [
+    "file://.kiro/steering/**/*.md",
+    "skill://.kiro/skills/**/SKILL.md"
+  ],
+  "hooks": {},
+  "toolsSettings": {},
+  "useLegacyMcpJson": false,
+  "model": "claude-sonnet-4.6"
+}

@@ -1,0 +1,20 @@
+{
+  "name": "doc-writer",
+  "description": "Write and update documentation using runtime mulle-sde howto bundles and api docs.",
+  "prompt": "file://doc-writer.md",
+  "tools": [
+    "*"
+  ],
+  "toolAliases": {},
+  "allowedTools": [
+    "@builtin"
+  ],
+  "resources": [
+    "file://.kiro/steering/**/*.md",
+    "skill://.kiro/skills/**/SKILL.md"
+  ],
+  "hooks": {},
+  "toolsSettings": {},
+  "useLegacyMcpJson": false,
+  "model": "claude-sonnet-4.6"
+}

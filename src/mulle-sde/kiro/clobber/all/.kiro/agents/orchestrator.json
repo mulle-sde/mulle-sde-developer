@@ -1,0 +1,39 @@
+{
+  "name": "orchestrator",
+  "description": "Pure dispatch — route tasks to planner and role agents.",
+  "prompt": "file://orchestrator.md",
+  "tools": [
+    "*"
+  ],
+  "toolAliases": {},
+  "allowedTools": [
+    "@builtin"
+  ],
+  "resources": [
+    "file://.kiro/steering/**/*.md",
+    "skill://.kiro/skills/**/SKILL.md"
+  ],
+  "hooks": {},
+  "toolsSettings": {
+    "subagent": {
+      "availableAgents": [
+        "planner",
+        "coder",
+        "verifier",
+        "debugger",
+        "doc-writer",
+        "reviewer"
+      ],
+      "trustedAgents": [
+        "planner",
+        "coder",
+        "verifier",
+        "debugger",
+        "doc-writer",
+        "reviewer"
+      ]
+    }
+  },
+  "useLegacyMcpJson": false,
+  "model": "claude-sonnet-4.6"
+}
