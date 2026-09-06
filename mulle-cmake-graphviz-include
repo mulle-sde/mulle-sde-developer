@@ -131,6 +131,7 @@ list_cmake_includes()
 
    includes="`get_includes "${filename}"`"
    shell_disable_glob; IFS=$'\n'
+   local directory
    for includeinfo in ${includes}
    do
       shell_enable_glob; IFS="${DEFAULT_IFS}"
@@ -140,8 +141,6 @@ list_cmake_includes()
 
       if [ "${includefile}" = '"${FILE}"' ]
       then
-         local directory
-
          directory="`dirname -- "${filename}"`"
          for includefile in "${directory}"/cmake/[A-Za-z0-9]*.cmake
          do

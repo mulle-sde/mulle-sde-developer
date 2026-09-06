@@ -112,18 +112,31 @@ EOF`"
    (
       errors=0
 
-      cd "${directory}/a" &&
-      run_mulle_sde -s log | grep -E -q ${foo_cc}
-      if [ $? -ne 0 ]
+      cd "${directory}/a" || exit 1
+
+      #
+      # Verify the chosen compiler via the durable cmake build artifacts rather
+      # than "mulle-sde log". The log command's output format changed in
+      # mulle-sde 3.x (it now shows a step table by default, with the raw dump
+      # behind --raw) and its content is awkward to grep reliably through the
+      # test harness. CMakeCache.txt / compile_commands.json record the actual
+      # CMAKE_C_COMPILER durably, which is exactly what we want to assert.
+      #
+      # a must be built with foo-cc.
+      #
+      if ! grep -E -q "${foo_cc}" kitchen/Debug/CMakeCache.txt
       then
-         log_error "${foo_cc} was not used"
+         log_error "${foo_cc} was not used for a"
          errors=$((errors + 1))
       fi
 
-      run_mulle_sde -s log b | grep -E -q ${foo_cc}
-      if [ $? -eq 0 ]
+      #
+      # b (the dependency) must NOT be built with foo-cc; the CC definition is
+      # local to a and must not leak into dependencies.
+      #
+      if grep -E -q "${foo_cc}" kitchen/.craftorder/Debug/b/CMakeCache.txt
       then
-         log_error "${foo_cc} was mistakenly used"
+         log_error "${foo_cc} was mistakenly used for b"
          errors=$((errors + 1))
       fi
 

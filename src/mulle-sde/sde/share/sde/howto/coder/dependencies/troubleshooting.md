@@ -74,7 +74,7 @@ This prints each included cmake file. Check that A's
 | `no-cmake-dependency` | Don't include DependenciesAndLibraries.cmake (subset of inherit) |
 | `no-cmake-add` | Don't add to link list, but still inherit transitive deps |
 | `no-cmake-searchpath` | Don't add dep's cmake dir to CMAKE_MODULE_PATH |
-| `no-cmake-loader` | Don't look for ObjCDeps+name.h loader |
+| `no-cmake-loader` | Don't look for runtime loader header |
 
 ## Quick verification
 

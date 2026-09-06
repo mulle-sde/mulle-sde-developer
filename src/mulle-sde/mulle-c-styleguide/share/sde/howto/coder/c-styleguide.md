@@ -1,5 +1,5 @@
 ## Coding Style Guide
-<!-- Keywords: edit, objc, objective-c, styleguide -->
+<!-- Keywords: edit, c, styleguide -->
 
 This document outlines the coding conventions. All contributions must adhere to
 these rules to maintain code consistency and readability.
@@ -26,7 +26,7 @@ these rules to maintain code consistency and readability.
     opening parenthesis.
     -   `if( condition)`
     -   `while( i < n)`
-    -   `[self doSomethingWith: arg]`
+    -   `foo( a, b)`
 -   **Expressions:** No spaces immediately inside parentheses for grouping
     expressions.
     -   `x = (a + b) * c;`
