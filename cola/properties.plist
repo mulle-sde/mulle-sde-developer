@@ -8,6 +8,6 @@
       reponame="mulle-sde-developer";
       homepage="https://github.com/mulle-sde/mulle-sde-developer";
       license="BSD-3-Clause";
-      version="0.30.0"
+      version="0.31.0"
    };
 }

@@ -38,7 +38,13 @@ include( Environment)
 
 include( Files)
 
-include( IDESupport OPTIONAL)
+#
+# IDE support only makes sense in a mulle-sde build, and USE_DEPENDENCY_DIR
+# is currently the best indicator we have for that
+#
+if( USE_DEPENDENCY_DIR)
+   include( IDESupport OPTIONAL)
+endif()
 
 
 if( "${MULLE_PROJECT_TYPE}" STREQUAL "Executable")
@@ -102,8 +108,14 @@ elseif( "${MULLE_PROJECT_TYPE}" STREQUAL "Library")
    include( InstallLibrary)
 
    if( LINK_PHASE)
-      include( InstallCMakeInclude)
-      include( InstallCMakePackage)
+      #
+      # In a mulle-sde build the headers are installed into the SDK, so this
+      # path is only for plain cmake consumers
+      #
+      if( NOT USE_DEPENDENCY_DIR)
+         include( AddSubdirectorySupport)
+      endif()
+      include( FindPackageSupport)
    endif()
 
 else()

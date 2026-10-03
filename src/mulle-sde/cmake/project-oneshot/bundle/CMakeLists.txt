@@ -48,13 +48,13 @@ include( InstallBundle)
 
 #
 # Enable this, if you want your project to be compatible with cmake's
-# add_subdirectory and find_package. InstallCMakeInclude has the drawback
+# add_subdirectory and find_package. AddSubdirectorySupport has the drawback
 # of creating a duplicate include/ hierarchy in your project though
-# For a bundle, does it make sense ? Maybe InstallCMakeInclude
+# For a bundle, does it make sense ? Maybe AddSubdirectorySupport
 #
 # if( LINK_PHASE)
-#    include( InstallCMakeInclude)
-#    include( InstallCMakePackage)
+#    include( AddSubdirectorySupport)
+#    include( FindPackageSupport)
 # endif()
 
 include( FinalOutput OPTIONAL)
