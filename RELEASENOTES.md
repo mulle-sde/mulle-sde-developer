@@ -1,3 +1,17 @@
+## 0.31.0
+
+
+
+
+
+
+* Prevent fallback from pulling in sibling installs that duplicate headers or escape the selected architecture
+* Include, library, and framework fallback paths are now added individually only when missing from the primary SDK path
+
+* revised cmake support for FetchContents and `add_subdirectory`
+* fixed fallback code Debug -> Release
+
+
 ### 0.30.0
 
 * added mulle-sde/kiro extra extension with AI agents and skills
