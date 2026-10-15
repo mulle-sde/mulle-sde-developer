@@ -23,3 +23,4 @@ build-*/
 .mulle/etc/make
 dox.unreleased
 .roam/
+*-workspace
