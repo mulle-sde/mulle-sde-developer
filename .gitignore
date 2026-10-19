@@ -24,3 +24,6 @@ build-*/
 dox.unreleased
 .roam/
 *-workspace
+
+# howto topic directory, not a build directory
+!build-system/
